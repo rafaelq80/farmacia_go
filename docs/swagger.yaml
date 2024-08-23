@@ -1,0 +1,657 @@
+basePath: /
+definitions:
+  config.HTTPError:
+    properties:
+      code:
+        example: 400
+        type: integer
+      message:
+        example: status bad request
+        type: string
+    type: object
+  model.Categoria:
+    properties:
+      grupo:
+        maxLength: 255
+        minLength: 3
+        type: string
+      id:
+        type: integer
+      produto:
+        items:
+          $ref: '#/definitions/model.Produto'
+        type: array
+    required:
+    - grupo
+    type: object
+  model.Produto:
+    properties:
+      categoria:
+        $ref: '#/definitions/model.Categoria'
+      categoria_id:
+        example: 1
+        type: integer
+      foto:
+        type: string
+      id:
+        type: integer
+      nome:
+        maxLength: 255
+        minLength: 3
+        type: string
+      preco:
+        type: number
+      usuario:
+        $ref: '#/definitions/model.Usuario'
+      usuario_id:
+        example: 1
+        type: integer
+    required:
+    - categoria_id
+    - nome
+    - preco
+    - usuario_id
+    type: object
+  model.Usuario:
+    properties:
+      foto:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      produto:
+        items:
+          $ref: '#/definitions/model.Produto'
+        type: array
+      senha:
+        type: string
+      usuario:
+        type: string
+    required:
+    - name
+    - senha
+    - usuario
+    type: object
+  model.UsuarioLogin:
+    properties:
+      foto:
+        type: string
+      id:
+        type: integer
+      nome:
+        type: string
+      senha:
+        type: string
+      token:
+        type: string
+      usuario:
+        type: string
+    type: object
+host: localhost:8000
+info:
+  contact:
+    email: rafaelproinfo@gmail.com
+    name: Rafael Queiróz
+    url: https://github.com/rafaelq80
+  description: Projeto E-commerce - Farmácia
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  title: E-commerce - Farmácia
+  version: "1.0"
+paths:
+  /categorias:
+    get:
+      consumes:
+      - application/json
+      description: Lista todas as Categorias
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Categoria'
+            type: array
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+      security:
+      - Bearer: []
+      summary: Listar Categorias
+      tags:
+      - categorias
+    post:
+      consumes:
+      - application/json
+      description: Cria uma nova Categoria
+      parameters:
+      - description: Criar Categoria
+        in: body
+        name: categoria
+        required: true
+        schema:
+          $ref: '#/definitions/model.Categoria'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.Categoria'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+      security:
+      - Bearer: []
+      summary: Criar Categoria
+      tags:
+      - categorias
+    put:
+      consumes:
+      - application/json
+      description: Edita uma Categoria
+      parameters:
+      - description: Atualizar Categoria
+        in: body
+        name: Categoria
+        required: true
+        schema:
+          $ref: '#/definitions/model.Categoria'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Categoria'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+      security:
+      - Bearer: []
+      summary: Atualizar Categoria
+      tags:
+      - categorias
+  /categorias/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Apaga uma Categoria
+      parameters:
+      - description: Id da Categoria
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+      security:
+      - Bearer: []
+      summary: Deletar Categoria
+      tags:
+      - categorias
+    get:
+      consumes:
+      - application/json
+      description: Lista uma Categoria por id
+      parameters:
+      - description: Id da Categoria
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Categoria'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+      security:
+      - Bearer: []
+      summary: Listar Categoria por id
+      tags:
+      - categorias
+  /categorias/grupo/{grupo}:
+    get:
+      consumes:
+      - application/json
+      description: Lista todas as Categorias por grupo
+      parameters:
+      - description: Grupo do Medicamento (Antibiótico, Antihistamínico, entre outros)
+        in: path
+        name: grupo
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Categoria'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+      security:
+      - Bearer: []
+      summary: Listar Categorias por grupo
+      tags:
+      - categorias
+  /produtos:
+    get:
+      consumes:
+      - application/json
+      description: Lista todos os Produtos
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Produto'
+            type: array
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+      security:
+      - Bearer: []
+      summary: Listar Produtos
+      tags:
+      - produtos
+    post:
+      consumes:
+      - application/json
+      description: Cria um novo Produto
+      parameters:
+      - description: Criar Produto
+        in: body
+        name: produto
+        required: true
+        schema:
+          $ref: '#/definitions/model.Produto'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.Produto'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+      security:
+      - Bearer: []
+      summary: Criar Produto
+      tags:
+      - produtos
+    put:
+      consumes:
+      - application/json
+      description: Edita um Produto
+      parameters:
+      - description: Atualizar Produto
+        in: body
+        name: Produto
+        required: true
+        schema:
+          $ref: '#/definitions/model.Produto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Produto'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+      security:
+      - Bearer: []
+      summary: Atualizar Produto
+      tags:
+      - produtos
+  /produtos/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Apaga um Produto
+      parameters:
+      - description: Id do Produto
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+      security:
+      - Bearer: []
+      summary: Deletar Produto
+      tags:
+      - produtos
+    get:
+      consumes:
+      - application/json
+      description: Lista um Produto por id
+      parameters:
+      - description: Id do Produto
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Produto'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+      security:
+      - Bearer: []
+      summary: Listar Produto por id
+      tags:
+      - produtos
+  /produtos/nome/{nome}:
+    get:
+      consumes:
+      - application/json
+      description: Lista todas os Produtos por nome
+      parameters:
+      - description: Nome do Produto
+        in: path
+        name: nome
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Produto'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+      security:
+      - Bearer: []
+      summary: Listar Produtos por nome
+      tags:
+      - produtos
+  /usuarios:
+    post:
+      consumes:
+      - application/json
+      description: Cria um novo Usuario
+      parameters:
+      - description: Criar Usuario
+        in: body
+        name: usuario
+        required: true
+        schema:
+          $ref: '#/definitions/model.Usuario'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.Usuario'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+      summary: Criar Usuario
+      tags:
+      - usuarios
+  /usuarios/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Lista um Usuario por id
+      parameters:
+      - description: Id do Usuario
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Usuario'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+      security:
+      - Bearer: []
+      summary: Listar Usuario por id
+      tags:
+      - usuarios
+  /usuarios/all:
+    get:
+      consumes:
+      - application/json
+      description: Lista todos os Usuarios
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Usuario'
+            type: array
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+      security:
+      - Bearer: []
+      summary: Listar Usuarios
+      tags:
+      - usuarios
+  /usuarios/atualizar:
+    put:
+      consumes:
+      - application/json
+      description: Edita um Usuario
+      parameters:
+      - description: Atualizar Usuario
+        in: body
+        name: Usuario
+        required: true
+        schema:
+          $ref: '#/definitions/model.Usuario'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Usuario'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+      security:
+      - Bearer: []
+      summary: Atualizar Usuario
+      tags:
+      - usuarios
+  /usuarios/logar:
+    post:
+      consumes:
+      - application/json
+      description: Autentica um Usuario
+      parameters:
+      - description: Autenticar Usuario
+        in: body
+        name: usuario
+        required: true
+        schema:
+          $ref: '#/definitions/model.UsuarioLogin'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.UsuarioLogin'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+      summary: Autenticar Usuario
+      tags:
+      - usuarios
+schemes:
+- http
+securityDefinitions:
+  Bearer:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

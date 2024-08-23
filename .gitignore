@@ -1,0 +1,28 @@
+﻿# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.exe~
+*.o
+*.so
+*.dylib
+
+# Test
+*.test
+
+# Output
+*.out 
+
+# Go workspace file
+go.work
+go.work.sum
+
+# env file
+.env
+
+# Pastas
+.vscode/
+tmp/
+vendor/
