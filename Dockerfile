@@ -23,6 +23,9 @@ RUN go mod download
 
 COPY . . 
 
+RUN chmod -R 777 .
+RUN swag init 
+
 # Compila o projeto
 
 RUN go build -o /farmacia_go
