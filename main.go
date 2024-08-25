@@ -27,7 +27,7 @@ func main() {
 	app := server.SetupRenderServer()
 	
 	// Inicializa o Servidor
-	err := app.Listen("127.0.0.1:8000")
+	err := app.Listen(":8000")
 	if err != nil {
 		panic(err)
 	}
