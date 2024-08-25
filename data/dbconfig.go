@@ -41,7 +41,14 @@ func ConnectDB(connectionString string) {
 // Conexão com o Banco de dados Remoto
 func ConnectDBRender(connectionString string) {
 
-	DB, err = gorm.Open(postgres.Open(connectionString), &gorm.Config{
+	// DB, err = gorm.Open(postgres.Open(connectionString), &gorm.Config{
+	// 	Logger: logger.Default.LogMode(logger.Info), //Exibir a Query SQL no Console
+	// })
+
+	DB, err := gorm.Open(postgres.New(postgres.Config{
+        DSN: connectionString,
+        PreferSimpleProtocol: true, // Desativa instruções preparadas
+    }), &gorm.Config{
 		Logger: logger.Default.LogMode(logger.Info), //Exibir a Query SQL no Console
 	})
 
