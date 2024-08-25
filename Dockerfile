@@ -51,7 +51,7 @@ RUN go build -o /farmacia_go
 
 FROM alpine:latest
 
-WORKDIR /app
+WORKDIR /
 
 
 COPY --from=build /farmacia_go .
@@ -60,4 +60,4 @@ COPY --from=build /farmacia_go .
 EXPOSE 8000
 
 
-ENTRYPOINT ["/app/farmacia_go"]
+ENTRYPOINT ["/farmacia_go"]
