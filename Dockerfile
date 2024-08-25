@@ -37,6 +37,11 @@ RUN go mod download
 
 COPY . . 
 
+# Run Swagger Config
+
+RUN swag init
+
+RUN swag fmt
 
 # compile application
 
