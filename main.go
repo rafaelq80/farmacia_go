@@ -14,9 +14,9 @@ import (
 // @contact.url					https://github.com/rafaelq80
 // @license.name				Apache 2.0
 // @license.url					https://www.apache.org/licenses/LICENSE-2.0.html
-// @host						https://farmacia-go.onrender.com/
+// @schemes						https
+// @host						farmacia-go.onrender.com/
 // @BasePath					/
-// @schemes						http
 // @securityDefinitions.apikey	Bearer
 // @in							header
 // @name						Authorization
