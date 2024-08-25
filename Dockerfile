@@ -15,6 +15,10 @@ WORKDIR /app
 COPY go.mod .
 COPY go.sum .
 
+Instale o Swaggo CLI e adicione ao PATH
+RUN go install github.com/swaggo/swag/cmd/swag@latest
+ENV PATH=$PATH:/go/bin
+
 # Faz o download de todas as dependências
 
 RUN go mod download
@@ -22,6 +26,9 @@ RUN go mod download
 # Copia todos os arquivos para a pasta raiz
 
 COPY . . 
+
+# Verifique se o swag foi instalado corretamente
+RUN which swag
 
 RUN chmod -R 777 .
 RUN swag init 
