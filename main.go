@@ -15,7 +15,7 @@ import (
 // @license.name				Apache 2.0
 // @license.url					https://www.apache.org/licenses/LICENSE-2.0.html
 // @schemes						https
-// @host						farmacia-go.onrender.com/
+// @host						farmacia-go.onrender.com
 // @BasePath					/
 // @securityDefinitions.apikey	Bearer
 // @in							header
