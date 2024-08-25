@@ -8,7 +8,6 @@ import (
 
 type Config struct {
 	ConnectionString string `mapstructure:"connection_string"`
-	TestConnectionString string `mapstructure:"test_connection_string"`
 }
 
 var AppConfig *Config

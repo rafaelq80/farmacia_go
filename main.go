@@ -22,11 +22,8 @@ import (
 // @name						Authorization
 func main() {
 
-	// Cria o Servidor Local
-	//app := server.SetupServer()
-
-	// Cria o Servidor Remoto
-	app := server.SetupRenderServer()
+	// Cria o Servidor
+	app := server.SetupServer("local", false)
 
 	//Rota Swagger
 	app.Get("/swagger/*", fiberSwagger.WrapHandler)

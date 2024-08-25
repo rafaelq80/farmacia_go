@@ -18,7 +18,7 @@ import (
 func TestDeveCadastrarUsuario(t *testing.T) {
 
 	// Inicializa o Servidor de Testes
-	app := server.SetupTestServer(true)
+	app := server.SetupServer("teste", true)
 
 	// Cria o Objeto Usuário
 	usuario := model.Usuario{
@@ -55,7 +55,7 @@ func TestDeveCadastrarUsuario(t *testing.T) {
 
 func TestNaoDeveDuplicarUsuario(t *testing.T) {
 
-	app := server.SetupTestServer(false)
+	app := server.SetupServer("teste", false)
 
 	usuario := model.Usuario{
 		ID: 	 1,
@@ -79,7 +79,7 @@ func TestNaoDeveDuplicarUsuario(t *testing.T) {
 
 func TestDeveAutenticarUsuario(t *testing.T) {
 
-	app := server.SetupTestServer(false)
+	app := server.SetupServer("teste", false)
 
 	usuarioLogin := model.UsuarioLogin{
 		Usuario: "admin@email.com.br",
@@ -100,7 +100,7 @@ func TestDeveAutenticarUsuario(t *testing.T) {
 
 func TestDeveListarTodosUsuarios(t *testing.T) {
 
-	app := server.SetupTestServer(false)
+	app := server.SetupServer("teste", false)
 
 	// Gera um Token JWT para o Usuário Autenticado
 	token,_ := auth.CreateToken("admin@email.com.br")
@@ -120,7 +120,7 @@ func TestDeveListarTodosUsuarios(t *testing.T) {
 
 func TestDeveAtualizarUsuario(t *testing.T) {
 
-	app := server.SetupTestServer(false)
+	app := server.SetupServer("teste", false)
 
 	usuario := model.Usuario{
 		ID: 	 1,	
@@ -156,7 +156,7 @@ func TestDeveAtualizarUsuario(t *testing.T) {
 
 func TestDeveListarUsuarioPorId(t *testing.T) {
 
-	app := server.SetupTestServer(false)
+	app := server.SetupServer("teste", false)
 
 	token,_ := auth.CreateToken("admin@email.com.br")
 
