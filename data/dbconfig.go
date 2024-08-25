@@ -43,13 +43,6 @@ func ConnectDBRender(connectionString string) {
 
 	DB, err = gorm.Open(postgres.Open(connectionString), &gorm.Config{})
 
-	// DB, err := gorm.Open(postgres.New(postgres.Config{
-    //     DSN: connectionString,
-    //     PreferSimpleProtocol: true, // Desativa instruções preparadas
-    // }), &gorm.Config{
-	// 	Logger: logger.Default.LogMode(logger.Info), //Exibir a Query SQL no Console
-	// })
-
 	if err != nil {
 		log.Fatal("❌ Falha ao Conectar com o Banco de dados! \n", err.Error())
 		os.Exit(1)
