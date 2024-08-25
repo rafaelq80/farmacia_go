@@ -23,10 +23,10 @@ WORKDIR /app
 COPY go.mod .
 COPY go.sum .
 
-# Instalar as Bibliotecas Externas (Adicionar todas elas)
-# Testar sem a próxima linha
+# Instalar o Swagger
 
-# RUN go get github.com/gorilla/mux
+RUN go get github.com/swaggo/swag/cmd/swag
+RUN go get -u github.com/swaggo/fiber-swagger
 
 # download Go modules and dependencies
 
