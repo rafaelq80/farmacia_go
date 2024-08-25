@@ -23,10 +23,10 @@ WORKDIR /app
 COPY go.mod .
 COPY go.sum .
 
-# Instalar o Swagger
+# Instalar as Bibliotecas Externas (Adicionar todas elas)
+# Testar sem a próxima linha
 
-RUN go get github.com/swaggo/swag/cmd/swag
-RUN go get -u github.com/swaggo/fiber-swagger
+# RUN go get github.com/gorilla/mux
 
 # download Go modules and dependencies
 
@@ -36,12 +36,6 @@ RUN go mod download
 # copy directory files i.e all files ending with .go
 
 COPY . . 
-
-# Run Swagger Config
-
-RUN swag init
-
-RUN swag fmt
 
 # compile application
 
