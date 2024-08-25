@@ -6,6 +6,7 @@ import (
 
 	"github.com/rafaelq80/farmacia_go/model"
 	"gorm.io/driver/mysql"
+	"gorm.io/driver/postgres"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -14,10 +15,33 @@ import (
 var DB *gorm.DB
 var err error
 
-// Conexão com o Banco de dados da aplicação
+// Conexão com o Banco de dados local
 func ConnectDB(connectionString string) {
 
 	DB, err = gorm.Open(mysql.Open(connectionString), &gorm.Config{
+		Logger: logger.Default.LogMode(logger.Info), //Exibir a Query SQL no Console
+	})
+
+	if err != nil {
+		log.Fatal("❌ Falha ao Conectar com o Banco de dados! \n", err.Error())
+		os.Exit(1)
+	}
+
+	log.Println("🚀 Conexão com o Banco de dados efetuada com Sucesso!")
+
+	// Criar as tabelas
+	DB.AutoMigrate(&model.Usuario{})
+	DB.AutoMigrate(&model.Categoria{})
+	DB.AutoMigrate(&model.Produto{})
+
+	log.Println("🚀 Tabelas Configuradas com Sucesso!")
+
+}
+
+// Conexão com o Banco de dados Remoto
+func ConnectDBRender(connectionString string) {
+
+	DB, err = gorm.Open(postgres.Open(connectionString), &gorm.Config{
 		Logger: logger.Default.LogMode(logger.Info), //Exibir a Query SQL no Console
 	})
 

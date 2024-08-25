@@ -44,7 +44,7 @@ func SetupRenderServer() *fiber.App{
 	config.LoadAppConfig("/etc/secrets/secrets")
 
 	// Conectar com o banco de dados
-	data.ConnectDB(config.AppConfig.ConnectionString)
+	data.ConnectDBRender(config.AppConfig.ConnectionString)
 
 	app := fiber.New()
 
