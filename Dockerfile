@@ -10,7 +10,7 @@
 
 # specify the base image to  be used for the application, alpine or ubuntu
 
-FROM golang:1.22.6-alpine AS build
+FROM golang:1.23.0-alpine AS build
 
 
 # create a working directory inside the image
