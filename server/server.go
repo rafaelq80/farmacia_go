@@ -41,7 +41,7 @@ func SetupServer() *fiber.App{
 func SetupRenderServer() *fiber.App{
 
 	// Carregar as Congigurações do Ambiente
-	config.LoadAppConfig("secrets")
+	config.LoadAppConfig("/etc/secrets/secrets")
 
 	// Conectar com o banco de dados
 	data.ConnectDB(config.AppConfig.ConnectionString)
