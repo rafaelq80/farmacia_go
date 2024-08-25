@@ -12,6 +12,9 @@
 
 FROM golang:1.23.0-alpine AS build
 
+RUN go get github.com/swaggo/swag/cmd/swag
+
+RUN go get -u github.com/swaggo/fiber-swagger
 
 # create a working directory inside the image
 
@@ -36,6 +39,8 @@ RUN go mod download
 # copy directory files i.e all files ending with .go
 
 COPY . . 
+
+RUN swag init
 
 # compile application
 
