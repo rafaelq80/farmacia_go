@@ -12,7 +12,7 @@ import (
 //	@contact.url				https://github.com/rafaelq80
 //	@license.name				Apache 2.0
 //	@license.url				https://www.apache.org/licenses/LICENSE-2.0.html
-//	@host						localhost:8000
+//	@host						https://farmacia-go.onrender.com
 //	@BasePath					/
 //	@schemes					http
 //	@securityDefinitions.apikey	Bearer
