@@ -53,10 +53,25 @@ func ConnectDBRender(connectionString string) {
 	log.Println("🚀 Conexão com o Banco de dados efetuada com Sucesso!")
 
 	// Criar as tabelas
-	DB.AutoMigrate(&model.Usuario{})
-	DB.AutoMigrate(&model.Categoria{})
-	DB.AutoMigrate(&model.Produto{})
+	
+	 // Lista de modelos a serem verificados
+	 models := []interface{}{
+        &model.Produto{},
+        &model.Categoria{},
+        &model.Usuario{},
+    }
 
+    // Verifica se todas as tabelas existem
+    for _, model := range models {
+        if !DB.Migrator().HasTable(model) {
+            // Se uma tabela não existir, ela será criada
+            log.Printf("Tabela para o modelo %T não existe. Criando...\n", model)
+            DB.AutoMigrate(model)
+        } else {
+            log.Printf("Tabela para o modelo %T já existe.\n", model)
+        }
+    }
+	
 	log.Println("🚀 Tabelas Configuradas com Sucesso!")
 
 }
