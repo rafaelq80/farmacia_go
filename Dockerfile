@@ -1,67 +1,50 @@
 # syntax=docker/dockerfile:1
 
+## PASSO 01 - BUILD ##
 
-##
-
-## STEP 1 - BUILD
-
-##
-
-
-# specify the base image to  be used for the application, alpine or ubuntu
+# Especifica a versão do Go
 
 FROM golang:1.23.0-alpine AS build
 
-RUN go get github.com/swaggo/swag/cmd/swag
-
-RUN go get -u github.com/swaggo/fiber-swagger
-
-# create a working directory inside the image
+# Cria a pasta raiz
 
 WORKDIR /app
 
-
-# copy Go modules and dependencies to image
+# Copia os arquivos que contém a lista de dependências
 
 COPY go.mod .
 COPY go.sum .
 
-# Instalar as Bibliotecas Externas (Adicionar todas elas)
-# Testar sem a próxima linha
+# Instala o Swagger
 
-# RUN go get github.com/gorilla/mux
+RUN go get github.com/swaggo/swag/cmd/swag
 
-# download Go modules and dependencies
+RUN go get github.com/swaggo/fiber-swagger
+
+# Faz o download de todas as dependências
 
 RUN go mod download
 
-
-# copy directory files i.e all files ending with .go
+# Copia todos os arquivos para a pasta raiz
 
 COPY . . 
 
+# Cria o Swagger
+
 RUN swag init
 
-# compile application
+# Compila o projeto
 
 RUN go build -o /farmacia_go
 
-
-##
-
-## STEP 2 - DEPLOY
-
-##
+## PASSO 02 - DEPLOY ##
 
 FROM alpine:latest
 
 WORKDIR /
 
-
 COPY --from=build /farmacia_go .
 
-
 EXPOSE 8000
-
 
 ENTRYPOINT ["/farmacia_go"]
