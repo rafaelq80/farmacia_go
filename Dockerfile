@@ -15,12 +15,6 @@ WORKDIR /app
 COPY go.mod .
 COPY go.sum .
 
-# Instala o Swagger
-
-RUN go get github.com/swaggo/swag/cmd/swag
-
-RUN go get github.com/swaggo/fiber-swagger
-
 # Faz o download de todas as dependências
 
 RUN go mod download
@@ -28,10 +22,6 @@ RUN go mod download
 # Copia todos os arquivos para a pasta raiz
 
 COPY . . 
-
-# Cria o Swagger
-
-RUN swag init
 
 # Compila o projeto
 

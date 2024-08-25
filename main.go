@@ -2,6 +2,8 @@
 
 import (
 	"github.com/rafaelq80/farmacia_go/server"
+	fiberSwagger "github.com/swaggo/fiber-swagger"
+	_ "github.com/rafaelq80/farmacia_go/docs"
 )
 
 //	@title						E-commerce - Farmácia
@@ -26,6 +28,9 @@ func main() {
 	// Cria o Servidor Remoto
 	app := server.SetupRenderServer()
 	
+	//Rota Swagger
+	app.Get("/swagger/*", fiberSwagger.WrapHandler)
+
 	// Inicializa o Servidor
 	err := app.Listen(":8000")
 	if err != nil {

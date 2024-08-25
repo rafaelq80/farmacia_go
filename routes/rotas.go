@@ -2,17 +2,13 @@ package routes
 
 import (
 	"github.com/rafaelq80/farmacia_go/controller"
-	_ "github.com/rafaelq80/farmacia_go/docs"
 	"github.com/rafaelq80/farmacia_go/security/middleware"
-	fiberSwagger "github.com/swaggo/fiber-swagger"
-
 	"github.com/gofiber/fiber/v2"
 )
 
 func SetRotas(app *fiber.App) {
 
-	//Rota Swagger
-	app.Get("/swagger/*", fiberSwagger.WrapHandler)
+	
 
 	// Rota de checagem do status do servidor
 	app.Get("/status", func(c *fiber.Ctx) error {
