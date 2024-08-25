@@ -10,11 +10,38 @@ import (
 
 )
 
-// Servidor Principal
+// Servidor Local
 func SetupServer() *fiber.App{
 
 	// Carregar as Congigurações do Ambiente
-	config.LoadAppConfig()
+	config.LoadAppConfig("config")
+
+	// Conectar com o banco de dados
+	data.ConnectDB(config.AppConfig.ConnectionString)
+
+	app := fiber.New()
+
+	// Inicializar o Log
+	app.Use(logger.New())
+
+	// Configurar o CORS
+	app.Use(cors.New(cors.Config{
+		AllowOrigins: "*",
+		AllowHeaders: "*",
+		AllowMethods: "*",
+	}))
+
+	// Definir as Rotas (Endpoints)
+	routes.SetRotas(app)
+
+	return app
+}
+
+// Servidor Remoto
+func SetupRenderServer() *fiber.App{
+
+	// Carregar as Congigurações do Ambiente
+	config.LoadAppConfig("secrets")
 
 	// Conectar com o banco de dados
 	data.ConnectDB(config.AppConfig.ConnectionString)
@@ -43,7 +70,7 @@ func SetupTestServer(dropTables bool) *fiber.App {
 	app := fiber.New()
 
 	// Carregar as Congigurações do Ambiente
-	config.LoadAppConfig()
+	config.LoadAppConfig("config")
 
 	// Conectar com o banco de dados
 	data.ConnectTestDB(config.AppConfig.TestConnectionString, dropTables)

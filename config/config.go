@@ -13,13 +13,13 @@ type Config struct {
 
 var AppConfig *Config
 
-func LoadAppConfig() {
+func LoadAppConfig(arquivo string) {
 	
 	log.Println("⏳ Carregando as Variáveis de Ambiente...")
 
 	viper.AddConfigPath(".")
 	viper.SetConfigType("json")
-	viper.SetConfigName("config")
+	viper.SetConfigName(arquivo)
 
 	err := viper.ReadInConfig()
 

@@ -20,8 +20,11 @@ import (
 //	@name						Authorization
 func main() {
 
-	// Cria o Servidor da aplicação
-	app := server.SetupServer()
+	// Cria o Servidor Local
+	//app := server.SetupServer()
+	
+	// Cria o Servidor Remoto
+	app := server.SetupRenderServer()
 	
 	// Inicializa o Servidor
 	err := app.Listen("127.0.0.1:8000")
