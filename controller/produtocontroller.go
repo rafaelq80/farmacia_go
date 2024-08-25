@@ -9,15 +9,15 @@ import (
 	"github.com/rafaelq80/farmacia_go/validator"
 )
 
-// @Summary		Listar Produtos
-// @Description	Lista todos os Produtos
-// @Tags			produtos
-// @Accept			json
-// @Produce		json
-// @Success		200	{array}		model.Produto
-// @Failure		401	{object}	config.HTTPError
-// @Router			/produtos [get]
-// @Security		Bearer
+//	@Summary		Listar Produtos
+//	@Description	Lista todos os Produtos
+//	@Tags			produtos
+//	@Accept			json
+//	@Produce		json
+//	@Success		200	{array}		model.Produto
+//	@Failure		401	{object}	config.HTTPError
+//	@Router			/produtos [get]
+//	@Security		Bearer
 func FindAllProduto(c *fiber.Ctx) error {
 
 	var produtos []model.Produto
@@ -27,18 +27,18 @@ func FindAllProduto(c *fiber.Ctx) error {
 	return c.Status(fiber.StatusOK).JSON(produtos)
 }
 
-// @Summary		Listar Produto por id
-// @Description	Lista um Produto por id
-// @Tags			produtos
-// @Accept			json
-// @Produce		json
-// @Param			id	path		string	true	"Id do Produto"
-// @Success		200	{array}		model.Produto
-// @Failure		400	{object}	config.HTTPError
-// @Failure		401	{object}	config.HTTPError
-// @Failure		404	{object}	config.HTTPError
-// @Router			/produtos/{id} [get]
-// @Security		Bearer
+//	@Summary		Listar Produto por id
+//	@Description	Lista um Produto por id
+//	@Tags			produtos
+//	@Accept			json
+//	@Produce		json
+//	@Param			id	path		string	true	"Id do Produto"
+//	@Success		200	{array}		model.Produto
+//	@Failure		400	{object}	config.HTTPError
+//	@Failure		401	{object}	config.HTTPError
+//	@Failure		404	{object}	config.HTTPError
+//	@Router			/produtos/{id} [get]
+//	@Security		Bearer
 func FindByIdProduto(c *fiber.Ctx) error {
 
 	id := c.Params("id")
@@ -54,17 +54,17 @@ func FindByIdProduto(c *fiber.Ctx) error {
 	return c.Status(fiber.StatusOK).JSON(produto)
 }
 
-// @Summary		Listar Produtos por nome
-// @Description	Lista todas os Produtos por nome
-// @Tags			produtos
-// @Accept			json
-// @Produce		json
-// @Param			nome	path		string	true	"Nome do Produto"
-// @Success		200		{array}		model.Produto
-// @Failure		400		{object}	config.HTTPError
-// @Failure		401		{object}	config.HTTPError
-// @Router			/produtos/nome/{nome} [get]
-// @Security		Bearer
+//	@Summary		Listar Produtos por nome
+//	@Description	Lista todas os Produtos por nome
+//	@Tags			produtos
+//	@Accept			json
+//	@Produce		json
+//	@Param			nome	path		string	true	"Nome do Produto"
+//	@Success		200		{array}		model.Produto
+//	@Failure		400		{object}	config.HTTPError
+//	@Failure		401		{object}	config.HTTPError
+//	@Router			/produtos/nome/{nome} [get]
+//	@Security		Bearer
 func FindByNomeProduto(c *fiber.Ctx) error {
 
 	nome := c.Params("nome")
@@ -76,17 +76,17 @@ func FindByNomeProduto(c *fiber.Ctx) error {
 	return c.Status(fiber.StatusOK).JSON(produtos)
 }
 
-// @Summary		Criar Produto
-// @Description	Cria um novo Produto
-// @Tags			produtos
-// @Accept			json
-// @Produce		json
-// @Param			produto	body		model.Produto	true	"Criar Produto"
-// @Success		201		{object}	model.Produto
-// @Failure		400		{object}	config.HTTPError
-// @Failure		401		{object}	config.HTTPError
-// @Router			/produtos [post]
-// @Security		Bearer
+//	@Summary		Criar Produto
+//	@Description	Cria um novo Produto
+//	@Tags			produtos
+//	@Accept			json
+//	@Produce		json
+//	@Param			produto	body		model.Produto	true	"Criar Produto"
+//	@Success		201		{object}	model.Produto
+//	@Failure		400		{object}	config.HTTPError
+//	@Failure		401		{object}	config.HTTPError
+//	@Router			/produtos [post]
+//	@Security		Bearer
 func CreateProduto(c *fiber.Ctx) error {
 
 	var produto *model.Produto
@@ -106,18 +106,18 @@ func CreateProduto(c *fiber.Ctx) error {
 	return c.Status(fiber.StatusCreated).JSON(&produto)
 }
 
-// @Summary		Atualizar Produto
-// @Description	Edita um Produto
-// @Tags			produtos
-// @Accept			json
-// @Produce		json
-// @Param			Produto	body		model.Produto	true	"Atualizar Produto"
-// @Success		200		{object}	model.Produto
-// @Failure		400		{object}	config.HTTPError
-// @Failure		401		{object}	config.HTTPError
-// @Failure		404		{object}	config.HTTPError
-// @Router			/produtos [put]
-// @Security		Bearer
+//	@Summary		Atualizar Produto
+//	@Description	Edita um Produto
+//	@Tags			produtos
+//	@Accept			json
+//	@Produce		json
+//	@Param			Produto	body		model.Produto	true	"Atualizar Produto"
+//	@Success		200		{object}	model.Produto
+//	@Failure		400		{object}	config.HTTPError
+//	@Failure		401		{object}	config.HTTPError
+//	@Failure		404		{object}	config.HTTPError
+//	@Router			/produtos [put]
+//	@Security		Bearer
 func UpdateProduto(c *fiber.Ctx) error {
 
 	var produto *model.Produto
@@ -143,18 +143,18 @@ func UpdateProduto(c *fiber.Ctx) error {
 	return c.Status(fiber.StatusOK).JSON(&produto)
 }
 
-// @Summary		Deletar Produto
-// @Description	Apaga um Produto
-// @Tags			produtos
-// @Accept			json
-// @Produce		json
-// @Param			id	path		string	true	"Id do Produto"
-// @Success		204	{string}	string
-// @Failure		400	{object}	config.HTTPError
-// @Failure		401	{object}	config.HTTPError
-// @Failure		404	{object}	config.HTTPError
-// @Router			/produtos/{id} [delete]
-// @Security		Bearer
+//	@Summary		Deletar Produto
+//	@Description	Apaga um Produto
+//	@Tags			produtos
+//	@Accept			json
+//	@Produce		json
+//	@Param			id	path		string	true	"Id do Produto"
+//	@Success		204	{string}	string
+//	@Failure		400	{object}	config.HTTPError
+//	@Failure		401	{object}	config.HTTPError
+//	@Failure		404	{object}	config.HTTPError
+//	@Router			/produtos/{id} [delete]
+//	@Security		Bearer
 func DeleteProduto(c *fiber.Ctx) error {
 
 	id := c.Params("id")
