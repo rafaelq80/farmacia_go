@@ -39,7 +39,7 @@ COPY *.go ./
 
 # compile application
 
-RUN go build -o /farmacia_go
+RUN go build -o /farmacia_golang
 
 
 ##
@@ -54,10 +54,10 @@ FROM scratch
 WORKDIR /
 
 
-COPY --from=build /farmacia_go /farmacia_go
+COPY --from=build /farmacia_golang /farmacia_golang
 
 
 EXPOSE 8000
 
 
-ENTRYPOINT ["/farmacia_go"]
+ENTRYPOINT ["/farmacia_golang"]
