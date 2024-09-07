@@ -23,8 +23,8 @@ import (
 func main() {
 
 	// Cria o Servidor
-	app := server.SetupServer("local", false)
-	//app := server.SetupServer("remoto", false)
+	//app := server.SetupServer("local", false)
+	app := server.SetupServer("remoto", false)
 
 	//Rota Swagger
 	app.Get("/swagger/*", swagger.HandlerDefault)
