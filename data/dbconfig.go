@@ -18,6 +18,8 @@ var err error
 // Conexão com o Banco de dados local
 func ConnectDB(connectionString string, database string, drop bool) {
 
+	log.Println(connectionString)
+	
 	switch database {
 	case "local":
 		DB, err = gorm.Open(mysql.Open(connectionString), &gorm.Config{
@@ -38,12 +40,9 @@ func ConnectDB(connectionString string, database string, drop bool) {
 
 	log.Println("🚀 Conexão com o Banco de dados efetuada com Sucesso!")
 
-	if database == "teste" {
-
-		if drop {
-			//Deletar todas as tabelas
-			DB.Migrator().DropTable(&model.Produto{}, &model.Categoria{}, &model.Usuario{})
-		}
+	if drop {
+		//Deletar todas as tabelas
+		DB.Migrator().DropTable(&model.Produto{}, &model.Categoria{}, &model.Usuario{})
 	}
 
 	// Lista de tabelas que deverão ser criadas

@@ -88,7 +88,7 @@ definitions:
       usuario:
         type: string
     type: object
-host: localhost:8000
+host: farmacia-go.onrender.com
 info:
   contact:
     email: rafaelproinfo@gmail.com
@@ -648,7 +648,7 @@ paths:
       tags:
       - usuarios
 schemes:
-- http
+- https
 securityDefinitions:
   Bearer:
     in: header

@@ -1,6 +1,6 @@
 {
     "schemes": [
-        "http"
+        "https"
     ],
     "swagger": "2.0",
     "info": {
@@ -17,7 +17,7 @@
         },
         "version": "1.0"
     },
-    "host": "localhost:8000",
+    "host": "farmacia-go.onrender.com",
     "basePath": "/",
     "paths": {
         "/categorias": {

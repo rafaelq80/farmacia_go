@@ -23,13 +23,13 @@ func SetupServer(profile string, drop bool) *fiber.App {
 	// Conectar com o banco de dados
 	switch profile {
 	case "local":
-		data.ConnectDB(config.AppConfig.ConnectionString, profile, false)
-	case "teste":
-		data.ConnectDB(config.AppConfig.ConnectionString, "teste", drop)
+		data.ConnectDB(config.AppConfig.ConnectionString, profile, drop)
 	case "remoto":
-		data.ConnectDB(config.AppConfig.ConnectionString, profile, false)
+		data.ConnectDB(config.AppConfig.ConnectionString, profile, drop)
+	case "teste":
+		data.ConnectDB(config.AppConfig.ConnectionString, profile, drop)
 	default:
-		log.Println("Perfil inválido!")
+		log.Println("Database Profile inválido!")
 	}
 
 	// Inicializa uma nova instância do Fiber

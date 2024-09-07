@@ -1,22 +1,23 @@
 package routes
 
 import (
+	"github.com/gofiber/fiber/v2"
 	"github.com/rafaelq80/farmacia_go/controller"
 	"github.com/rafaelq80/farmacia_go/security/middleware"
-	"github.com/gofiber/fiber/v2"
+	
 )
 
 func SetRotas(app *fiber.App) {
-
-	
 
 	// Rota de checagem do status do servidor
 	app.Get("/status", func(c *fiber.Ctx) error {
 		return c.Status(200).JSON(fiber.Map{
 			"status":  "Successo!",
-			"message": "Bem vindo ao Golang! Fiber Ativo!",
+			"message": "Bem vindo ao Golang!",
 		})
 	})
+
+	// app.Get("/swagger/*", fiberSwagger.WrapHandler)
 
 	// Rotas do Recurso Produto
 

@@ -1025,9 +1025,9 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
-	Host:             "localhost:8000",
+	Host:             "farmacia-go.onrender.com",
 	BasePath:         "/",
-	Schemes:          []string{"http"},
+	Schemes:          []string{"https"},
 	Title:            "E-commerce - Farmácia",
 	Description:      "Projeto E-commerce - Farmácia",
 	InfoInstanceName: "swagger",
