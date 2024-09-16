@@ -52,6 +52,9 @@ func FindByIdUsuario(c *fiber.Ctx) error {
 
 	data.DB.Preload("Produto").First(&usuario, id)
 
+	// Limpa o campo de senha antes de retornar o usuário
+	usuario.Senha = ""
+
 	return c.Status(fiber.StatusOK).JSON(usuario)
 }
 

@@ -41,7 +41,7 @@ func SetupServer(profile string, drop bool) *fiber.App {
 	// Configura o CORS
 	app.Use(cors.New(cors.Config{
 		AllowOrigins: "*",
-		AllowHeaders: "*",
+		AllowHeaders: "",
 		AllowMethods: "*",
 	}))
 
