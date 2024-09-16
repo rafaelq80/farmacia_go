@@ -1,8 +1,8 @@
 ﻿package main
 
 import (
-	swagger "github.com/arsmn/fiber-swagger/v2"
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/swagger"
 	_ "github.com/rafaelq80/farmacia_go/docs"
 	"github.com/rafaelq80/farmacia_go/server"
 )
@@ -24,12 +24,13 @@ import (
 func main() {
 
 	// Cria o Servidor
-	//app := server.SetupServer("local", false)
-	app := server.SetupServer("remoto", false)
+	app := server.SetupServer("local", false)
+	//app := server.SetupServer("remoto", false)
 
 	//Rota Swagger
 	app.Get("/swagger/*", swagger.HandlerDefault)
 
+	//Redireciona a rota / para o Swagger
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.Redirect("/swagger/index.html", 301)
 	})
