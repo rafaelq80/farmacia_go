@@ -722,7 +722,7 @@ const docTemplate = `{
                         "Bearer": []
                     }
                 ],
-                "description": "Edita um Usuario",
+                "description": "Edita os dados de um Usuario",
                 "consumes": [
                     "application/json"
                 ],

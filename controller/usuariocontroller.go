@@ -7,25 +7,35 @@ import (
 	"github.com/rafaelq80/farmacia_go/data"
 	"github.com/rafaelq80/farmacia_go/model"
 	security "github.com/rafaelq80/farmacia_go/security/bcrypt"
+	"github.com/rafaelq80/farmacia_go/service"
 	"github.com/rafaelq80/farmacia_go/validator"
 )
+
+// Injeção de Dependências - UsuarioService
+type UsuarioController struct {
+	service *service.UsuarioService
+}
+
+// Método Construtor
+func NewUsuarioController(service *service.UsuarioService) *UsuarioController {
+	return &UsuarioController{service: service}
+}
 
 //	@Summary		Listar Usuarios
 //	@Description	Lista todos os Usuarios
 //	@Tags			usuarios
 //	@Accept			json
 //	@Produce		json
-//	@Success		200	{array}		model.Usuario
-//	@Failure		401	{object}	config.HTTPError
-//	@Router			/usuarios/all [get]
+//	@Success		200				{array}		model.Usuario
+//	@Failure		401				{object}	config.HTTPError
+//	@Router			/usuarios/all 	[get]
 //	@Security		Bearer
-func FindAllUsuario(c *fiber.Ctx) error {
+func (usuarioController *UsuarioController) FindAllUsuario(context *fiber.Ctx) error {
 
-	var usuarios []model.Usuario
+	usuarios := usuarioController.service.FindAll()
 
-	data.DB.Preload("Produto").Find(&usuarios)
+	return context.Status(fiber.StatusOK).JSON(usuarios)
 
-	return c.Status(fiber.StatusOK).JSON(usuarios)
 }
 
 //	@Summary		Listar Usuario por id
@@ -33,29 +43,25 @@ func FindAllUsuario(c *fiber.Ctx) error {
 //	@Tags			usuarios
 //	@Accept			json
 //	@Produce		json
-//	@Param			id	path		string	true	"Id do Usuario"
-//	@Success		200	{array}		model.Usuario
-//	@Failure		400	{object}	config.HTTPError
-//	@Failure		401	{object}	config.HTTPError
-//	@Failure		404	{object}	config.HTTPError
-//	@Router			/usuarios/{id} [get]
+//	@Param			id				path		string	true	"Id do Usuario"
+//	@Success		200				{array}		model.Usuario
+//	@Failure		400				{object}	config.HTTPError
+//	@Failure		401				{object}	config.HTTPError
+//	@Failure		404				{object}	config.HTTPError
+//	@Router			/usuarios/{id} 	[get]
 //	@Security		Bearer
-func FindByIdUsuario(c *fiber.Ctx) error {
+func (usuarioController *UsuarioController) FindByIdUsuario(context *fiber.Ctx) error {
 
-	id := c.Params("id")
+	id := context.Params("id")
 
-	var usuario model.Usuario
+	usuario, found := usuarioController.service.FindById(id)
 
-	if checkUsuario(id) {
-		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"status": "404", "message": "Usuario não encontrada!"})
+	if !found {
+		return context.Status(fiber.StatusNotFound).JSON(fiber.Map{"status": "404", "message": "Categoria não encontrada!"})
 	}
 
-	data.DB.Preload("Produto").First(&usuario, id)
+	return context.Status(fiber.StatusOK).JSON(usuario)
 
-	// Limpa o campo de senha antes de retornar o usuário
-	usuario.Senha = ""
-
-	return c.Status(fiber.StatusOK).JSON(usuario)
 }
 
 //	@Summary		Criar Usuario
@@ -63,75 +69,73 @@ func FindByIdUsuario(c *fiber.Ctx) error {
 //	@Tags			usuarios
 //	@Accept			json
 //	@Produce		json
-//	@Param			usuario	body		model.Usuario	true	"Criar Usuario"
-//	@Success		201		{object}	model.Usuario
-//	@Failure		400		{object}	config.HTTPError
-//	@Failure		404		{object}	config.HTTPError
-//	@Router			/usuarios [post]
-func CreateUsuario(c *fiber.Ctx) error {
+//	@Param			usuario		body		model.Usuario	true	"Criar Usuario"
+//	@Success		201			{object}	model.Usuario
+//	@Failure		400			{object}	config.HTTPError
+//	@Failure		404			{object}	config.HTTPError
+//	@Router			/usuarios 	[post]
+func (usuarioController *UsuarioController) CreateUsuario(context *fiber.Ctx) error {
 
-	var usuario *model.Usuario
+	var usuario model.Usuario
 
-	if errObjeto := c.BodyParser(&usuario); errObjeto != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"status": "400", "message": errObjeto.Error()})
+	if err := context.BodyParser(&usuario); err != nil {
+		return context.Status(fiber.StatusBadRequest).JSON(fiber.Map{"status": "400", "message": err.Error()})
 	}
 
-	if errValidator := validator.ValidateStruct(usuario); errValidator != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"status": "400", "message": errValidator})
+	if err := validator.ValidateStruct(&usuario); err != nil {
+		return context.Status(fiber.StatusBadRequest).JSON(fiber.Map{"status": "400", "message": err})
 	}
 
 	// Verifica se o usuário existe (evitar duplicidade)
-	if checkIfUsuarioEmailExists(usuario.Usuario) {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"status": "400", "message": "Usuário já cadastrado!"})
+	if usuarioController.service.EmailExists(usuario.Usuario) {
+		return context.Status(fiber.StatusBadRequest).JSON(fiber.Map{"status": "400", "message": "Usuário já cadastrado!"})
 	}
 
-	// Criptografa a senha
-	senhaCriptografada, _ := security.HashPassword(usuario.Senha)
-	usuario.Senha = senhaCriptografada
+	if err := usuarioController.service.Create(&usuario); err != nil {
+		return context.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"status": "500", "message": "Error creating usuario"})
+	}
 
-	data.DB.Create(&usuario)
+	return context.Status(fiber.StatusCreated).JSON(&usuario)
 
-	return c.Status(fiber.StatusCreated).JSON(&usuario)
 }
 
 //	@Summary		Atualizar Usuario
-//	@Description	Edita um Usuario
+//	@Description	Edita os dados de um Usuario
 //	@Tags			usuarios
 //	@Accept			json
 //	@Produce		json
-//	@Param			Usuario	body		model.Usuario	true	"Atualizar Usuario"
-//	@Success		200		{object}	model.Usuario
-//	@Failure		400		{object}	config.HTTPError
-//	@Failure		401		{object}	config.HTTPError
-//	@Failure		404		{object}	config.HTTPError
-//	@Router			/usuarios/atualizar [put]
+//	@Param			Usuario					body		model.Usuario	true	"Atualizar Usuario"
+//	@Success		200						{object}	model.Usuario
+//	@Failure		400						{object}	config.HTTPError
+//	@Failure		401						{object}	config.HTTPError
+//	@Failure		404						{object}	config.HTTPError
+//	@Router			/usuarios/atualizar 	[put]
 //	@Security		Bearer
-func UpdateUsuario(c *fiber.Ctx) error {
+func (usuarioController *UsuarioController) UpdateUsuario(context *fiber.Ctx) error {
 
-	var usuario *model.Usuario
+	var usuario model.Usuario
 
-	if errObjeto := c.BodyParser(&usuario); errObjeto != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"status": "400", "message": errObjeto.Error()})
+	if err := context.BodyParser(&usuario); err != nil {
+		return context.Status(fiber.StatusBadRequest).JSON(fiber.Map{"status": "400", "message": err.Error()})
 	}
 
-	if errValidator := validator.ValidateStruct(usuario); errValidator != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"status": "400", "message": errValidator})
+	if err := validator.ValidateStruct(&usuario); err != nil {
+		return context.Status(fiber.StatusBadRequest).JSON(fiber.Map{"status": "400", "message": err})
 	}
 
 	var id = strconv.FormatUint(uint64(usuario.ID), 10)
 
 	// Verifica se o Usuário existe
-	if checkUsuario(id) {
-		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"status": "404", "message": "Usuário não encontrado!"})
+	if !usuarioController.service.Exists(id) {
+		return context.Status(fiber.StatusNotFound).JSON(fiber.Map{"status": "404", "message": "Usuário não encontrado!"})
 	}
 
 	// Localiza os dados do Usuário
-	var buscarUsuario model.Usuario
-	data.DB.Where("usuario = ?", usuario.Usuario).First(&buscarUsuario)
+	buscarUsuario := usuarioController.service.FindByUsuario(usuario.Usuario)
 
 	// Verifica se o e-mail já pertence a outro usuário
-	if checkIfUsuarioEmailExists(usuario.Usuario) && usuario.ID != buscarUsuario.ID{
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"status": "400", "message": "Usuário já cadastrado!"})
+	if usuarioController.service.EmailExists(usuario.Usuario) && usuario.ID != buscarUsuario.ID {
+		return context.Status(fiber.StatusBadRequest).JSON(fiber.Map{"status": "400", "message": "Usuário já cadastrado!"})
 	}
 
 	// Criptografa a senha
@@ -140,25 +144,34 @@ func UpdateUsuario(c *fiber.Ctx) error {
 
 	data.DB.Save(&usuario)
 
-	return c.Status(fiber.StatusOK).JSON(&usuario)
+	return context.Status(fiber.StatusOK).JSON(&usuario)
 }
 
-// Métodos Auxiliares
-func checkUsuario(id string) bool {
+//	@Summary		Autenticar Usuario
+//	@Description	Autentica um Usuario
+//	@Tags			usuarios
+//	@Accept			json
+//	@Produce		json
+//	@Param			usuario				body		model.UsuarioLogin	true	"Autenticar Usuario"
+//	@Success		200					{object}	model.UsuarioLogin
+//	@Failure		400					{object}	config.HTTPError
+//	@Failure		401					{object}	config.HTTPError
+//	@Failure		404					{object}	config.HTTPError
+//	@Router			/usuarios/logar 						[post]
+func (usuarioController *UsuarioController) AutenticarUsuario(c *fiber.Ctx) error {
 
-	var usuario model.Usuario
+	var usuarioLogin model.UsuarioLogin
 
-	data.DB.First(&usuario, id)
+	if err := c.BodyParser(&usuarioLogin); err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"status": "400", "message": err.Error()})
+	}
 
-	return usuario.ID == 0
+	usuarioAutenticado, err := usuarioController.service.AutenticarUsuario(&usuarioLogin)
 
-}
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"status": "400", "message": err.Error()})
+	}
 
-func checkIfUsuarioEmailExists(usuarioEmail string) bool {
-
-	var usuario model.Usuario
-	data.DB.Where("lower(usuario) = lower(?)", usuarioEmail).Find(&usuario)
-
-	return usuario.Usuario != ""
+	return c.Status(fiber.StatusOK).JSON(usuarioAutenticado)
 
 }

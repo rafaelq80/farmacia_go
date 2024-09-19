@@ -581,7 +581,7 @@ paths:
     put:
       consumes:
       - application/json
-      description: Edita um Usuario
+      description: Edita os dados de um Usuario
       parameters:
       - description: Atualizar Usuario
         in: body

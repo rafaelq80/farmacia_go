@@ -31,6 +31,7 @@ RUN which swag
 RUN chmod -R 777 .
 
 # Recria a documentação no Swagger
+RUN swag fmt 
 RUN swag init 
 
 # Compila o projeto (Criar o Build)
