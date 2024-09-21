@@ -25,8 +25,9 @@ func SetRotas(app *fiber.App) {
 	categoriaService := service.NewCategoriaService()
 	categoriaController := controller.NewCategoriaController(categoriaService)
 
-	// Injeção de Dependências - Categoria
-	usuarioService := service.NewUsuarioService()
+	// Injeção de Dependências - Usuário
+	emailService := service.NewEmailService()
+	usuarioService := service.NewUsuarioService(emailService)
 	usuarioController := controller.NewUsuarioController(usuarioService)
 
 	// Rotas do Recurso Produto

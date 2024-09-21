@@ -19,15 +19,15 @@ func NewCategoriaController(service *service.CategoriaService) *CategoriaControl
 	return &CategoriaController{service: service}
 }
 
-//	@Summary		Listar Categorias
-//	@Description	Lista todas as Categorias
-//	@Tags			categorias
-//	@Accept			json
-//	@Produce		json
-//	@Success		200				{array}		model.Categoria
-//	@Failure		401				{object}	config.HTTPError
-//	@Router			/categorias 	[get]
-//	@Security		Bearer
+// @Summary		Listar Categorias
+// @Description	Lista todas as Categorias
+// @Tags			categorias
+// @Accept			json
+// @Produce		json
+// @Success		200				{array}		model.Categoria
+// @Failure		401				{object}	config.HTTPError
+// @Router			/categorias 	[get]
+// @Security		Bearer
 func (categoriaController *CategoriaController) FindAllCategoria(c *fiber.Ctx) error {
 
 	categorias := categoriaController.service.FindAll()
@@ -36,18 +36,18 @@ func (categoriaController *CategoriaController) FindAllCategoria(c *fiber.Ctx) e
 
 }
 
-//	@Summary		Listar Categoria por id
-//	@Description	Lista uma Categoria por id
-//	@Tags			categorias
-//	@Accept			json
-//	@Produce		json
-//	@Param			id					path		string	true	"Id da Categoria"
-//	@Success		200					{array}		model.Categoria
-//	@Failure		400					{object}	config.HTTPError
-//	@Failure		401					{object}	config.HTTPError
-//	@Failure		404					{object}	config.HTTPError
-//	@Router			/categorias/{id} 	[get]
-//	@Security		Bearer
+// @Summary		Listar Categoria por id
+// @Description	Lista uma Categoria por id
+// @Tags			categorias
+// @Accept			json
+// @Produce		json
+// @Param			id					path		string	true	"Id da Categoria"
+// @Success		200					{array}		model.Categoria
+// @Failure		400					{object}	config.HTTPError
+// @Failure		401					{object}	config.HTTPError
+// @Failure		404					{object}	config.HTTPError
+// @Router			/categorias/{id} 	[get]
+// @Security		Bearer
 func (categoriaController *CategoriaController) FindByIdCategoria(context *fiber.Ctx) error {
 
 	id := context.Params("id")
@@ -61,17 +61,17 @@ func (categoriaController *CategoriaController) FindByIdCategoria(context *fiber
 	return context.Status(fiber.StatusOK).JSON(categoria)
 }
 
-//	@Summary		Listar Categorias por grupo
-//	@Description	Lista todas as Categorias por grupo
-//	@Tags			categorias
-//	@Accept			json
-//	@Produce		json
-//	@Param			grupo						path		string	true	"Grupo do Medicamento (Antibiótico, Antihistamínico, entre outros)"
-//	@Success		200							{array}		model.Categoria
-//	@Failure		400							{object}	config.HTTPError
-//	@Failure		401							{object}	config.HTTPError
-//	@Router			/categorias/grupo/{grupo} 	[get]
-//	@Security		Bearer
+// @Summary		Listar Categorias por grupo
+// @Description	Lista todas as Categorias por grupo
+// @Tags			categorias
+// @Accept			json
+// @Produce		json
+// @Param			grupo						path		string	true	"Grupo do Medicamento (Antibiótico, Antihistamínico, entre outros)"
+// @Success		200							{array}		model.Categoria
+// @Failure		400							{object}	config.HTTPError
+// @Failure		401							{object}	config.HTTPError
+// @Router			/categorias/grupo/{grupo} 	[get]
+// @Security		Bearer
 func (categoriaController *CategoriaController) FindByGrupoCategoria(context *fiber.Ctx) error {
 
 	grupo := context.Params("grupo")
@@ -82,17 +82,17 @@ func (categoriaController *CategoriaController) FindByGrupoCategoria(context *fi
 
 }
 
-//	@Summary		Criar Categoria
-//	@Description	Cria uma nova Categoria
-//	@Tags			categorias
-//	@Accept			json
-//	@Produce		json
-//	@Param			categoria	body		model.Categoria	true	"Criar Categoria"
-//	@Success		201			{object}	model.Categoria
-//	@Failure		400			{object}	config.HTTPError
-//	@Failure		401			{object}	config.HTTPError
-//	@Router			/categorias [post]
-//	@Security		Bearer
+// @Summary		Criar Categoria
+// @Description	Cria uma nova Categoria
+// @Tags			categorias
+// @Accept			json
+// @Produce		json
+// @Param			categoria	body		model.Categoria	true	"Criar Categoria"
+// @Success		201			{object}	model.Categoria
+// @Failure		400			{object}	config.HTTPError
+// @Failure		401			{object}	config.HTTPError
+// @Router			/categorias [post]
+// @Security		Bearer
 func (categoriaController *CategoriaController) CreateCategoria(context *fiber.Ctx) error {
 
 	var categoria model.Categoria
@@ -113,18 +113,18 @@ func (categoriaController *CategoriaController) CreateCategoria(context *fiber.C
 
 }
 
-//	@Summary		Atualizar Categoria
-//	@Description	Edita uma Categoria
-//	@Tags			categorias
-//	@Accept			json
-//	@Produce		json
-//	@Param			Categoria	body		model.Categoria	true	"Atualizar Categoria"
-//	@Success		200			{object}	model.Categoria
-//	@Failure		400			{object}	config.HTTPError
-//	@Failure		401			{object}	config.HTTPError
-//	@Failure		404			{object}	config.HTTPError
-//	@Router			/categorias [put]
-//	@Security		Bearer
+// @Summary		Atualizar Categoria
+// @Description	Edita uma Categoria
+// @Tags			categorias
+// @Accept			json
+// @Produce		json
+// @Param			Categoria	body		model.Categoria	true	"Atualizar Categoria"
+// @Success		200			{object}	model.Categoria
+// @Failure		400			{object}	config.HTTPError
+// @Failure		401			{object}	config.HTTPError
+// @Failure		404			{object}	config.HTTPError
+// @Router			/categorias [put]
+// @Security		Bearer
 func (categoriaController *CategoriaController) UpdateCategoria(context *fiber.Ctx) error {
 
 	var categoria model.Categoria
@@ -151,18 +151,18 @@ func (categoriaController *CategoriaController) UpdateCategoria(context *fiber.C
 
 }
 
-//	@Summary		Deletar Categoria
-//	@Description	Apaga uma Categoria
-//	@Tags			categorias
-//	@Accept			json
-//	@Produce		json
-//	@Param			id	path		string	true	"Id da Categoria"
-//	@Success		204	{string}	string
-//	@Failure		400	{object}	config.HTTPError
-//	@Failure		401	{object}	config.HTTPError
-//	@Failure		404	{object}	config.HTTPError
-//	@Router			/categorias/{id} [delete]
-//	@Security		Bearer
+// @Summary		Deletar Categoria
+// @Description	Apaga uma Categoria
+// @Tags			categorias
+// @Accept			json
+// @Produce		json
+// @Param			id	path		string	true	"Id da Categoria"
+// @Success		204	{string}	string
+// @Failure		400	{object}	config.HTTPError
+// @Failure		401	{object}	config.HTTPError
+// @Failure		404	{object}	config.HTTPError
+// @Router			/categorias/{id} [delete]
+// @Security		Bearer
 func (categoriaController *CategoriaController) DeleteCategoria(context *fiber.Ctx) error {
 
 	id := context.Params("id")

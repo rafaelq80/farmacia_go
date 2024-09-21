@@ -8,6 +8,12 @@ import (
 
 type Config struct {
 	ConnectionString string `mapstructure:"connection_string"`
+	Secret string `mapstructure:"secret"`
+	SenderEmail string `mapstructure:"sender_email"`
+	SmtpHost string `mapstructure:"smtp_host"`
+	SmtpPort int `mapstructure:"smtp_port"`
+	SmtpUser string `mapstructure:"smtp_user"`
+	SmtpPassword string `mapstructure:"smtp_password"`
 }
 
 var AppConfig *Config

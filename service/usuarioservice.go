@@ -2,6 +2,7 @@ package service
 
 import (
 	"errors"
+	"fmt"
 
 	"github.com/rafaelq80/farmacia_go/data"
 	"github.com/rafaelq80/farmacia_go/model"
@@ -9,10 +10,14 @@ import (
 	auth "github.com/rafaelq80/farmacia_go/security/service"
 )
 
-type UsuarioService struct{}
+type UsuarioService struct{
+	emailService *EmailService // Serviço de envio de e-mail
+}
 
-func NewUsuarioService() *UsuarioService {
-	return &UsuarioService{}
+func NewUsuarioService(emailService *EmailService) *UsuarioService {
+	return &UsuarioService{
+		emailService: emailService,
+	}
 }
 
 func (usuarioService *UsuarioService) FindAll() []model.Usuario {
@@ -39,7 +44,21 @@ func (usuarioService *UsuarioService) Create(usuario *model.Usuario) error {
 	senhaCriptografada, _ := security.HashPassword(usuario.Senha)
 	usuario.Senha = senhaCriptografada
 
-	return data.DB.Create(usuario).Error
+	err := data.DB.Create(usuario).Error
+	if err != nil {
+		return err
+	}
+
+	// Enviar E-mail de Confirmação do Cadastro
+	subject := "Seja Bem vindo ao Projeto Farmácia"
+	body := "Obrigado pelo seu Cadastro!"
+	err = usuarioService.emailService.SendEmail(usuario.Usuario, subject, body)
+	if err != nil {
+		// Exibe o erro no envio, caso aconteça
+		fmt.Printf("Failed to send welcome email: %v\n", err)
+	}
+
+	return nil
 }
 
 func (usuarioService *UsuarioService) Update(usuario *model.Usuario) error {

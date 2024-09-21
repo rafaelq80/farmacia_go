@@ -95,6 +95,7 @@ func (usuarioController *UsuarioController) CreateUsuario(context *fiber.Ctx) er
 		return context.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"status": "500", "message": "Error creating usuario"})
 	}
 
+	
 	return context.Status(fiber.StatusCreated).JSON(&usuario)
 
 }
