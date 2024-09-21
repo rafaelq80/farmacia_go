@@ -31,7 +31,7 @@ func (es *EmailService) SendEmail(to, subject, body string) error {
 	)
 
 	if err := d.DialAndSend(m); err != nil {
-		return fmt.Errorf("Erro ao Enviar o E-mail: %w", err)
+		return fmt.Errorf("erro ao enviar o e-mail: %w", err)
 	}
 
 	return nil
