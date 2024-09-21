@@ -17,17 +17,20 @@ func SetRotas(app *fiber.App) {
 		})
 	})
 
-	// Injeção de Dependências - Produto
+	
+	// Inicialização dos serviços
 	produtoService := service.NewProdutoService()
-	produtoController := controller.NewProdutoController(produtoService)
+	categoriaService := service.NewCategoriaService()
+	emailService := service.NewEmailService()
+	usuarioService := service.NewUsuarioService(emailService)
+
+	// Injeção de Dependências - Produto
+	produtoController := controller.NewProdutoController(produtoService, categoriaService)
 
 	// Injeção de Dependências - Categoria
-	categoriaService := service.NewCategoriaService()
 	categoriaController := controller.NewCategoriaController(categoriaService)
 
 	// Injeção de Dependências - Usuário
-	emailService := service.NewEmailService()
-	usuarioService := service.NewUsuarioService(emailService)
 	usuarioController := controller.NewUsuarioController(usuarioService)
 
 	// Rotas do Recurso Produto

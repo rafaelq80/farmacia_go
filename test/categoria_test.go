@@ -17,7 +17,7 @@ func TestDeveCadastrarCategoria(t *testing.T) {
 	// Cria o Objeto Categoria
 	categoria := model.Categoria{
 		ID:    1,
-		Grupo: "Antialérgico",
+		Grupo: "Antibiótico",
 	}
 
 	// Cria a Requisição HTTP do tipo Post com Autenticação

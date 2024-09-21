@@ -50,9 +50,8 @@ func (usuarioService *UsuarioService) Create(usuario *model.Usuario) error {
 	}
 
 	// Enviar E-mail de Confirmação do Cadastro
-	subject := "Seja Bem vindo ao Projeto Farmácia"
-	body := "Obrigado pelo seu Cadastro!"
-	err = usuarioService.emailService.SendEmail(usuario.Usuario, subject, body)
+	subject := "Seja Bem-Vinde ao Projeto Farmácia"
+	err = usuarioService.emailService.SendEmail(usuario.Usuario, usuario.Name, subject)
 	if err != nil {
 		// Exibe o erro no envio, caso aconteça
 		fmt.Printf("Failed to send welcome email: %v\n", err)
