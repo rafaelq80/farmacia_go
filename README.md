@@ -69,8 +69,6 @@ Usuario --> Produto
 
 ## Tarefas Concluídas
 
-
-
 - [x] Criação do Projeto - Fiber Framework
 - [x] Conexão com o Banco de dados MySQL
 - [x] Configuração das Rotas
@@ -81,9 +79,13 @@ Usuario --> Produto
 - [x] Relacionamento Produto - Usuario
 - [x] Security
 - [x] Testes E2E
+  - [x] Usuario
+  - [x] Categoria
+  - [x] Produto
 - [x] Swagger
-- [ ] Deploy
-- [ ] Documentação Escrita 🏗
+- [x] Deploy no Render
+- [x] Refatoramento - Service e Controller
+- [x] Envio de E-mails
 
 <br /><br />
 
