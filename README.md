@@ -1,12 +1,54 @@
-# Projeto Farmácia
+# Projeto Farmácia - Rest API
 <br />
 
 <div align="center">
-    <img src="https://i.imgur.com/JHinCnY.png" title="source: imgur.com" width="10%"/> 
+    <img src="https://i.imgur.com/JHinCnY.png" title="source: imgur.com" width="15%"/> 
     <img src="https://i.imgur.com/YC6Av6e.png" title="source: imgur.com" /> 
 </div>
-
 <br /><br />
+
+Este projeto é um sistema de gerenciamento para farmácias, do tipo MVP, implementado através da Linguagem Go. O sistema visa fornecer uma solução robusta e eficiente para o controle de estoque e gestão de Usuários em estabelecimentos farmacêuticos.
+
+<br />
+
+## Principais Características
+
+1. **Gestão de Estoque**: 
+   - Cadastro e atualização de medicamentos
+   - Organização por grupo de medicamentos
+3. **Gestão de Usuários - Clientes e Fornecedores**: 
+   - Cadastro de clientes e fornecedores
+   - Envio de e-mail de confirmação do cadastro
+4. **Segurança**: 
+   - Autenticação e Validação de Token JWT dos usuários
+
+<br />
+
+## Principais Tecnologias Utilizadas
+
+- **Linguagem**: Go
+- **Banco de Dados**:
+  - MySQL (Desenvolvimento)
+  - Sqlite (Testes)
+  -  PostgreSQL (Deploy - Render)
+
+- **Framework Web**: Fiber
+- **ORM**: GORM
+
+<br />
+
+## Arquitetura
+
+O projeto segue uma arquitetura em camadas, separando as responsabilidades em:
+
+- Controladores (handlers para requisições HTTP)
+- Serviços (lógica de negócios)
+- Repositórios (interação com o banco de dados)
+- Modelos (estruturas de dados)
+
+Esta arquitetura promove a manutenibilidade e escalabilidade do sistema.
+
+<br />
 
 ## Diagrama de Classes
 
