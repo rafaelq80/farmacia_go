@@ -1,5 +1,4 @@
-# Projeto Farmácia (Em desenvolvimento)
-
+# Projeto Farmácia
 <br />
 
 <div align="center">
