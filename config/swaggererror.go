@@ -4,7 +4,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-// NewError example
+// Exemplo de Erro
 func NewError(c *fiber.Ctx, status int, err error) {
 	er := HTTPError{
 		Code:    status,
@@ -13,7 +13,7 @@ func NewError(c *fiber.Ctx, status int, err error) {
 	c.JSON(er)
 }
 
-// HTTPError example
+// Exemplo de Erro HTTP
 type HTTPError struct {
 	Code    int    `json:"code" example:"400"`
 	Message string `json:"message" example:"status bad request"`

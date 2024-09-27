@@ -127,6 +127,7 @@ Usuario --> Produto
 - [x] Deploy no Render
 - [x] Refatoramento - Service e Controller
 - [x] Envio de E-mails
+- [x] Direitos de Acesso (Roles)
 
 <br /><br />
 

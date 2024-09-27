@@ -3,6 +3,7 @@ package service
 import (
 	"errors"
 	"fmt"
+	"log"
 
 	"github.com/rafaelq80/farmacia_go/data"
 	"github.com/rafaelq80/farmacia_go/model"
@@ -10,7 +11,7 @@ import (
 	auth "github.com/rafaelq80/farmacia_go/security/service"
 )
 
-type UsuarioService struct{
+type UsuarioService struct {
 	emailService *EmailService // Serviço de envio de e-mail
 }
 
@@ -22,19 +23,19 @@ func NewUsuarioService(emailService *EmailService) *UsuarioService {
 
 func (usuarioService *UsuarioService) FindAll() []model.Usuario {
 	var usuarios []model.Usuario
-	data.DB.Preload("Produto").Omit("Senha").Find(&usuarios)
+	data.DB.Preload("Produto").Preload("Role").Omit("Senha").Find(&usuarios)
 	return usuarios
 }
 
 func (usuarioService *UsuarioService) FindById(id string) (model.Usuario, bool) {
 	var usuario model.Usuario
-	resposta := data.DB.Preload("Produto").Omit("Senha").First(&usuario, id)
+	resposta := data.DB.Preload("Produto").Preload("Role").Omit("Senha").First(&usuario, id)
 	return usuario, resposta.RowsAffected > 0
 }
 
 func (usuarioService *UsuarioService) FindByUsuario(usuario string) (model.Usuario, bool) {
 	var buscaUsuario model.Usuario
-	resposta := data.DB.Preload("Produto").Where("lower(usuario) LIKE lower(?)", "%"+usuario+"%").Find(&buscaUsuario)
+	resposta := data.DB.Preload("Produto").Preload("Role").Where("lower(usuario) LIKE lower(?)", "%"+usuario+"%").Find(&buscaUsuario)
 	return buscaUsuario, resposta.RowsAffected > 0
 }
 
@@ -90,11 +91,14 @@ func (usuarioService *UsuarioService) AutenticarUsuario(usuarioLogin *model.Usua
 		return nil, errors.New("erro ao gerar o token")
 	}
 
+	log.Printf("Role: %s", usuario.Role.Descricao)
+
 	// Retorna o Objeto usuarioLogin Preenchido
 	usuarioLogin.ID = usuario.ID
 	usuarioLogin.Nome = usuario.Name
 	usuarioLogin.Foto = usuario.Foto
 	usuarioLogin.Senha = ""
+	usuarioLogin.Role = usuario.Role.Descricao // Role (Não esquecer do Preload da Entidade)
 	usuarioLogin.Token = "Bearer " + token
 
 	return usuarioLogin, nil
