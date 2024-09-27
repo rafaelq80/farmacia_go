@@ -23,7 +23,7 @@ go.work.sum
 .env
 
 # json file
-.json
+*.json
 
 # Pastas
 .vscode/
