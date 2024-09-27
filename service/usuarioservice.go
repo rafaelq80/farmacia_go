@@ -32,10 +32,10 @@ func (usuarioService *UsuarioService) FindById(id string) (model.Usuario, bool) 
 	return usuario, resposta.RowsAffected > 0
 }
 
-func (usuarioService *UsuarioService) FindByUsuario(usuario string) model.Usuario {
+func (usuarioService *UsuarioService) FindByUsuario(usuario string) (model.Usuario, bool) {
 	var buscaUsuario model.Usuario
-	data.DB.Preload("Produto").Where("lower(usuario) LIKE lower(?)", "%"+usuario+"%").Find(&buscaUsuario)
-	return buscaUsuario
+	resposta := data.DB.Preload("Produto").Where("lower(usuario) LIKE lower(?)", "%"+usuario+"%").Find(&buscaUsuario)
+	return buscaUsuario, resposta.RowsAffected > 0
 }
 
 func (usuarioService *UsuarioService) Create(usuario *model.Usuario) error {
@@ -76,7 +76,7 @@ func (usuarioService *UsuarioService) AutenticarUsuario(usuarioLogin *model.Usua
 	}
 
 	// Localiza os dados do Usuário
-	usuario := usuarioService.FindByUsuario(usuarioLogin.Usuario)
+	usuario, _ := usuarioService.FindByUsuario(usuarioLogin.Usuario)
 
 	// Verifica a Senha
 	if !security.CheckPasswordHash(usuarioLogin.Senha, usuario.Senha) {

@@ -132,7 +132,7 @@ func (usuarioController *UsuarioController) UpdateUsuario(context *fiber.Ctx) er
 	}
 
 	// Localiza os dados do Usuário
-	buscarUsuario := usuarioController.service.FindByUsuario(usuario.Usuario)
+	buscarUsuario, _ := usuarioController.service.FindByUsuario(usuario.Usuario)
 
 	// Verifica se o e-mail já pertence a outro usuário
 	if usuarioController.service.EmailExists(usuario.Usuario) && usuario.ID != buscarUsuario.ID {
