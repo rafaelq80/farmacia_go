@@ -34,7 +34,7 @@ func NewProdutoController(produtoService *service.ProdutoService, categoriaServi
 // @Security		Bearer
 func (produtoController *ProdutoController) FindAllProduto(context *fiber.Ctx) error {
 
-	produtos := produtoController.produtoService.FindAll()
+	produtos, _ := produtoController.produtoService.FindAll()
 
 	return context.Status(fiber.StatusOK).JSON(produtos)
 
@@ -56,10 +56,13 @@ func (produtoController *ProdutoController) FindByIdProduto(context *fiber.Ctx) 
 
 	id := context.Params("id")
 
-	produto, found := produtoController.produtoService.FindById(id)
+	produto, err := produtoController.produtoService.FindById(id)
 
-	if !found {
-		return context.Status(fiber.StatusNotFound).JSON(fiber.Map{"status": "404", "message": "Produto não encontrada!"})
+	if err != nil {
+		return context.Status(fiber.StatusNotFound).JSON(fiber.Map{
+			"status": "404", 
+			"message": "Produto não encontrado!",
+		})
 	}
 
 	return context.Status(fiber.StatusOK).JSON(produto)
@@ -81,7 +84,14 @@ func (produtoController *ProdutoController) FindByNomeProduto(context *fiber.Ctx
 
 	nome := context.Params("nome")
 
-	produtos := produtoController.produtoService.FindByNome(nome)
+	produtos, err := produtoController.produtoService.FindByNome(nome)
+
+	if err != nil {
+		return context.Status(fiber.StatusNotFound).JSON(fiber.Map{
+			"status": "404", 
+			"message": "Nenhum Produto foi encontrado!",
+		})
+	}
 
 	return context.Status(fiber.StatusOK).JSON(produtos)
 
@@ -103,24 +113,36 @@ func (produtoController *ProdutoController) CreateProduto(context *fiber.Ctx) er
 	var produto model.Produto
 
 	if err := context.BodyParser(&produto); err != nil {
-		return context.Status(fiber.StatusBadRequest).JSON(fiber.Map{"status": "400", "message": err.Error()})
+		return context.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"status": "400", 
+			"message": err.Error(),
+		})
 	}
 
 	if err := validator.ValidateStruct(&produto); err != nil {
-		return context.Status(fiber.StatusBadRequest).JSON(fiber.Map{"status": "400", "message": err})
+		return context.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"status": "400", 
+			"message": err,
+		})
 	}
 
 	// Validar se a categoria existe
 	categoriaId := strconv.FormatUint(uint64(produto.CategoriaID), 10)
 
-	categoriaExiste := produtoController.categoriaService.Exists(categoriaId)
+	categoriaExiste, _ := produtoController.categoriaService.Exists(categoriaId)
 	if !categoriaExiste {
-		return context.Status(fiber.StatusBadRequest).JSON(fiber.Map{"status": "400", "message": "Categoria não existe"})
+		return context.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"status": "400", 
+			"message": "Categoria não encontrada!",
+		})
 	}
 
 
 	if err := produtoController.produtoService.Create(&produto); err != nil {
-		return context.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"status": "500", "message": "Erro ao criar o produto"})
+		return context.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"status": "500", 
+			"message": err.Error(),
+		})
 	}
 
 	return context.Status(fiber.StatusCreated).JSON(&produto)
@@ -144,21 +166,34 @@ func (produtoController *ProdutoController) UpdateProduto(context *fiber.Ctx) er
 	var produto model.Produto
 
 	if err := context.BodyParser(&produto); err != nil {
-		return context.Status(fiber.StatusBadRequest).JSON(fiber.Map{"status": "400", "message": err.Error()})
+		return context.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"status": "400", 
+			"message": err.Error(),
+		})
 	}
 
 	if err := validator.ValidateStruct(&produto); err != nil {
-		return context.Status(fiber.StatusBadRequest).JSON(fiber.Map{"status": "400", "message": err})
+		return context.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"status": "400", 
+			"message": err,
+		})
 	}
 
 	id := strconv.FormatUint(uint64(produto.ID), 10)
+	produtoExist, _ := produtoController.produtoService.Exists(id)
 
-	if !produtoController.produtoService.Exists(id) {
-		return context.Status(fiber.StatusNotFound).JSON(fiber.Map{"status": "404", "message": "Produto não encontrada!"})
+	if !produtoExist {
+		return context.Status(fiber.StatusNotFound).JSON(fiber.Map{
+			"status": "404", 
+			"message": "Produto não encontrado!",
+		})
 	}
 
 	if err := produtoController.produtoService.Update(&produto); err != nil {
-		return context.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"status": "500", "message": "Error updating produto"})
+		return context.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"status": "500",
+			"message":  err.Error(),
+		})
 	}
 
 	return context.Status(fiber.StatusOK).JSON(&produto)
@@ -180,13 +215,20 @@ func (produtoController *ProdutoController) UpdateProduto(context *fiber.Ctx) er
 func (produtoController *ProdutoController) DeleteProduto(context *fiber.Ctx) error {
 
 	id := context.Params("id")
+	produtoExist, _ := produtoController.produtoService.Exists(id)
 
-	if !produtoController.produtoService.Exists(id) {
-		return context.Status(fiber.StatusNotFound).JSON(fiber.Map{"status": "404", "message": "Produto não encontrada!"})
+	if !produtoExist {
+		return context.Status(fiber.StatusNotFound).JSON(fiber.Map{
+			"status": "404", 
+			"message": "Produto não encontrado!",
+		})
 	}
 
 	if err := produtoController.produtoService.Delete(id); err != nil {
-		return context.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"status": "500", "message": "Error deleting produto"})
+		return context.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"status": "500", 
+			"message": err.Error(),
+		})
 	}
 
 	return context.SendStatus(fiber.StatusNoContent)

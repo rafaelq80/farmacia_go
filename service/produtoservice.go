@@ -1,6 +1,9 @@
 package service
 
 import (
+	"errors"
+	"fmt"
+
 	"github.com/rafaelq80/farmacia_go/data"
 	"github.com/rafaelq80/farmacia_go/model"
 )
@@ -11,38 +14,51 @@ func NewProdutoService() *ProdutoService {
 	return &ProdutoService{}
 }
 
-func (produtoService *ProdutoService) FindAll() []model.Produto {
+func (s *ProdutoService) FindAll() ([]model.Produto, error) {
 	var produtos []model.Produto
-	data.DB.Joins("Categoria").Joins("Usuario").Find(&produtos)
-	return produtos
+	result := data.DB.Joins("Categoria").Joins("Usuario").Find(&produtos)
+	return produtos, result.Error
 }
 
-func (produtoService *ProdutoService) FindById(id string) (model.Produto, bool) {
+func (s *ProdutoService) FindById(id string) (model.Produto, error) {
 	var produto model.Produto
-	resposta := data.DB.Joins("Categoria").Joins("Usuario").First(&produto, id)
-	return produto, resposta.RowsAffected > 0
+	result := data.DB.Joins("Categoria").Joins("Usuario").First(&produto, id)
+	if result.RowsAffected == 0 {
+		return produto, errors.New("produto não encontrado")
+	}
+	return produto, result.Error
 }
 
-func (produtoService *ProdutoService) FindByNome(nome string) []model.Produto {
+func (s *ProdutoService) FindByNome(nome string) ([]model.Produto, error) {
 	var produtos []model.Produto
-	data.DB.Joins("Categoria").Joins("Usuario").Where("lower(nome) LIKE lower(?)", "%"+nome+"%").Find(&produtos)
-	return produtos
+	result := data.DB.Joins("Categoria").Joins("Usuario").Where("lower(nome) LIKE lower(?)", "%"+nome+"%").Find(&produtos)
+	return produtos, result.Error
 }
 
-func (produtoService *ProdutoService) Create(produto *model.Produto) error {
-	return data.DB.Create(produto).Error
+func (s *ProdutoService) Create(produto *model.Produto) error {
+	if err := data.DB.Create(produto).Error; err != nil {
+		return fmt.Errorf("erro ao criar produto: %w", err)
+	}
+	return nil
 }
 
-func (produtoService *ProdutoService) Update(produto *model.Produto) error {
-	return data.DB.Save(produto).Error
+func (s *ProdutoService) Update(produto *model.Produto) error {
+	if err := data.DB.Save(produto).Error; err != nil {
+		return fmt.Errorf("erro ao atualizar produto: %w", err)
+	}
+	return nil
 }
 
-func (produtoService *ProdutoService) Delete(id string) error {
-	return data.DB.Delete(&model.Produto{}, id).Error
+func (s *ProdutoService) Delete(id string) error {
+	result := data.DB.Delete(&model.Produto{}, id)
+	if result.RowsAffected == 0 {
+		return errors.New("produto não encontrado")
+	}
+	return result.Error
 }
 
-func (produtoService *ProdutoService) Exists(id string) bool {
-	var produto model.Produto
-	data.DB.First(&produto, id)
-	return produto.ID != 0
+func (s *ProdutoService) Exists(id string) (bool, error) {
+	var count int64
+	result := data.DB.Model(&model.Produto{}).Where("id = ?", id).Count(&count)
+	return count > 0, result.Error
 }

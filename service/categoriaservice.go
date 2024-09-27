@@ -1,6 +1,9 @@
 package service
 
 import (
+	"errors"
+	"fmt"
+
 	"github.com/rafaelq80/farmacia_go/data"
 	"github.com/rafaelq80/farmacia_go/model"
 )
@@ -11,38 +14,51 @@ func NewCategoriaService() *CategoriaService {
 	return &CategoriaService{}
 }
 
-func (categoriaService *CategoriaService) FindAll() []model.Categoria {
+func (s *CategoriaService) FindAll() ([]model.Categoria, error) {
 	var categorias []model.Categoria
-	data.DB.Preload("Produto").Find(&categorias)
-	return categorias
+	result := data.DB.Preload("Produto").Find(&categorias)
+	return categorias, result.Error
 }
 
-func (categoriaService *CategoriaService) FindById(id string) (model.Categoria, bool) {
+func (s *CategoriaService) FindById(id string) (model.Categoria, error) {
 	var categoria model.Categoria
-	resposta := data.DB.Preload("Produto").First(&categoria, id)
-	return categoria, resposta.RowsAffected > 0
+	result := data.DB.Preload("Produto").First(&categoria, id)
+	if result.RowsAffected == 0 {
+		return categoria, errors.New("categoria não encontrada")
+	}
+	return categoria, result.Error
 }
 
-func (categoriaService *CategoriaService) FindByGrupo(grupo string) []model.Categoria {
+func (s *CategoriaService) FindByGrupo(grupo string) ([]model.Categoria, error) {
 	var categorias []model.Categoria
-	data.DB.Preload("Produto").Where("lower(grupo) LIKE lower(?)", "%"+grupo+"%").Find(&categorias)
-	return categorias
+	result := data.DB.Preload("Produto").Where("lower(grupo) LIKE lower(?)", "%"+grupo+"%").Find(&categorias)
+	return categorias, result.Error
 }
 
-func (categoriaService *CategoriaService) Create(categoria *model.Categoria) error {
-	return data.DB.Create(categoria).Error
+func (s *CategoriaService) Create(categoria *model.Categoria) error {
+	if err := data.DB.Create(categoria).Error; err != nil {
+		return fmt.Errorf("erro ao criar categoria: %w", err)
+	}
+	return nil
 }
 
-func (categoriaService *CategoriaService) Update(categoria *model.Categoria) error {
-	return data.DB.Save(categoria).Error
+func (s *CategoriaService) Update(categoria *model.Categoria) error {
+	if err := data.DB.Save(categoria).Error; err != nil {
+		return fmt.Errorf("erro ao atualizar categoria: %w", err)
+	}
+	return nil
 }
 
-func (categoriaService *CategoriaService) Delete(id string) error {
-	return data.DB.Delete(&model.Categoria{}, id).Error
+func (s *CategoriaService) Delete(id string) error {
+	result := data.DB.Delete(&model.Categoria{}, id)
+	if result.RowsAffected == 0 {
+		return errors.New("categoria não encontrada")
+	}
+	return result.Error
 }
 
-func (categoriaService *CategoriaService) Exists(id string) bool {
-	var categoria model.Categoria
-	data.DB.First(&categoria, id)
-	return categoria.ID != 0
+func (s *CategoriaService) Exists(id string) (bool, error) {
+	var count int64
+	result := data.DB.Model(&model.Categoria{}).Where("id = ?", id).Count(&count)
+	return count > 0, result.Error
 }

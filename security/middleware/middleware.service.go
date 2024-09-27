@@ -40,15 +40,15 @@ func (am *AuthMiddleware) AuthMiddleware(requiredRoles ...uint) fiber.Handler {
         }
 
         usuario := claims["sub"].(string)
-        buscaUsuario, found := am.usuarioService.FindByUsuario(usuario)
-        if !found {
+        buscaUsuario, err := am.usuarioService.FindByUsuario(usuario)
+        if err != nil {
             return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
                 "status":  "404",
                 "message": "Usuário não encontrado",
             })
         }
 
-        if err := am.checkRoleAccess(buscaUsuario.RoleID, requiredRoles); err != nil {
+        if err := am.checkRoles(buscaUsuario.RoleID, requiredRoles); err != nil {
             return c.Status(fiber.StatusForbidden).JSON(fiber.Map{
                 "status":  "403",
                 "message": err.Error(),
@@ -96,7 +96,7 @@ func (am *AuthMiddleware) extractAndValidateClaims(token *jwt.Token) (jwt.MapCla
     return claims, nil
 }
 
-func (am *AuthMiddleware) checkRoleAccess(userRole uint, requiredRoles []uint) error {
+func (am *AuthMiddleware) checkRoles(userRole uint, requiredRoles []uint) error {
     if len(requiredRoles) == 0 {
         return nil
     }

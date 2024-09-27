@@ -27,6 +27,7 @@ func TestDeveCadastrarUsuario(t *testing.T) {
 		Usuario: "admin@email.com.br",
 		Senha:   "admin123",
 		Foto:    "-",
+		RoleID: 1,
 	}
 
 	// Converte o Objeto Usuário para o formato JSON
