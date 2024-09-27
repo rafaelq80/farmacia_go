@@ -4,7 +4,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-// Exemplo de Erro
+// Exemplo de Erro 
 func NewError(c *fiber.Ctx, status int, err error) {
 	er := HTTPError{
 		Code:    status,
