@@ -1,0 +1,8 @@
+{
+    "connection_string": "root:root@tcp(127.0.0.1:3306)/db_farmacia_go?parseTime=true&charset=utf8mb4&loc=Local",
+    "secret": "79cfb185cecc39db10aa7ed6490e6c7f4ef3c4bf8c10001b57bebb6566809c2a",
+	"smtp_host": "smtp.gmail.com",
+	"smtp_port": "587",
+	"smtp_user": "nestsendmail@gmail.com",
+	"smtp_password": "hwsm vdsx juhk cgre"
+}
