@@ -7,21 +7,19 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/rafaelq80/farmacia_go/model"
-	"github.com/rafaelq80/farmacia_go/server"
 	"github.com/rafaelq80/farmacia_go/service"
+	"github.com/rafaelq80/farmacia_go/test/setup"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestDeveCadastrarProduto(t *testing.T) {
-
-	app := server.SetupServer("teste", true)
 
 	// Injeta o Serviço CategoriaService
 	categoriaService := service.NewCategoriaService()
 
 	// Cria o Objeto Categoria
 	categoria := model.Categoria{
-		ID:    2,
+		ID:    0,
 		Grupo: "Antialérgico",
 	}
 
@@ -40,7 +38,7 @@ func TestDeveCadastrarProduto(t *testing.T) {
 	}
 
 	// Cria a Requisição HTTP do tipo Post com Autenticação
-	resposta, corpoResposta := performRequestWithAuth(t, app, http.MethodPost, "/produtos", produto)
+	resposta, corpoResposta := setup.RequestWithAuth(t, http.MethodPost, "/produtos", produto)
 
 	log.Print(corpoResposta)
 
@@ -54,10 +52,8 @@ func TestDeveCadastrarProduto(t *testing.T) {
 
 func TestDeveListarTodasProdutos(t *testing.T) {
 
-	app := server.SetupServer("teste", false)
-
 	// Cria a Requisição HTTP do tipo Get com Autenticação
-	resposta, _ := performRequestWithAuth(t, app, http.MethodGet, "/produtos", nil)
+	resposta, _ := setup.RequestWithAuth(t, http.MethodGet, "/produtos", nil)
 
 	// Verifica se o HTTP Status Code da resposta é o esperado (200)
 	assert.Equal(t, fiber.StatusOK, resposta.StatusCode)
@@ -66,10 +62,8 @@ func TestDeveListarTodasProdutos(t *testing.T) {
 
 func TestDeveListarProdutoPorId(t *testing.T) {
 
-	app := server.SetupServer("teste", false)
-
 	// Cria a Requisição HTTP do tipo Get com Autenticação
-	resposta, _ := performRequestWithAuth(t, app, http.MethodGet, "/produtos/1", nil)
+	resposta, _ := setup.RequestWithAuth(t, http.MethodGet, "/produtos/1", nil)
 
 	// Verifica se o HTTP Status Code da resposta é o esperado (200)
 	assert.Equal(t, fiber.StatusOK, resposta.StatusCode)
@@ -78,10 +72,8 @@ func TestDeveListarProdutoPorId(t *testing.T) {
 
 func TestDeveListarProdutoPorNome(t *testing.T) {
 
-	app := server.SetupServer("teste", false)
-
 	// Cria a Requisição HTTP do tipo Get com Autenticação
-	resposta, _ := performRequestWithAuth(t, app, http.MethodGet, "/produtos/nome/anti", nil)
+	resposta, _ := setup.RequestWithAuth(t, http.MethodGet, "/produtos/nome/anti", nil)
 
 	// Verifica se o HTTP Status Code da resposta é o esperado (200)
 	assert.Equal(t, fiber.StatusOK, resposta.StatusCode)
@@ -89,8 +81,6 @@ func TestDeveListarProdutoPorNome(t *testing.T) {
 }
 
 func TestDeveAtualizarProduto(t *testing.T) {
-
-	app := server.SetupServer("teste", false)
 
 	// Injeta o Serviço CategoriaService
 	categoriaService := service.NewCategoriaService()
@@ -116,7 +106,7 @@ func TestDeveAtualizarProduto(t *testing.T) {
 	}
 
 	// Cria a Requisição HTTP do tipo Post com Autenticação
-	resposta, corpoResposta := performRequestWithAuth(t, app, http.MethodPut, "/produtos", produto)
+	resposta, corpoResposta := setup.RequestWithAuth(t, http.MethodPut, "/produtos", produto)
 
 	// Verifica se o HTTP Status Code da resposta é o esperado (200)
 	assert.Equal(t, fiber.StatusOK, resposta.StatusCode)
@@ -128,10 +118,8 @@ func TestDeveAtualizarProduto(t *testing.T) {
 
 func TestDeveDeletarProdutoPorId(t *testing.T) {
 
-	app := server.SetupServer("teste", false)
-
 	// Cria a Requisição HTTP do tipo Get com Autenticação
-	resposta, _ := performRequestWithAuth(t, app, http.MethodDelete, "/produtos/1", nil)
+	resposta, _ := setup.RequestWithAuth(t, http.MethodDelete, "/produtos/1", nil)
 
 	// Verifica se o HTTP Status Code da resposta é o esperado (204)
 	assert.Equal(t, fiber.StatusNoContent, resposta.StatusCode)

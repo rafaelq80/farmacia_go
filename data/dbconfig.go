@@ -7,7 +7,8 @@ import (
 	"github.com/rafaelq80/farmacia_go/model"
 	"gorm.io/driver/mysql"
 	"gorm.io/driver/postgres"
-	"github.com/glebarez/sqlite"
+	"gorm.io/driver/sqlite"
+
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 )
@@ -19,7 +20,7 @@ var err error
 func ConnectDB(connectionString string, database string, drop bool) {
 
 	log.Println(connectionString)
-	
+
 	switch database {
 	case "local":
 		DB, err = gorm.Open(mysql.Open(connectionString), &gorm.Config{
@@ -27,7 +28,7 @@ func ConnectDB(connectionString string, database string, drop bool) {
 		})
 	case "teste":
 		DB, err = gorm.Open(sqlite.Open(connectionString), &gorm.Config{})
-	case "remoto":
+		case "remoto":
 		DB, err = gorm.Open(postgres.Open(connectionString), &gorm.Config{})
 	default:
 		log.Println("Configuração inválida!")
@@ -50,6 +51,7 @@ func ConnectDB(connectionString string, database string, drop bool) {
 		&model.Produto{},
 		&model.Categoria{},
 		&model.Usuario{},
+		&model.Role{},
 	}
 
 	// Verifica se todas as tabelas já foram criadas

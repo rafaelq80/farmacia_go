@@ -78,13 +78,20 @@ func (s *UsuarioService) Create(usuario *model.Usuario) error {
 }
 
 func (s *UsuarioService) Update(usuario *model.Usuario) error {
+	
 	senhaCriptografada, err := security.HashPassword(usuario.Senha)
+	
 	if err != nil {
 		return fmt.Errorf("erro ao criptografar senha: %w", err)
 	}
+	
 	usuario.Senha = senhaCriptografada
 
-	return data.DB.Save(usuario).Error
+	if err := data.DB.Save(usuario).Error; err != nil {
+		return fmt.Errorf("erro ao atualizar usuário: %w", err)
+	}
+
+	return nil
 }
 
 func (s *UsuarioService) AutenticarUsuario(usuarioLogin *model.UsuarioLogin) (*model.UsuarioLogin, error) {
@@ -108,14 +115,16 @@ func (s *UsuarioService) AutenticarUsuario(usuarioLogin *model.UsuarioLogin) (*m
 	usuarioLogin.Nome = usuario.Name
 	usuarioLogin.Foto = usuario.Foto
 	usuarioLogin.Senha = ""
-	usuarioLogin.Role = usuario.Role.Descricao
+	//usuarioLogin.Role = usuario.Role.Descricao
 	usuarioLogin.Token = "Bearer " + token
 
 	return usuarioLogin, nil
 }
 
-func (s *UsuarioService) Exists(id string) bool {
-	return s.EmailExists(id)
+func (s *UsuarioService) Exists(id string) (bool, error) {
+	var count int64
+	result := data.DB.Model(&model.Usuario{}).Where("id = ?", id).Count(&count)
+	return count > 0, result.Error
 }
 
 func (s *UsuarioService) EmailExists(usuarioEmail string) bool {

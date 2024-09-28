@@ -6,22 +6,20 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/rafaelq80/farmacia_go/model"
-	"github.com/rafaelq80/farmacia_go/server"
+	"github.com/rafaelq80/farmacia_go/test/setup"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestDeveCadastrarCategoria(t *testing.T) {
 
-	app := server.SetupServer("teste", true)
-
 	// Cria o Objeto Categoria
 	categoria := model.Categoria{
-		ID:    1,
+		ID:    0,
 		Grupo: "Antibiótico",
 	}
 
 	// Cria a Requisição HTTP do tipo Post com Autenticação
-	resposta, corpoResposta := performRequestWithAuth(t, app, http.MethodPost, "/categorias", categoria)
+	resposta, corpoResposta := setup.RequestWithAuth(t, http.MethodPost, "/categorias", categoria)
 
 	// Verifica se o HTTP Status Code da resposta é o esperado (201)
 	assert.Equal(t, fiber.StatusCreated, resposta.StatusCode)
@@ -33,10 +31,8 @@ func TestDeveCadastrarCategoria(t *testing.T) {
 
 func TestDeveListarTodasCategorias(t *testing.T) {
 
-	app := server.SetupServer("teste", false)
-
 	// Cria a Requisição HTTP do tipo Get com Autenticação
-	resposta, _ := performRequestWithAuth(t, app, http.MethodGet, "/categorias", nil)
+	resposta, _ := setup.RequestWithAuth(t, http.MethodGet, "/categorias", nil)
 
 	// Verifica se o HTTP Status Code da resposta é o esperado (200)
 	assert.Equal(t, fiber.StatusOK, resposta.StatusCode)
@@ -45,10 +41,8 @@ func TestDeveListarTodasCategorias(t *testing.T) {
 
 func TestDeveListarCategoriaPorId(t *testing.T) {
 
-	app := server.SetupServer("teste", false)
-
 	// Cria a Requisição HTTP do tipo Get com Autenticação
-	resposta, _ := performRequestWithAuth(t, app, http.MethodGet, "/categorias/1", nil)
+	resposta, _ := setup.RequestWithAuth(t, http.MethodGet, "/categorias/1", nil)
 
 	// Verifica se o HTTP Status Code da resposta é o esperado (200)
 	assert.Equal(t, fiber.StatusOK, resposta.StatusCode)
@@ -57,10 +51,8 @@ func TestDeveListarCategoriaPorId(t *testing.T) {
 
 func TestDeveListarCategoriaPorGrupo(t *testing.T) {
 
-	app := server.SetupServer("teste", false)
-
 	// Cria a Requisição HTTP do tipo Get com Autenticação
-	resposta, _ := performRequestWithAuth(t, app, http.MethodGet, "/categorias/grupo/anti", nil)
+	resposta, _ := setup.RequestWithAuth(t, http.MethodGet, "/categorias/grupo/anti", nil)
 
 	// Verifica se o HTTP Status Code da resposta é o esperado (200)
 	assert.Equal(t, fiber.StatusOK, resposta.StatusCode)
@@ -69,8 +61,6 @@ func TestDeveListarCategoriaPorGrupo(t *testing.T) {
 
 func TestDeveAtualizarCategoria(t *testing.T) {
 
-	app := server.SetupServer("teste", false)
-
 	// Atualiza o Objeto Categoria
 	categoria := model.Categoria{
 		ID:    1,
@@ -78,7 +68,7 @@ func TestDeveAtualizarCategoria(t *testing.T) {
 	}
 
 	// Cria a Requisição HTTP do tipo Post com Autenticação
-	resposta, corpoResposta := performRequestWithAuth(t, app, http.MethodPut, "/categorias", categoria)
+	resposta, corpoResposta := setup.RequestWithAuth(t, http.MethodPut, "/categorias", categoria)
 
 	// Verifica se o HTTP Status Code da resposta é o esperado (200)
 	assert.Equal(t, fiber.StatusOK, resposta.StatusCode)
@@ -90,10 +80,8 @@ func TestDeveAtualizarCategoria(t *testing.T) {
 
 func TestDeveDeletarCategoriaPorId(t *testing.T) {
 
-	app := server.SetupServer("teste", false)
-
 	// Cria a Requisição HTTP do tipo Get com Autenticação
-	resposta, _ := performRequestWithAuth(t, app, http.MethodDelete, "/categorias/1", nil)
+	resposta, _ := setup.RequestWithAuth(t, http.MethodDelete, "/categorias/1", nil)
 
 	// Verifica se o HTTP Status Code da resposta é o esperado (204)
 	assert.Equal(t, fiber.StatusNoContent, resposta.StatusCode)

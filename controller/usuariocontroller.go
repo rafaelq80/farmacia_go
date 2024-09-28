@@ -143,15 +143,16 @@ func (usuarioController *UsuarioController) UpdateUsuario(context *fiber.Ctx) er
 		})
 	}
 
-	var id = strconv.FormatUint(uint64(usuario.ID), 10)
+	id := strconv.FormatUint(uint64(usuario.ID), 10)
+	usuarioExist, _ := usuarioController.usuarioService.Exists(id)
 
-	// Verifica se o Usuário existe
-	if !usuarioController.usuarioService.Exists(id) {
+	if !usuarioExist {
 		return context.Status(fiber.StatusNotFound).JSON(fiber.Map{
-			"status":  "404",
+			"status": "404", 
 			"message": "Usuário não encontrado!",
 		})
 	}
+
 
 	// Localiza os dados do Usuário
 	buscarUsuario, _ := usuarioController.usuarioService.FindByUsuario(usuario.Usuario)
