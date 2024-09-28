@@ -28,6 +28,7 @@ func SetRotas(app *fiber.App) {
 	categoriaService := service.NewCategoriaService()
 	emailService := service.NewEmailService()
 	usuarioService := service.NewUsuarioService(emailService)
+	roleService := service.NewRoleService()
 	middleware := middleware.NewAuthMiddleware(usuarioService)
 
 	// Injeção de Dependências - Produto
@@ -38,6 +39,9 @@ func SetRotas(app *fiber.App) {
 
 	// Injeção de Dependências - Usuário
 	usuarioController := controller.NewUsuarioController(usuarioService)
+	
+	// Injeção de Dependências - Role
+	roleController := controller.NewRoleController(roleService)
 
 	// Rotas do Recurso Produto
 
@@ -86,7 +90,7 @@ func SetRotas(app *fiber.App) {
 	})
 
 	app.Route("/usuarios/all", func(router fiber.Router) {
-		router.Get("", middleware.AuthMiddleware(RoleAdmin, RoleUser), usuarioController.FindAllUsuario)
+		router.Get("", middleware.AuthMiddleware(RoleAdmin), usuarioController.FindAllUsuario)
 	})
 
 	app.Route("/usuarios/:id", func(router fiber.Router) {
@@ -94,7 +98,18 @@ func SetRotas(app *fiber.App) {
 	})
 
 	app.Route("/usuarios/atualizar", func(router fiber.Router) {
-		router.Put("", middleware.AuthMiddleware(RoleAdmin), usuarioController.UpdateUsuario)
+		router.Put("", middleware.AuthMiddleware(RoleAdmin, RoleUser), usuarioController.UpdateUsuario)
 	})
 
+	// Rotas do Recurso Categoria
+
+	app.Route("/roles", func(router fiber.Router) {
+		router.Get("", middleware.AuthMiddleware(RoleAdmin), roleController.FindAllRole)
+		router.Post("", middleware.AuthMiddleware(RoleAdmin), roleController.CreateRole)
+		router.Put("", middleware.AuthMiddleware(RoleAdmin), roleController.UpdateRole)
+	})
+
+	app.Route("/roles/:id", func(router fiber.Router) {
+		router.Get("", middleware.AuthMiddleware(RoleAdmin), roleController.FindByIdRole)
+	})
 }

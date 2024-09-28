@@ -78,13 +78,13 @@ func (s *UsuarioService) Create(usuario *model.Usuario) error {
 }
 
 func (s *UsuarioService) Update(usuario *model.Usuario) error {
-	
+
 	senhaCriptografada, err := security.HashPassword(usuario.Senha)
-	
+
 	if err != nil {
 		return fmt.Errorf("erro ao criptografar senha: %w", err)
 	}
-	
+
 	usuario.Senha = senhaCriptografada
 
 	if err := data.DB.Save(usuario).Error; err != nil {
@@ -115,13 +115,12 @@ func (s *UsuarioService) AutenticarUsuario(usuarioLogin *model.UsuarioLogin) (*m
 	usuarioLogin.Nome = usuario.Name
 	usuarioLogin.Foto = usuario.Foto
 	usuarioLogin.Senha = ""
-	//usuarioLogin.Role = usuario.Role.Descricao
 	usuarioLogin.Token = "Bearer " + token
 
 	return usuarioLogin, nil
 }
 
-func (s *UsuarioService) Exists(id string) (bool, error) {
+func (s *UsuarioService) ExistsById(id string) (bool, error) {
 	var count int64
 	result := data.DB.Model(&model.Usuario{}).Where("id = ?", id).Count(&count)
 	return count > 0, result.Error

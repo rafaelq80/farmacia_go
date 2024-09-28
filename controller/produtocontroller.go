@@ -129,7 +129,7 @@ func (produtoController *ProdutoController) CreateProduto(context *fiber.Ctx) er
 	// Validar se a categoria existe
 	categoriaId := strconv.FormatUint(uint64(produto.CategoriaID), 10)
 
-	categoriaExiste, _ := produtoController.categoriaService.Exists(categoriaId)
+	categoriaExiste, _ := produtoController.categoriaService.ExistsById(categoriaId)
 	if !categoriaExiste {
 		return context.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"status": "400", 
@@ -180,7 +180,7 @@ func (produtoController *ProdutoController) UpdateProduto(context *fiber.Ctx) er
 	}
 
 	id := strconv.FormatUint(uint64(produto.ID), 10)
-	produtoExist, _ := produtoController.produtoService.Exists(id)
+	produtoExist, _ := produtoController.produtoService.ExistsById(id)
 
 	if !produtoExist {
 		return context.Status(fiber.StatusNotFound).JSON(fiber.Map{
@@ -215,7 +215,7 @@ func (produtoController *ProdutoController) UpdateProduto(context *fiber.Ctx) er
 func (produtoController *ProdutoController) DeleteProduto(context *fiber.Ctx) error {
 
 	id := context.Params("id")
-	produtoExist, _ := produtoController.produtoService.Exists(id)
+	produtoExist, _ := produtoController.produtoService.ExistsById(id)
 
 	if !produtoExist {
 		return context.Status(fiber.StatusNotFound).JSON(fiber.Map{

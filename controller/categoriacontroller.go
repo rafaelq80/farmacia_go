@@ -164,7 +164,7 @@ func (categoriaController *CategoriaController) UpdateCategoria(context *fiber.C
 
 	id := strconv.FormatUint(uint64(categoria.ID), 10)
 
-	categoriaExist, _ := categoriaController.categoriaService.Exists(id)
+	categoriaExist, _ := categoriaController.categoriaService.ExistsById(id)
 
 	if  !categoriaExist {
 		return context.Status(fiber.StatusNotFound).JSON(fiber.Map{
@@ -200,7 +200,7 @@ func (categoriaController *CategoriaController) DeleteCategoria(context *fiber.C
 
 	id := context.Params("id")
 
-	categoriaExist, _ := categoriaController.categoriaService.Exists(id)
+	categoriaExist, _ := categoriaController.categoriaService.ExistsById(id)
 
 	if  !categoriaExist {
 		return context.Status(fiber.StatusNotFound).JSON(fiber.Map{

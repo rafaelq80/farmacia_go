@@ -57,13 +57,26 @@ func ConnectDB(connectionString string, database string, drop bool) {
 	// Verifica se todas as tabelas já foram criadas
 	for _, model := range models {
 		if !DB.Migrator().HasTable(model) {
-			log.Printf("Tabela para o modelo %T não existe. Criando...\n", model)
+			//log.Printf("Tabela para o modelo %T não existe. Criando...\n", model)
 			DB.AutoMigrate(model)
 		} else {
 			log.Printf("Tabela para o modelo %T já existe.\n", model)
 		}
 	}
 
-	log.Println("🚀 Tabelas Configuradas com Sucesso!")
+	 // Adicionar dados na entidade Role caso esteja vazia
+	 var count int64
+	 DB.Model(&model.Role{}).Count(&count)
+	 if count == 0 {
+		 roles := []model.Role{
+			 {Role: "admin", Descricao: "Administrador"},
+			 {Role: "user", Descricao: "Usuário"},
+		 }
+		 for _, role := range roles {
+			 DB.Create(&role)
+		 }
+		 log.Println("🚀 Dados iniciais adicionados à tabela Role.")
+	 }
 
+	 log.Println("🚀 Tabelas Configuradas com Sucesso!")
 }

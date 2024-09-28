@@ -57,7 +57,7 @@ func (s *ProdutoService) Delete(id string) error {
 	return result.Error
 }
 
-func (s *ProdutoService) Exists(id string) (bool, error) {
+func (s *ProdutoService) ExistsById(id string) (bool, error) {
 	var count int64
 	result := data.DB.Model(&model.Produto{}).Where("id = ?", id).Count(&count)
 	return count > 0, result.Error

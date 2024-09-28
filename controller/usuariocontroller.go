@@ -144,7 +144,7 @@ func (usuarioController *UsuarioController) UpdateUsuario(context *fiber.Ctx) er
 	}
 
 	id := strconv.FormatUint(uint64(usuario.ID), 10)
-	usuarioExist, _ := usuarioController.usuarioService.Exists(id)
+	usuarioExist, _ := usuarioController.usuarioService.ExistsById(id)
 
 	if !usuarioExist {
 		return context.Status(fiber.StatusNotFound).JSON(fiber.Map{
