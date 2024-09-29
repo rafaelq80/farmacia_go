@@ -57,7 +57,6 @@ func ConnectDB(connectionString string, database string, drop bool) {
 	// Verifica se todas as tabelas já foram criadas
 	for _, model := range models {
 		if !DB.Migrator().HasTable(model) {
-			//log.Printf("Tabela para o modelo %T não existe. Criando...\n", model)
 			DB.AutoMigrate(model)
 		} else {
 			log.Printf("Tabela para o modelo %T já existe.\n", model)
