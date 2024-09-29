@@ -31,7 +31,7 @@ func (s *CategoriaService) FindById(id string) (model.Categoria, error) {
 
 func (s *CategoriaService) FindByGrupo(grupo string) ([]model.Categoria, error) {
 	var categorias []model.Categoria
-	result := data.DB.Preload("Produto").Where("lower(grupo) LIKE lower(?)", "%"+grupo+"%").Find(&categorias)
+	result := data.DB.Preload("Produto").Where("lower(tb_categorias.grupo) LIKE lower(?)", "%"+grupo+"%").Find(&categorias)
 	return categorias, result.Error
 }
 

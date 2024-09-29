@@ -48,7 +48,7 @@ func (s *UsuarioService) FindByUsuario(usuario string) (model.Usuario, error) {
 	resposta := data.DB.
 		Preload("Produto").
 		Preload("Role").
-		Where("LOWER(usuario) = LOWER(?)", usuario).
+		Where("LOWER(tb_usuarios.usuario) = LOWER(?)", usuario).
 		First(&buscaUsuario)
 
 	if resposta.RowsAffected == 0 {
@@ -70,7 +70,7 @@ func (s *UsuarioService) Create(usuario *model.Usuario) error {
 	}
 
 	subject := "Seja Bem-Vinde ao Projeto Farmácia"
-	if err := s.emailService.SendEmail(usuario.Usuario, usuario.Name, subject); err != nil {
+	if err := s.emailService.SendEmail(usuario.Usuario, usuario.Nome, subject); err != nil {
 		log.Printf("Falha ao enviar e-mail de boas-vindas: %v\n", err)
 	}
 
@@ -112,7 +112,7 @@ func (s *UsuarioService) AutenticarUsuario(usuarioLogin *model.UsuarioLogin) (*m
 	}
 
 	usuarioLogin.ID = usuario.ID
-	usuarioLogin.Nome = usuario.Name
+	usuarioLogin.Nome = usuario.Nome
 	usuarioLogin.Foto = usuario.Foto
 	usuarioLogin.Senha = ""
 	usuarioLogin.Token = "Bearer " + token
@@ -128,6 +128,6 @@ func (s *UsuarioService) ExistsById(id string) (bool, error) {
 
 func (s *UsuarioService) EmailExists(usuarioEmail string) bool {
 	var count int64
-	data.DB.Model(&model.Usuario{}).Where("lower(usuario) = lower(?)", usuarioEmail).Count(&count)
+	data.DB.Model(&model.Usuario{}).Where("lower(tb_usuarios.usuario) = lower(?)", usuarioEmail).Count(&count)
 	return count > 0
 }

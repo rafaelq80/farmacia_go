@@ -31,7 +31,7 @@ func (s *ProdutoService) FindById(id string) (model.Produto, error) {
 
 func (s *ProdutoService) FindByNome(nome string) ([]model.Produto, error) {
 	var produtos []model.Produto
-	result := data.DB.Joins("Categoria").Joins("Usuario").Where("lower(nome) LIKE lower(?)", "%"+nome+"%").Find(&produtos)
+	result := data.DB.Joins("Categoria").Joins("Usuario").Where("lower(tb_produtos.nome) LIKE lower(?)", "%"+nome+"%").Find(&produtos)
 	return produtos, result.Error
 }
 

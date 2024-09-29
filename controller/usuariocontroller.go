@@ -29,7 +29,7 @@ func NewUsuarioController(usuarioService *service.UsuarioService) *UsuarioContro
 // @Failure		401				{object}	config.HTTPError
 // @Router			/usuarios/all 	[get]
 // @Security		Bearer
-func (usuarioController *UsuarioController) FindAllUsuario(context *fiber.Ctx) error {
+func (usuarioController *UsuarioController) FindAll(context *fiber.Ctx) error {
 
 	usuarios, _ := usuarioController.usuarioService.FindAll()
 
@@ -49,7 +49,7 @@ func (usuarioController *UsuarioController) FindAllUsuario(context *fiber.Ctx) e
 // @Failure		404				{object}	config.HTTPError
 // @Router			/usuarios/{id} 	[get]
 // @Security		Bearer
-func (usuarioController *UsuarioController) FindByIdUsuario(context *fiber.Ctx) error {
+func (usuarioController *UsuarioController) FindById(context *fiber.Ctx) error {
 
 	id := context.Params("id")
 
@@ -76,7 +76,7 @@ func (usuarioController *UsuarioController) FindByIdUsuario(context *fiber.Ctx) 
 // @Failure		400			{object}	config.HTTPError
 // @Failure		404			{object}	config.HTTPError
 // @Router			/usuarios 	[post]
-func (usuarioController *UsuarioController) CreateUsuario(context *fiber.Ctx) error {
+func (usuarioController *UsuarioController) Create(context *fiber.Ctx) error {
 
 	var usuario model.Usuario
 
@@ -125,7 +125,7 @@ func (usuarioController *UsuarioController) CreateUsuario(context *fiber.Ctx) er
 // @Failure		404						{object}	config.HTTPError
 // @Router			/usuarios/atualizar 	[put]
 // @Security		Bearer
-func (usuarioController *UsuarioController) UpdateUsuario(context *fiber.Ctx) error {
+func (usuarioController *UsuarioController) Update(context *fiber.Ctx) error {
 
 	var usuario model.Usuario
 
@@ -191,7 +191,7 @@ func (usuarioController *UsuarioController) UpdateUsuario(context *fiber.Ctx) er
 // @Failure		401					{object}	config.HTTPError
 // @Failure		404					{object}	config.HTTPError
 // @Router			/usuarios/logar 						[post]
-func (usuarioController *UsuarioController) AutenticarUsuario(c *fiber.Ctx) error {
+func (usuarioController *UsuarioController) Autenticar(c *fiber.Ctx) error {
 
 	var usuarioLogin model.UsuarioLogin
 

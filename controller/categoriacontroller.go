@@ -28,7 +28,7 @@ func NewCategoriaController(categoriaService *service.CategoriaService) *Categor
 // @Failure		401				{object}	config.HTTPError
 // @Router		/categorias 	[get]
 // @Security	Bearer
-func (categoriaController *CategoriaController) FindAllCategoria(c *fiber.Ctx) error {
+func (categoriaController *CategoriaController) FindAll(c *fiber.Ctx) error {
 
 	categorias, _ := categoriaController.categoriaService.FindAll()
 
@@ -48,7 +48,7 @@ func (categoriaController *CategoriaController) FindAllCategoria(c *fiber.Ctx) e
 // @Failure		404					{object}	config.HTTPError
 // @Router			/categorias/{id} 	[get]
 // @Security		Bearer
-func (categoriaController *CategoriaController) FindByIdCategoria(context *fiber.Ctx) error {
+func (categoriaController *CategoriaController) FindById(context *fiber.Ctx) error {
 
 	id := context.Params("id")
 
@@ -75,7 +75,7 @@ func (categoriaController *CategoriaController) FindByIdCategoria(context *fiber
 // @Failure		401							{object}	config.HTTPError
 // @Router			/categorias/grupo/{grupo} 	[get]
 // @Security		Bearer
-func (categoriaController *CategoriaController) FindByGrupoCategoria(context *fiber.Ctx) error {
+func (categoriaController *CategoriaController) FindByGrupo(context *fiber.Ctx) error {
 
 	grupo := context.Params("grupo")
 
@@ -103,7 +103,7 @@ func (categoriaController *CategoriaController) FindByGrupoCategoria(context *fi
 // @Failure		401			{object}	config.HTTPError
 // @Router			/categorias [post]
 // @Security		Bearer
-func (categoriaController *CategoriaController) CreateCategoria(context *fiber.Ctx) error {
+func (categoriaController *CategoriaController) Create(context *fiber.Ctx) error {
 
 	var categoria model.Categoria
 
@@ -144,7 +144,7 @@ func (categoriaController *CategoriaController) CreateCategoria(context *fiber.C
 // @Failure		404			{object}	config.HTTPError
 // @Router			/categorias [put]
 // @Security		Bearer
-func (categoriaController *CategoriaController) UpdateCategoria(context *fiber.Ctx) error {
+func (categoriaController *CategoriaController) Update(context *fiber.Ctx) error {
 
 	var categoria model.Categoria
 
@@ -196,7 +196,7 @@ func (categoriaController *CategoriaController) UpdateCategoria(context *fiber.C
 // @Failure		404	{object}	config.HTTPError
 // @Router			/categorias/{id} [delete]
 // @Security		Bearer
-func (categoriaController *CategoriaController) DeleteCategoria(context *fiber.Ctx) error {
+func (categoriaController *CategoriaController) Delete(context *fiber.Ctx) error {
 
 	id := context.Params("id")
 

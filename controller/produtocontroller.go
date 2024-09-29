@@ -32,7 +32,7 @@ func NewProdutoController(produtoService *service.ProdutoService, categoriaServi
 // @Failure		401	{object}	config.HTTPError
 // @Router			/produtos [get]
 // @Security		Bearer
-func (produtoController *ProdutoController) FindAllProduto(context *fiber.Ctx) error {
+func (produtoController *ProdutoController) FindAll(context *fiber.Ctx) error {
 
 	produtos, _ := produtoController.produtoService.FindAll()
 
@@ -52,7 +52,7 @@ func (produtoController *ProdutoController) FindAllProduto(context *fiber.Ctx) e
 // @Failure		404	{object}	config.HTTPError
 // @Router			/produtos/{id} [get]
 // @Security		Bearer
-func (produtoController *ProdutoController) FindByIdProduto(context *fiber.Ctx) error {
+func (produtoController *ProdutoController) FindById(context *fiber.Ctx) error {
 
 	id := context.Params("id")
 
@@ -80,7 +80,7 @@ func (produtoController *ProdutoController) FindByIdProduto(context *fiber.Ctx) 
 // @Failure		401		{object}	config.HTTPError
 // @Router			/produtos/nome/{nome} [get]
 // @Security		Bearer
-func (produtoController *ProdutoController) FindByNomeProduto(context *fiber.Ctx) error {
+func (produtoController *ProdutoController) FindByNome(context *fiber.Ctx) error {
 
 	nome := context.Params("nome")
 
@@ -108,7 +108,7 @@ func (produtoController *ProdutoController) FindByNomeProduto(context *fiber.Ctx
 // @Failure		401		{object}	config.HTTPError
 // @Router			/produtos [post]
 // @Security		Bearer
-func (produtoController *ProdutoController) CreateProduto(context *fiber.Ctx) error {
+func (produtoController *ProdutoController) Create(context *fiber.Ctx) error {
 
 	var produto model.Produto
 
@@ -161,7 +161,7 @@ func (produtoController *ProdutoController) CreateProduto(context *fiber.Ctx) er
 // @Failure		404		{object}	config.HTTPError
 // @Router			/produtos [put]
 // @Security		Bearer
-func (produtoController *ProdutoController) UpdateProduto(context *fiber.Ctx) error {
+func (produtoController *ProdutoController) Update(context *fiber.Ctx) error {
 
 	var produto model.Produto
 
@@ -212,7 +212,7 @@ func (produtoController *ProdutoController) UpdateProduto(context *fiber.Ctx) er
 // @Failure		404	{object}	config.HTTPError
 // @Router			/produtos/{id} [delete]
 // @Security		Bearer
-func (produtoController *ProdutoController) DeleteProduto(context *fiber.Ctx) error {
+func (produtoController *ProdutoController) Delete(context *fiber.Ctx) error {
 
 	id := context.Params("id")
 	produtoExist, _ := produtoController.produtoService.ExistsById(id)

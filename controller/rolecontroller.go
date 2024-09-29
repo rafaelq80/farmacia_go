@@ -28,7 +28,7 @@ func NewRoleController(roleService *service.RoleService) *RoleController {
 // @Failure		401				{object}	config.HTTPError
 // @Router		/roles 	[get]
 // @Security	Bearer
-func (roleController *RoleController) FindAllRole(c *fiber.Ctx) error {
+func (roleController *RoleController) FindAll(c *fiber.Ctx) error {
 
 	roles, _ := roleController.roleService.FindAll()
 
@@ -48,7 +48,7 @@ func (roleController *RoleController) FindAllRole(c *fiber.Ctx) error {
 // @Failure		404					{object}	config.HTTPError
 // @Router			/roles/{id} 	[get]
 // @Security		Bearer
-func (roleController *RoleController) FindByIdRole(context *fiber.Ctx) error {
+func (roleController *RoleController) FindById(context *fiber.Ctx) error {
 
 	id := context.Params("id")
 
@@ -75,7 +75,7 @@ func (roleController *RoleController) FindByIdRole(context *fiber.Ctx) error {
 // @Failure		401			{object}	config.HTTPError
 // @Router			/roles [post]
 // @Security		Bearer
-func (roleController *RoleController) CreateRole(context *fiber.Ctx) error {
+func (roleController *RoleController) Create(context *fiber.Ctx) error {
 
 	var role model.Role
 
@@ -124,7 +124,7 @@ func (roleController *RoleController) CreateRole(context *fiber.Ctx) error {
 // @Failure		404			{object}	config.HTTPError
 // @Router			/roles [put]
 // @Security		Bearer
-func (roleController *RoleController) UpdateRole(context *fiber.Ctx) error {
+func (roleController *RoleController) Update(context *fiber.Ctx) error {
 
 	var role model.Role
 

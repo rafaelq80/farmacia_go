@@ -15,7 +15,7 @@ func TestDeveCadastrarUsuario(t *testing.T) {
 	// Cria o Objeto Usuário
 	usuario := model.Usuario{
 		ID:      0,
-		Name:    "Administrador",
+		Nome:    "Administrador",
 		Usuario: "admin@email.com.br",
 		Senha:   "admin123",
 		Foto:    "-",
@@ -29,7 +29,7 @@ func TestDeveCadastrarUsuario(t *testing.T) {
 	assert.Equal(t, fiber.StatusCreated, resposta.StatusCode)
 
 	// Verifica no Corpo da Resposta se o usuário foi cadastrado corretamente
-	assert.Equal(t, usuario.Name, corpoResposta["name"])
+	assert.Equal(t, usuario.Nome, corpoResposta["nome"])
 
 }
 
@@ -38,7 +38,7 @@ func TestNaoDeveDuplicarUsuario(t *testing.T) {
 	// Cria o Objeto Usuário
 	usuario := model.Usuario{
 		ID:      0,
-		Name:    "Administrador",
+		Nome:    "Administrador",
 		Usuario: "admin@email.com.br",
 		Senha:   "admin123",
 		Foto:    "-",
@@ -80,7 +80,7 @@ func TestDeveAtualizarUsuario(t *testing.T) {
 
 	usuarioUpdate := model.Usuario{
 		ID:      2,
-		Name:    "Administrador do Sistema",
+		Nome:    "Administrador do Sistema",
 		Usuario: "admin@email.com.br",
 		Senha:   "admin123",
 		Foto:    "-",
@@ -93,7 +93,7 @@ func TestDeveAtualizarUsuario(t *testing.T) {
 	assert.Equal(t, fiber.StatusOK, resposta.StatusCode)
 
 	// Verifica no Corpo da Resposta se o usuário foi cadastrado corretamente
-	assert.Equal(t, usuarioUpdate.Name, corpoResposta["name"])
+	assert.Equal(t, usuarioUpdate.Nome, corpoResposta["nome"])
 
 }
 

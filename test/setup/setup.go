@@ -33,7 +33,7 @@ func setupTest() (*TestSetup, error) {
 
 	// Create a test user
 	usuario := model.Usuario{
-		Name:    "Root User",
+		Nome:    "Root User",
 		Usuario: "root@email.com",
 		Senha:   "rootroot",
 		Foto:    "-",

@@ -51,6 +51,6 @@ func (s *RoleService) ExistsById(id string) (bool, error) {
 
 func (s *RoleService) RoleExists(role string) bool {
 	var count int64
-	data.DB.Model(&model.Role{}).Where("lower(role) = lower(?)", role).Count(&count)
+	data.DB.Model(&model.Role{}).Where("lower(tb_roles.role) = lower(?)", role).Count(&count)
 	return count > 0
 }
