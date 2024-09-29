@@ -5,7 +5,6 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/rafaelq80/farmacia_go/model"
-	security "github.com/rafaelq80/farmacia_go/security/bcrypt"
 	"github.com/rafaelq80/farmacia_go/service"
 	"github.com/rafaelq80/farmacia_go/validator"
 )
@@ -148,11 +147,10 @@ func (usuarioController *UsuarioController) Update(context *fiber.Ctx) error {
 
 	if !usuarioExist {
 		return context.Status(fiber.StatusNotFound).JSON(fiber.Map{
-			"status": "404", 
+			"status":  "404",
 			"message": "Usuário não encontrado!",
 		})
 	}
-
 
 	// Localiza os dados do Usuário
 	buscarUsuario, _ := usuarioController.usuarioService.FindByUsuario(usuario.Usuario)
@@ -164,10 +162,6 @@ func (usuarioController *UsuarioController) Update(context *fiber.Ctx) error {
 			"message": "O e-mail informado já pertence a outro usuário!",
 		})
 	}
-
-	// Criptografa a senha
-	senhaCriptografada, _ := security.HashPassword(usuario.Senha)
-	usuario.Senha = senhaCriptografada
 
 	// Atualiza os dados do Usuário
 	if err := usuarioController.usuarioService.Update(&usuario); err != nil {
