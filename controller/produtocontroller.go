@@ -86,7 +86,7 @@ func (produtoController *ProdutoController) FindByNome(context *fiber.Ctx) error
 
 	produtos, err := produtoController.produtoService.FindByNome(nome)
 
-	if err != nil {
+	if err != nil || len(produtos) == 0{
 		return context.Status(fiber.StatusNotFound).JSON(fiber.Map{
 			"status": "404", 
 			"message": "Nenhum Produto foi encontrado!",

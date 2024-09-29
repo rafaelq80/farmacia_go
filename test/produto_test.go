@@ -50,7 +50,7 @@ func TestDeveCadastrarProduto(t *testing.T) {
 
 }
 
-func TestDeveListarTodasProdutos(t *testing.T) {
+func TestDeveListarTodosProdutos(t *testing.T) {
 
 	// Cria a Requisição HTTP do tipo Get com Autenticação
 	resposta, _ := setup.RequestWithAuth(t, http.MethodGet, "/produtos", nil)
@@ -73,7 +73,7 @@ func TestDeveListarProdutoPorId(t *testing.T) {
 func TestDeveListarProdutoPorNome(t *testing.T) {
 
 	// Cria a Requisição HTTP do tipo Get com Autenticação
-	resposta, _ := setup.RequestWithAuth(t, http.MethodGet, "/produtos/nome/anti", nil)
+	resposta, _ := setup.RequestWithAuth(t, http.MethodGet, "/produtos/nome/alek", nil)
 
 	// Verifica se o HTTP Status Code da resposta é o esperado (200)
 	assert.Equal(t, fiber.StatusOK, resposta.StatusCode)

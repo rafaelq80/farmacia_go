@@ -81,7 +81,7 @@ func (categoriaController *CategoriaController) FindByGrupo(context *fiber.Ctx) 
 
 	categorias, err := categoriaController.categoriaService.FindByGrupo(grupo)
 
-	if err != nil {
+	if err != nil || len(categorias) == 0{
 		return context.Status(fiber.StatusNotFound).JSON(fiber.Map{
 			"status": "404", 
 			"message": "Nenhuma Categoria foi encontrada!",
