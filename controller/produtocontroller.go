@@ -23,15 +23,15 @@ func NewProdutoController(produtoService *service.ProdutoService, categoriaServi
 	}
 }
 
-// @Summary		Listar Produtos
-// @Description	Lista todos os Produtos
-// @Tags			produtos
-// @Accept			json
-// @Produce		json
-// @Success		200	{array}		model.Produto
-// @Failure		401	{object}	config.HTTPError
-// @Router			/produtos [get]
-// @Security		Bearer
+//	@Summary		Listar Produtos
+//	@Description	Lista todos os Produtos
+//	@Tags			produtos
+//	@Accept			json
+//	@Produce		json
+//	@Success		200	{array}		model.Produto
+//	@Failure		401	{object}	config.HTTPError
+//	@Router			/produtos [get]
+//	@Security		Bearer
 func (produtoController *ProdutoController) FindAll(context *fiber.Ctx) error {
 
 	produtos, _ := produtoController.produtoService.FindAll()
@@ -40,18 +40,18 @@ func (produtoController *ProdutoController) FindAll(context *fiber.Ctx) error {
 
 }
 
-// @Summary		Listar Produto por id
-// @Description	Lista um Produto por id
-// @Tags			produtos
-// @Accept			json
-// @Produce		json
-// @Param			id	path		string	true	"Id do Produto"
-// @Success		200	{array}		model.Produto
-// @Failure		400	{object}	config.HTTPError
-// @Failure		401	{object}	config.HTTPError
-// @Failure		404	{object}	config.HTTPError
-// @Router			/produtos/{id} [get]
-// @Security		Bearer
+//	@Summary		Listar Produto por id
+//	@Description	Lista um Produto por id
+//	@Tags			produtos
+//	@Accept			json
+//	@Produce		json
+//	@Param			id	path		string	true	"Id do Produto"
+//	@Success		200	{array}		model.Produto
+//	@Failure		400	{object}	config.HTTPError
+//	@Failure		401	{object}	config.HTTPError
+//	@Failure		404	{object}	config.HTTPError
+//	@Router			/produtos/{id} [get]
+//	@Security		Bearer
 func (produtoController *ProdutoController) FindById(context *fiber.Ctx) error {
 
 	id := context.Params("id")
@@ -69,17 +69,17 @@ func (produtoController *ProdutoController) FindById(context *fiber.Ctx) error {
 
 }
 
-// @Summary		Listar Produtos por nome
-// @Description	Lista todas os Produtos por nome
-// @Tags			produtos
-// @Accept			json
-// @Produce		json
-// @Param			nome	path		string	true	"Nome do Produto"
-// @Success		200		{array}		model.Produto
-// @Failure		400		{object}	config.HTTPError
-// @Failure		401		{object}	config.HTTPError
-// @Router			/produtos/nome/{nome} [get]
-// @Security		Bearer
+//	@Summary		Listar Produtos por nome
+//	@Description	Lista todas os Produtos por nome
+//	@Tags			produtos
+//	@Accept			json
+//	@Produce		json
+//	@Param			nome	path		string	true	"Nome do Produto"
+//	@Success		200		{array}		model.Produto
+//	@Failure		400		{object}	config.HTTPError
+//	@Failure		401		{object}	config.HTTPError
+//	@Router			/produtos/nome/{nome} [get]
+//	@Security		Bearer
 func (produtoController *ProdutoController) FindByNome(context *fiber.Ctx) error {
 
 	nome := context.Params("nome")
@@ -97,17 +97,17 @@ func (produtoController *ProdutoController) FindByNome(context *fiber.Ctx) error
 
 }
 
-// @Summary		Criar Produto
-// @Description	Cria um novo Produto
-// @Tags			produtos
-// @Accept			json
-// @Produce		json
-// @Param			produto	body		model.Produto	true	"Criar Produto"
-// @Success		201		{object}	model.Produto
-// @Failure		400		{object}	config.HTTPError
-// @Failure		401		{object}	config.HTTPError
-// @Router			/produtos [post]
-// @Security		Bearer
+//	@Summary		Criar Produto
+//	@Description	Cria um novo Produto
+//	@Tags			produtos
+//	@Accept			json
+//	@Produce		json
+//	@Param			produto	body		model.Produto	true	"Criar Produto"
+//	@Success		201		{object}	model.Produto
+//	@Failure		400		{object}	config.HTTPError
+//	@Failure		401		{object}	config.HTTPError
+//	@Router			/produtos [post]
+//	@Security		Bearer
 func (produtoController *ProdutoController) Create(context *fiber.Ctx) error {
 
 	var produto model.Produto
@@ -149,18 +149,18 @@ func (produtoController *ProdutoController) Create(context *fiber.Ctx) error {
 
 }
 
-// @Summary		Atualizar Produto
-// @Description	Edita um Produto
-// @Tags			produtos
-// @Accept			json
-// @Produce		json
-// @Param			Produto	body		model.Produto	true	"Atualizar Produto"
-// @Success		200		{object}	model.Produto
-// @Failure		400		{object}	config.HTTPError
-// @Failure		401		{object}	config.HTTPError
-// @Failure		404		{object}	config.HTTPError
-// @Router			/produtos [put]
-// @Security		Bearer
+//	@Summary		Atualizar Produto
+//	@Description	Edita um Produto
+//	@Tags			produtos
+//	@Accept			json
+//	@Produce		json
+//	@Param			Produto	body		model.Produto	true	"Atualizar Produto"
+//	@Success		200		{object}	model.Produto
+//	@Failure		400		{object}	config.HTTPError
+//	@Failure		401		{object}	config.HTTPError
+//	@Failure		404		{object}	config.HTTPError
+//	@Router			/produtos [put]
+//	@Security		Bearer
 func (produtoController *ProdutoController) Update(context *fiber.Ctx) error {
 
 	var produto model.Produto
@@ -200,18 +200,18 @@ func (produtoController *ProdutoController) Update(context *fiber.Ctx) error {
 
 }
 
-// @Summary		Deletar Produto
-// @Description	Apaga um Produto
-// @Tags			produtos
-// @Accept			json
-// @Produce		json
-// @Param			id	path		string	true	"Id do Produto"
-// @Success		204	{string}	string
-// @Failure		400	{object}	config.HTTPError
-// @Failure		401	{object}	config.HTTPError
-// @Failure		404	{object}	config.HTTPError
-// @Router			/produtos/{id} [delete]
-// @Security		Bearer
+//	@Summary		Deletar Produto
+//	@Description	Apaga um Produto
+//	@Tags			produtos
+//	@Accept			json
+//	@Produce		json
+//	@Param			id	path		string	true	"Id do Produto"
+//	@Success		204	{string}	string
+//	@Failure		400	{object}	config.HTTPError
+//	@Failure		401	{object}	config.HTTPError
+//	@Failure		404	{object}	config.HTTPError
+//	@Router			/produtos/{id} [delete]
+//	@Security		Bearer
 func (produtoController *ProdutoController) Delete(context *fiber.Ctx) error {
 
 	id := context.Params("id")

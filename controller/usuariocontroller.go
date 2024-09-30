@@ -19,15 +19,15 @@ func NewUsuarioController(usuarioService *service.UsuarioService) *UsuarioContro
 	return &UsuarioController{usuarioService: usuarioService}
 }
 
-// @Summary		Listar Usuarios
-// @Description	Lista todos os Usuarios
-// @Tags			usuarios
-// @Accept			json
-// @Produce		json
-// @Success		200				{array}		model.Usuario
-// @Failure		401				{object}	config.HTTPError
-// @Router			/usuarios/all 	[get]
-// @Security		Bearer
+//	@Summary		Listar Usuarios
+//	@Description	Lista todos os Usuarios
+//	@Tags			usuarios
+//	@Accept			json
+//	@Produce		json
+//	@Success		200				{array}		model.Usuario
+//	@Failure		401				{object}	config.HTTPError
+//	@Router			/usuarios/all 	[get]
+//	@Security		Bearer
 func (usuarioController *UsuarioController) FindAll(context *fiber.Ctx) error {
 
 	usuarios, _ := usuarioController.usuarioService.FindAll()
@@ -36,18 +36,18 @@ func (usuarioController *UsuarioController) FindAll(context *fiber.Ctx) error {
 
 }
 
-// @Summary		Listar Usuario por id
-// @Description	Lista um Usuario por id
-// @Tags			usuarios
-// @Accept			json
-// @Produce		json
-// @Param			id				path		string	true	"Id do Usuario"
-// @Success		200				{array}		model.Usuario
-// @Failure		400				{object}	config.HTTPError
-// @Failure		401				{object}	config.HTTPError
-// @Failure		404				{object}	config.HTTPError
-// @Router			/usuarios/{id} 	[get]
-// @Security		Bearer
+//	@Summary		Listar Usuario por id
+//	@Description	Lista um Usuario por id
+//	@Tags			usuarios
+//	@Accept			json
+//	@Produce		json
+//	@Param			id				path		string	true	"Id do Usuario"
+//	@Success		200				{array}		model.Usuario
+//	@Failure		400				{object}	config.HTTPError
+//	@Failure		401				{object}	config.HTTPError
+//	@Failure		404				{object}	config.HTTPError
+//	@Router			/usuarios/{id} 	[get]
+//	@Security		Bearer
 func (usuarioController *UsuarioController) FindById(context *fiber.Ctx) error {
 
 	id := context.Params("id")
@@ -65,16 +65,16 @@ func (usuarioController *UsuarioController) FindById(context *fiber.Ctx) error {
 
 }
 
-// @Summary		Criar Usuario
-// @Description	Cria um novo Usuario
-// @Tags			usuarios
-// @Accept			json
-// @Produce		json
-// @Param			usuario		body		model.Usuario	true	"Criar Usuario"
-// @Success		201			{object}	model.Usuario
-// @Failure		400			{object}	config.HTTPError
-// @Failure		404			{object}	config.HTTPError
-// @Router			/usuarios 	[post]
+//	@Summary		Criar Usuario
+//	@Description	Cria um novo Usuario
+//	@Tags			usuarios
+//	@Accept			json
+//	@Produce		json
+//	@Param			usuario		body		model.Usuario	true	"Criar Usuario"
+//	@Success		201			{object}	model.Usuario
+//	@Failure		400			{object}	config.HTTPError
+//	@Failure		404			{object}	config.HTTPError
+//	@Router			/usuarios 	[post]
 func (usuarioController *UsuarioController) Create(context *fiber.Ctx) error {
 
 	var usuario model.Usuario
@@ -112,18 +112,18 @@ func (usuarioController *UsuarioController) Create(context *fiber.Ctx) error {
 
 }
 
-// @Summary		Atualizar Usuario
-// @Description	Edita os dados de um Usuario
-// @Tags			usuarios
-// @Accept			json
-// @Produce		json
-// @Param			Usuario					body		model.Usuario	true	"Atualizar Usuario"
-// @Success		200						{object}	model.Usuario
-// @Failure		400						{object}	config.HTTPError
-// @Failure		401						{object}	config.HTTPError
-// @Failure		404						{object}	config.HTTPError
-// @Router			/usuarios/atualizar 	[put]
-// @Security		Bearer
+//	@Summary		Atualizar Usuario
+//	@Description	Edita os dados de um Usuario
+//	@Tags			usuarios
+//	@Accept			json
+//	@Produce		json
+//	@Param			Usuario					body		model.Usuario	true	"Atualizar Usuario"
+//	@Success		200						{object}	model.Usuario
+//	@Failure		400						{object}	config.HTTPError
+//	@Failure		401						{object}	config.HTTPError
+//	@Failure		404						{object}	config.HTTPError
+//	@Router			/usuarios/atualizar 	[put]
+//	@Security		Bearer
 func (usuarioController *UsuarioController) Update(context *fiber.Ctx) error {
 
 	var usuario model.Usuario
@@ -174,17 +174,17 @@ func (usuarioController *UsuarioController) Update(context *fiber.Ctx) error {
 	return context.Status(fiber.StatusOK).JSON(&usuario)
 }
 
-// @Summary		Autenticar Usuario
-// @Description	Autentica um Usuario
-// @Tags			usuarios
-// @Accept			json
-// @Produce		json
-// @Param			usuario				body		model.UsuarioLogin	true	"Autenticar Usuario"
-// @Success		200					{object}	model.UsuarioLogin
-// @Failure		400					{object}	config.HTTPError
-// @Failure		401					{object}	config.HTTPError
-// @Failure		404					{object}	config.HTTPError
-// @Router			/usuarios/logar 						[post]
+//	@Summary		Autenticar Usuario
+//	@Description	Autentica um Usuario
+//	@Tags			usuarios
+//	@Accept			json
+//	@Produce		json
+//	@Param			usuario				body		model.UsuarioLogin	true	"Autenticar Usuario"
+//	@Success		200					{object}	model.UsuarioLogin
+//	@Failure		400					{object}	config.HTTPError
+//	@Failure		401					{object}	config.HTTPError
+//	@Failure		404					{object}	config.HTTPError
+//	@Router			/usuarios/logar 												[post]
 func (usuarioController *UsuarioController) Autenticar(c *fiber.Ctx) error {
 
 	var usuarioLogin model.UsuarioLogin

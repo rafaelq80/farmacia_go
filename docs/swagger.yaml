@@ -52,24 +52,45 @@ definitions:
     - preco
     - usuario_id
     type: object
+  model.Role:
+    properties:
+      descricao:
+        type: string
+      id:
+        type: integer
+      role:
+        type: string
+      usuario:
+        items:
+          $ref: '#/definitions/model.Usuario'
+        type: array
+    required:
+    - descricao
+    - role
+    type: object
   model.Usuario:
     properties:
       foto:
         type: string
       id:
         type: integer
-      name:
+      nome:
         type: string
       produto:
         items:
           $ref: '#/definitions/model.Produto'
         type: array
+      role:
+        $ref: '#/definitions/model.Role'
+      role_id:
+        example: 1
+        type: integer
       senha:
         type: string
       usuario:
         type: string
     required:
-    - name
+    - nome
     - senha
     - usuario
     type: object
@@ -88,7 +109,7 @@ definitions:
       usuario:
         type: string
     type: object
-host: farmacia-go.onrender.com
+host: localhost:8000
 info:
   contact:
     email: rafaelproinfo@gmail.com
@@ -487,6 +508,132 @@ paths:
       summary: Listar Produtos por nome
       tags:
       - produtos
+  /roles:
+    get:
+      consumes:
+      - application/json
+      description: Lista todas as Roles
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Role'
+            type: array
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+      security:
+      - Bearer: []
+      summary: Listar Roles
+      tags:
+      - roles
+    post:
+      consumes:
+      - application/json
+      description: Cria uma nova Role
+      parameters:
+      - description: Criar Role
+        in: body
+        name: role
+        required: true
+        schema:
+          $ref: '#/definitions/model.Role'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.Role'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+      security:
+      - Bearer: []
+      summary: Criar Role
+      tags:
+      - roles
+    put:
+      consumes:
+      - application/json
+      description: Edita uma Role
+      parameters:
+      - description: Atualizar Role
+        in: body
+        name: Role
+        required: true
+        schema:
+          $ref: '#/definitions/model.Role'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Role'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+      security:
+      - Bearer: []
+      summary: Atualizar Role
+      tags:
+      - roles
+  /roles/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Lista uma Role por id
+      parameters:
+      - description: Id da Role
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Role'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/config.HTTPError'
+      security:
+      - Bearer: []
+      summary: Listar Role por id
+      tags:
+      - roles
   /usuarios:
     post:
       consumes:
@@ -648,7 +795,7 @@ paths:
       tags:
       - usuarios
 schemes:
-- https
+- http
 securityDefinitions:
   Bearer:
     in: header

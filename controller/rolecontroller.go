@@ -19,15 +19,15 @@ func NewRoleController(roleService *service.RoleService) *RoleController {
 	return &RoleController{roleService: roleService}
 }
 
-// @Summary		Listar Roles
-// @Description	Lista todas as Roles
-// @Tags		roles
-// @Accept		json
-// @Produce		json
-// @Success		200				{array}		model.Role
-// @Failure		401				{object}	config.HTTPError
-// @Router		/roles 	[get]
-// @Security	Bearer
+//	@Summary		Listar Roles
+//	@Description	Lista todas as Roles
+//	@Tags			roles
+//	@Accept			json
+//	@Produce		json
+//	@Success		200		{array}		model.Role
+//	@Failure		401		{object}	config.HTTPError
+//	@Router			/roles 	[get]
+//	@Security		Bearer
 func (roleController *RoleController) FindAll(c *fiber.Ctx) error {
 
 	roles, _ := roleController.roleService.FindAll()
@@ -36,18 +36,18 @@ func (roleController *RoleController) FindAll(c *fiber.Ctx) error {
 
 }
 
-// @Summary		Listar Role por id
-// @Description	Lista uma Role por id
-// @Tags			roles
-// @Accept			json
-// @Produce		json
-// @Param			id					path		string	true	"Id da Role"
-// @Success		200					{array}		model.Role
-// @Failure		400					{object}	config.HTTPError
-// @Failure		401					{object}	config.HTTPError
-// @Failure		404					{object}	config.HTTPError
-// @Router			/roles/{id} 	[get]
-// @Security		Bearer
+//	@Summary		Listar Role por id
+//	@Description	Lista uma Role por id
+//	@Tags			roles
+//	@Accept			json
+//	@Produce		json
+//	@Param			id				path		string	true	"Id da Role"
+//	@Success		200				{array}		model.Role
+//	@Failure		400				{object}	config.HTTPError
+//	@Failure		401				{object}	config.HTTPError
+//	@Failure		404				{object}	config.HTTPError
+//	@Router			/roles/{id} 	[get]
+//	@Security		Bearer
 func (roleController *RoleController) FindById(context *fiber.Ctx) error {
 
 	id := context.Params("id")
@@ -64,17 +64,17 @@ func (roleController *RoleController) FindById(context *fiber.Ctx) error {
 	return context.Status(fiber.StatusOK).JSON(role)
 }
 
-// @Summary		Criar Role
-// @Description	Cria uma nova Role
-// @Tags			roles
-// @Accept			json
-// @Produce		json
-// @Param			role	body		model.Role	true	"Criar Role"
-// @Success		201			{object}	model.Role
-// @Failure		400			{object}	config.HTTPError
-// @Failure		401			{object}	config.HTTPError
-// @Router			/roles [post]
-// @Security		Bearer
+//	@Summary		Criar Role
+//	@Description	Cria uma nova Role
+//	@Tags			roles
+//	@Accept			json
+//	@Produce		json
+//	@Param			role	body		model.Role	true	"Criar Role"
+//	@Success		201		{object}	model.Role
+//	@Failure		400		{object}	config.HTTPError
+//	@Failure		401		{object}	config.HTTPError
+//	@Router			/roles [post]
+//	@Security		Bearer
 func (roleController *RoleController) Create(context *fiber.Ctx) error {
 
 	var role model.Role
@@ -112,18 +112,18 @@ func (roleController *RoleController) Create(context *fiber.Ctx) error {
 
 }
 
-// @Summary		Atualizar Role
-// @Description	Edita uma Role
-// @Tags			roles
-// @Accept			json
-// @Produce		json
-// @Param			Role	body		model.Role	true	"Atualizar Role"
-// @Success		200			{object}	model.Role
-// @Failure		400			{object}	config.HTTPError
-// @Failure		401			{object}	config.HTTPError
-// @Failure		404			{object}	config.HTTPError
-// @Router			/roles [put]
-// @Security		Bearer
+//	@Summary		Atualizar Role
+//	@Description	Edita uma Role
+//	@Tags			roles
+//	@Accept			json
+//	@Produce		json
+//	@Param			Role	body		model.Role	true	"Atualizar Role"
+//	@Success		200		{object}	model.Role
+//	@Failure		400		{object}	config.HTTPError
+//	@Failure		401		{object}	config.HTTPError
+//	@Failure		404		{object}	config.HTTPError
+//	@Router			/roles [put]
+//	@Security		Bearer
 func (roleController *RoleController) Update(context *fiber.Ctx) error {
 
 	var role model.Role
