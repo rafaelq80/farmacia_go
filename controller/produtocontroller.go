@@ -188,6 +188,17 @@ func (produtoController *ProdutoController) Update(context *fiber.Ctx) error {
 			"message": "Produto não encontrado!",
 		})
 	}
+	
+	// Validar se a categoria existe
+	categoriaId := strconv.FormatUint(uint64(produto.CategoriaID), 10)
+
+	categoriaExiste, _ := produtoController.categoriaService.ExistsById(categoriaId)
+	if !categoriaExiste {
+		return context.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"status": "400", 
+			"message": "Categoria não encontrada!",
+		})
+	}
 
 	if err := produtoController.produtoService.Update(&produto); err != nil {
 		return context.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
