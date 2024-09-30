@@ -14,13 +14,13 @@ import (
 func SetupServer(profile string, drop bool) *fiber.App {
 
 	log.Printf("Profile: %s", profile)
-	
+
 	// Carregar as Congigurações do Ambiente
-	if profile == "remoto" {
+	//if profile == "remoto" {
 		config.LoadAppConfig("/etc/secrets/secrets")
-	} else {
-		config.LoadAppConfig("config")
-	}
+	//} else {
+		//config.LoadAppConfig("config")
+	//}
 
 	// Conectar com o banco de dados
 	switch profile {
