@@ -20,20 +20,27 @@ Este projeto é um sistema de gerenciamento para farmácias, do tipo MVP, implem
    - Cadastro de clientes e fornecedores
    - Envio de e-mail de confirmação do cadastro
 4. **Segurança**: 
-   - Autenticação e Validação de Token JWT dos usuários
+   - Autenticação via Usuário e Senha
+   - Criação e Validação de Token JWT com tempo de expiração
+   - Controle de Nível de Acesso (Roles) por tipo de usuário
 
 <br />
 
 ## Principais Tecnologias Utilizadas
 
 - **Linguagem**: Go
-- **Banco de Dados**:
+- **Bancos de Dados**:
   - MySQL (Desenvolvimento)
-  - Sqlite (Testes)
+  - Sqlite (Execução de Testes)
   -  PostgreSQL (Deploy - Render)
 
 - **Framework Web**: Fiber
+- **Configuração do ambiente:** Air e Viper
 - **ORM**: GORM
+- **Validação de dados:** Go Validator 10
+- **Testes:** Testfy
+- **Documentação:** Swago
+- **Deploy:** Render
 
 <br />
 
@@ -58,12 +65,12 @@ class Categoria {
   - ID : uint
   - Grupo : string
   - Produto : [] Produto
-  + FindAllCategoria()
-  + FindByIdCategoria()
-  + FindByGrupoCategoria()
-  + CreateCategoria()
-  + UpdateCategoria()  
-  + DeleteCategoria()
+  + FindAll()
+  + FindById()
+  + FindByGrupo()
+  + Create()
+  + Update()  
+  + Delete()
 }
 class Produto {
   - ID : unit
@@ -74,28 +81,40 @@ class Produto {
   - Categoria : *Categoria
   - UsuarioID : uint
   - Usuario : *Usuario
-  + FindAllProduto()
-  + FindByIdProduto()
-  + FindByNomeProduto()
-  + CreateProduto()
-  + UpdateProduto()  
-  + DeleteProduto()
+  + FindAll()
+  + FindById()
+  + FindByNome()
+  + Create()
+  + Update()  
+  + Delete()
 }
 class Usuario {
   - ID : uint
-  - Name : string
+  - Nome : string
   - Usuario : string
   - Senha : string
   - Foto : string
+  - RoleID : uint
+  - Role: *Role
   - Produto : [] Produto
-  + FindAllUsuario()
-  + FindByIdUsuario()
-  + CreateUsuario()
-  + UpdateUsuario()
-  + AutenticarUsuario()
+  + FindAll()
+  + FindById()
+  + Create()
+  + Update()
+  + Autenticar()
+}
+class Role{
+  - ID : uint
+  - Role : string
+  - Descricao : string
+  - Usuario: []Usuario
+  + FindAll()
+  + FindById()
+  + Create()
+  + Update()
 }
 class UsuarioLogin{
-  - Id : uint
+  - ID : uint
   - Nome : string
   - Usuario : string
   - Senha : string
@@ -104,6 +123,7 @@ class UsuarioLogin{
 }
 Categoria --> Produto
 Usuario --> Produto
+Role --> Usuario
 ```
 
 <br /><br />
@@ -141,12 +161,19 @@ Usuario --> Produto
 
 <a href="https://pkg.go.dev/" target="_blank">Repositório de pacotes Oficial - Golang</a>
 
-<a href="https://gorm.io/" target="_blank">Biblioteca GORM - Mapeamento Objeto Relacional - Golang</a>
+<a href="https://docs.gofiber.io/" target="_blank">Fiber - web Framework - Golang</a>
 
-<a href="https://github.com/spf13/viper" target="_blank">Pacote Viper - Gerenciador de configurações da API - Golang</a>
+<a href="https://github.com/air-verse/air" target="_blank">Air - Gerenciador de Autoinicialização do Servidor - Golang</a>
 
-<a href="https://pkg.go.dev/encoding/json" target="_blank">Pacote JSON - Golang</a>
+<a href="https://github.com/spf13/viper" target="_blank">Viper - Gerenciador de configurações da API - Golang</a>
+
+<a href="https://gorm.io/" target="_blank">GORM - Mapeamento Objeto Relacional - Golang</a>
 
 <a href="https://github.com/go-playground/validator" target="_blank">Go Validator V10 - Validação de dados - Golang</a>
 
+<a href="https://pkg.go.dev/encoding/json" target="_blank">Go JSON - Golang</a>
+
 <a href="https://github.com/golang-jwt/jwt-docs" target="_blank">Golang JWT - Autenticação com Token JWT - Versão 5.0 - Golang</a>
+
+<a href="https://github.com/stretchr/testify?tab=readme-ov-file" target="_blank">Golang Testify - Testes E2E - Versão 2.0 - Golang</a>
+

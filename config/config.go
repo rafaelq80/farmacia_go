@@ -25,8 +25,6 @@ func LoadAppConfig(arquivo string) {
 	viper.AddConfigPath(".")
 	viper.SetConfigType("json")
 	viper.SetConfigName(arquivo)
-
-	log.Printf("Arquivo: %s", arquivo)
 	
 	err := viper.ReadInConfig()
 

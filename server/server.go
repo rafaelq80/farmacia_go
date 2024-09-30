@@ -1,8 +1,6 @@
 package server
 
 import (
-	"log"
-
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"
@@ -13,8 +11,6 @@ import (
 
 func SetupServer(profile string, drop bool) *fiber.App {
 
-	log.Printf("Profile: %s", profile)
-	
 	// Carregar as Congigurações do Ambiente
 	if profile == "remoto" {
 		config.LoadAppConfig("/etc/secrets/secrets")
@@ -22,17 +18,7 @@ func SetupServer(profile string, drop bool) *fiber.App {
 		config.LoadAppConfig("config")
 	}
 
-	// Conectar com o banco de dados
-	// switch profile {
-	// case "local":
-		data.ConnectDB(config.AppConfig.ConnectionString, profile, drop)
-	// case "remoto":
-	// 	data.ConnectDB(config.AppConfig.ConnectionString, profile, drop)
-	// case "teste":
-	// 	data.ConnectDB(config.AppConfig.ConnectionString, profile, drop)
-	// default:
-	// 	log.Println("Database Profile inválido!")
-	// }
+	data.ConnectDB(config.AppConfig.ConnectionString, profile, drop)
 
 	// Inicializa uma nova instância do Fiber
 	app := fiber.New()
