@@ -15,23 +15,25 @@ import (
 	"github.com/rafaelq80/farmacia_go/server"
 )
 
+// Variáveis Globais
 var (
 	testSetup *TestSetup
 	setupOnce sync.Once
-
 )
 
+// Dados Compartilhados com todos os testes
 type TestSetup struct {
 	App   *fiber.App
 	Token string
 }
 
+// Configuração do Ambiente de testes
 func setupTest() (*TestSetup, error) {
 
 	// Inicializa o Servidor de Testes
 	app := server.SetupServer("teste", true)
 
-	// Create a test user
+	// Cria o usuário de autenticação dos testes com Token
 	usuario := model.Usuario{
 		Nome:    "Root User",
 		Usuario: "root@email.com",
@@ -62,11 +64,13 @@ func setupTest() (*TestSetup, error) {
 		return nil, err
 	}
 
+	// Gera o Token JWT
 	token, err := auth.CreateToken(usuario.Usuario)
 	if err != nil {
 		return nil, err
 	}
 
+	// Compartilha a instância do Servidor de testes e o Token
 	return &TestSetup{
 		App:   app,
 		Token: token,
@@ -74,6 +78,7 @@ func setupTest() (*TestSetup, error) {
 
 }
 
+// Método para acessar o Ambiente de testes
 func GetTestSetup(t *testing.T) *TestSetup {
 	t.Helper()
 	setupOnce.Do(func() {

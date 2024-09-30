@@ -11,6 +11,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+// Método para enviar Requisições sem Token
 func Request(t *testing.T, method, path string, body ...interface{}) (*http.Response, map[string]interface{}) {
 	
 	// Indica que a função Request não é uma função de teste
@@ -34,6 +35,7 @@ func Request(t *testing.T, method, path string, body ...interface{}) (*http.Resp
 	return resposta, corpoResposta
 }
 
+// Método para enviar Requisições com Token
 func RequestWithAuth(t *testing.T, method, path string, body ...interface{}) (*http.Response, map[string]interface{}) {
 
 	// Indica que a função RequestWithAuth não é uma função de teste
@@ -62,6 +64,7 @@ func RequestWithAuth(t *testing.T, method, path string, body ...interface{}) (*h
 
 }
 
+// Função para Criar a Requisição
 func prepareRequest(t *testing.T, method, path string, body ...interface{}) *http.Request {
 	
 	// Indica que a função prepareRequest não é uma função de teste

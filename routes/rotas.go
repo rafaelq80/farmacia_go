@@ -30,16 +30,10 @@ func SetRotas(app *fiber.App) {
 	roleService := service.NewRoleService()
 	middleware := middleware.NewAuthMiddleware(usuarioService)
 
-	// Injeção de Dependências - Produto
+	// Injeção de Dependências - Classes Controladoras
 	produtoController := controller.NewProdutoController(produtoService, categoriaService)
-
-	// Injeção de Dependências - Categoria
 	categoriaController := controller.NewCategoriaController(categoriaService)
-
-	// Injeção de Dependências - Usuário
 	usuarioController := controller.NewUsuarioController(usuarioService)
-
-	// Injeção de Dependências - Role
 	roleController := controller.NewRoleController(roleService)
 
 	// Rotas do Recurso Produto
@@ -100,7 +94,7 @@ func SetRotas(app *fiber.App) {
 		router.Put("", middleware.AuthMiddleware(RoleAdmin, RoleUser), usuarioController.Update)
 	})
 
-	// Rotas do Recurso Categoria
+	// Rotas do Recurso Role
 
 	app.Route("/roles", func(router fiber.Router) {
 		router.Get("", middleware.AuthMiddleware(RoleAdmin), roleController.FindAll)
