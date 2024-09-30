@@ -17,21 +17,21 @@ var DB *gorm.DB
 var err error
 
 // Conexão com o Banco de dados local
-func ConnectDB(connectionString string, database string, drop bool) {
+func ConnectDB(connectionString string, profile string, drop bool) {
 
 	log.Println(connectionString)
 
-	switch database {
-	case "local":
-		DB, err = gorm.Open(mysql.Open(connectionString), &gorm.Config{
-			Logger: logger.Default.LogMode(logger.Info), //Exibir a Query SQL no Console
-		})
-	case "teste":
-		DB, err = gorm.Open(sqlite.Open(connectionString), &gorm.Config{})
+	switch profile {
+		case "local":
+			DB, err = gorm.Open(mysql.Open(connectionString), &gorm.Config{
+				Logger: logger.Default.LogMode(logger.Info), //Exibir a Query SQL no Console
+			})
+		case "teste":
+			DB, err = gorm.Open(sqlite.Open(connectionString), &gorm.Config{})
 		case "remoto":
-		DB, err = gorm.Open(postgres.Open(connectionString), &gorm.Config{})
-	default:
-		log.Println("Configuração inválida!")
+			DB, err = gorm.Open(postgres.Open(connectionString), &gorm.Config{})
+		default:
+			log.Println("Configuração inválida!")
 	}
 
 	if err != nil {

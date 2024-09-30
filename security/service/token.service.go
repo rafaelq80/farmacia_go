@@ -9,8 +9,6 @@ import (
 
 func CreateToken(usuario string) (string, error) {
 
-	config.LoadAppConfig("config")
-
 	claims := jwt.MapClaims{}
 	claims["sub"] = usuario
 	claims["iat"] = time.Now().Unix()

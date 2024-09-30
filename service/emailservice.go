@@ -28,8 +28,6 @@ func (es *EmailService) SendEmail(to, name, subject string) error {
 		Message: "O seu cadastro foi efetuado com sucesso!",
 	}
 
-	config.LoadAppConfig("config")
-
 	// Parse the template
 	tmpl, err := template.New("emailTemplate").Parse(util.EmailTemplate)
 	if err != nil {

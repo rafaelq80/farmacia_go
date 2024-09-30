@@ -21,8 +21,7 @@ func NewAuthMiddleware(usuarioService *service.UsuarioService) *AuthMiddleware {
 
 func (am *AuthMiddleware) AuthMiddleware(requiredRoles ...uint) fiber.Handler {
     return func(c *fiber.Ctx) error {
-        config.LoadAppConfig("config")
-
+        
         token, err := am.extractAndValidateToken(c)
         if err != nil {
             return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{

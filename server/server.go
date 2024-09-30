@@ -14,25 +14,25 @@ import (
 func SetupServer(profile string, drop bool) *fiber.App {
 
 	log.Printf("Profile: %s", profile)
-
+	
 	// Carregar as Congigurações do Ambiente
-	//if profile == "remoto" {
+	if profile == "remoto" {
 		config.LoadAppConfig("/etc/secrets/secrets")
-	//} else {
-		//config.LoadAppConfig("config")
-	//}
+	} else {
+		config.LoadAppConfig("config")
+	}
 
 	// Conectar com o banco de dados
-	switch profile {
-	case "local":
+	// switch profile {
+	// case "local":
 		data.ConnectDB(config.AppConfig.ConnectionString, profile, drop)
-	case "remoto":
-		data.ConnectDB(config.AppConfig.ConnectionString, profile, drop)
-	case "teste":
-		data.ConnectDB(config.AppConfig.ConnectionString, profile, drop)
-	default:
-		log.Println("Database Profile inválido!")
-	}
+	// case "remoto":
+	// 	data.ConnectDB(config.AppConfig.ConnectionString, profile, drop)
+	// case "teste":
+	// 	data.ConnectDB(config.AppConfig.ConnectionString, profile, drop)
+	// default:
+	// 	log.Println("Database Profile inválido!")
+	// }
 
 	// Inicializa uma nova instância do Fiber
 	app := fiber.New()
