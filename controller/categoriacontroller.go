@@ -25,7 +25,7 @@ func NewCategoriaController(categoriaService *service.CategoriaService) *Categor
 //	@Accept			json
 //	@Produce		json
 //	@Success		200				{array}		model.Categoria
-//	@Failure		401				{object}	config.HTTPError
+//	@Failure		401				{object}	config.HTTPError401
 //	@Router			/categorias 	[get]
 //	@Security		Bearer
 func (categoriaController *CategoriaController) FindAll(c *fiber.Ctx) error {
@@ -43,9 +43,9 @@ func (categoriaController *CategoriaController) FindAll(c *fiber.Ctx) error {
 //	@Produce		json
 //	@Param			id					path		string	true	"Id da Categoria"
 //	@Success		200					{array}		model.Categoria
-//	@Failure		400					{object}	config.HTTPError
-//	@Failure		401					{object}	config.HTTPError
-//	@Failure		404					{object}	config.HTTPError
+//	@Failure		400					{object}	config.HTTPError400
+//	@Failure		401					{object}	config.HTTPError401
+//	@Failure		404					{object}	config.HTTPError404
 //	@Router			/categorias/{id} 	[get]
 //	@Security		Bearer
 func (categoriaController *CategoriaController) FindById(context *fiber.Ctx) error {
@@ -56,7 +56,7 @@ func (categoriaController *CategoriaController) FindById(context *fiber.Ctx) err
 
 	if err != nil {
 		return context.Status(fiber.StatusNotFound).JSON(fiber.Map{
-			"status": "404", 
+			"status":  "404",
 			"message": "Categoria não encontrada!",
 		})
 	}
@@ -71,8 +71,8 @@ func (categoriaController *CategoriaController) FindById(context *fiber.Ctx) err
 //	@Produce		json
 //	@Param			grupo						path		string	true	"Grupo do Medicamento (Antibiótico, Antihistamínico, entre outros)"
 //	@Success		200							{array}		model.Categoria
-//	@Failure		400							{object}	config.HTTPError
-//	@Failure		401							{object}	config.HTTPError
+//	@Failure		400							{object}	config.HTTPError400
+//	@Failure		401							{object}	config.HTTPError401
 //	@Router			/categorias/grupo/{grupo} 	[get]
 //	@Security		Bearer
 func (categoriaController *CategoriaController) FindByGrupo(context *fiber.Ctx) error {
@@ -81,9 +81,9 @@ func (categoriaController *CategoriaController) FindByGrupo(context *fiber.Ctx) 
 
 	categorias, err := categoriaController.categoriaService.FindByGrupo(grupo)
 
-	if err != nil || len(categorias) == 0{
+	if err != nil || len(categorias) == 0 {
 		return context.Status(fiber.StatusNotFound).JSON(fiber.Map{
-			"status": "404", 
+			"status":  "404",
 			"message": "Nenhuma Categoria foi encontrada!",
 		})
 	}
@@ -99,8 +99,8 @@ func (categoriaController *CategoriaController) FindByGrupo(context *fiber.Ctx) 
 //	@Produce		json
 //	@Param			categoria	body		model.Categoria	true	"Criar Categoria"
 //	@Success		201			{object}	model.Categoria
-//	@Failure		400			{object}	config.HTTPError
-//	@Failure		401			{object}	config.HTTPError
+//	@Failure		400			{object}	config.HTTPError400
+//	@Failure		401			{object}	config.HTTPError401
 //	@Router			/categorias [post]
 //	@Security		Bearer
 func (categoriaController *CategoriaController) Create(context *fiber.Ctx) error {
@@ -109,21 +109,21 @@ func (categoriaController *CategoriaController) Create(context *fiber.Ctx) error
 
 	if err := context.BodyParser(&categoria); err != nil {
 		return context.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"status": "400", 
+			"status":  "400",
 			"message": err.Error(),
 		})
 	}
 
 	if err := validator.ValidateStruct(&categoria); err != nil {
 		return context.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"status": "400", 
+			"status":  "400",
 			"message": err,
 		})
 	}
 
 	if err := categoriaController.categoriaService.Create(&categoria); err != nil {
 		return context.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"status": "500", 
+			"status":  "500",
 			"message": err.Error(),
 		})
 	}
@@ -139,9 +139,9 @@ func (categoriaController *CategoriaController) Create(context *fiber.Ctx) error
 //	@Produce		json
 //	@Param			Categoria	body		model.Categoria	true	"Atualizar Categoria"
 //	@Success		200			{object}	model.Categoria
-//	@Failure		400			{object}	config.HTTPError
-//	@Failure		401			{object}	config.HTTPError
-//	@Failure		404			{object}	config.HTTPError
+//	@Failure		400			{object}	config.HTTPError400
+//	@Failure		401			{object}	config.HTTPError401
+//	@Failure		404			{object}	config.HTTPError404
 //	@Router			/categorias [put]
 //	@Security		Bearer
 func (categoriaController *CategoriaController) Update(context *fiber.Ctx) error {
@@ -150,14 +150,14 @@ func (categoriaController *CategoriaController) Update(context *fiber.Ctx) error
 
 	if err := context.BodyParser(&categoria); err != nil {
 		return context.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"status": "400", 
+			"status":  "400",
 			"message": err.Error(),
 		})
 	}
 
 	if err := validator.ValidateStruct(&categoria); err != nil {
 		return context.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"status": "400", 
+			"status":  "400",
 			"message": err,
 		})
 	}
@@ -166,16 +166,16 @@ func (categoriaController *CategoriaController) Update(context *fiber.Ctx) error
 
 	categoriaExist, _ := categoriaController.categoriaService.ExistsById(id)
 
-	if  !categoriaExist {
+	if !categoriaExist {
 		return context.Status(fiber.StatusNotFound).JSON(fiber.Map{
-			"status": "404", 
+			"status":  "404",
 			"message": "Categoria não encontrada!",
 		})
 	}
 
 	if err := categoriaController.categoriaService.Update(&categoria); err != nil {
 		return context.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"status": "500", 
+			"status":  "500",
 			"message": err.Error(),
 		})
 	}
@@ -191,9 +191,9 @@ func (categoriaController *CategoriaController) Update(context *fiber.Ctx) error
 //	@Produce		json
 //	@Param			id	path		string	true	"Id da Categoria"
 //	@Success		204	{string}	string
-//	@Failure		400	{object}	config.HTTPError
-//	@Failure		401	{object}	config.HTTPError
-//	@Failure		404	{object}	config.HTTPError
+//	@Failure		400	{object}	config.HTTPError400
+//	@Failure		401	{object}	config.HTTPError401
+//	@Failure		404	{object}	config.HTTPError404
 //	@Router			/categorias/{id} [delete]
 //	@Security		Bearer
 func (categoriaController *CategoriaController) Delete(context *fiber.Ctx) error {
@@ -202,16 +202,16 @@ func (categoriaController *CategoriaController) Delete(context *fiber.Ctx) error
 
 	categoriaExist, _ := categoriaController.categoriaService.ExistsById(id)
 
-	if  !categoriaExist {
+	if !categoriaExist {
 		return context.Status(fiber.StatusNotFound).JSON(fiber.Map{
-			"status": "404", 
+			"status":  "404",
 			"message": "Categoria não encontrada!",
 		})
 	}
 
 	if err := categoriaController.categoriaService.Delete(id); err != nil {
 		return context.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"status": "500", 
+			"status":  "500",
 			"message": err.Error(),
 		})
 	}

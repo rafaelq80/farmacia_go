@@ -25,7 +25,7 @@ func NewUsuarioController(usuarioService *service.UsuarioService) *UsuarioContro
 //	@Accept			json
 //	@Produce		json
 //	@Success		200				{array}		model.Usuario
-//	@Failure		401				{object}	config.HTTPError
+//	@Failure		401				{object}	config.HTTPError401
 //	@Router			/usuarios/all 	[get]
 //	@Security		Bearer
 func (usuarioController *UsuarioController) FindAll(context *fiber.Ctx) error {
@@ -43,9 +43,9 @@ func (usuarioController *UsuarioController) FindAll(context *fiber.Ctx) error {
 //	@Produce		json
 //	@Param			id				path		string	true	"Id do Usuario"
 //	@Success		200				{array}		model.Usuario
-//	@Failure		400				{object}	config.HTTPError
-//	@Failure		401				{object}	config.HTTPError
-//	@Failure		404				{object}	config.HTTPError
+//	@Failure		400				{object}	config.HTTPError400
+//	@Failure		401				{object}	config.HTTPError401
+//	@Failure		404				{object}	config.HTTPError404
 //	@Router			/usuarios/{id} 	[get]
 //	@Security		Bearer
 func (usuarioController *UsuarioController) FindById(context *fiber.Ctx) error {
@@ -72,8 +72,8 @@ func (usuarioController *UsuarioController) FindById(context *fiber.Ctx) error {
 //	@Produce		json
 //	@Param			usuario		body		model.Usuario	true	"Criar Usuario"
 //	@Success		201			{object}	model.Usuario
-//	@Failure		400			{object}	config.HTTPError
-//	@Failure		404			{object}	config.HTTPError
+//	@Failure		400			{object}	config.HTTPError400
+//	@Failure		404			{object}	config.HTTPError401
 //	@Router			/usuarios 	[post]
 func (usuarioController *UsuarioController) Create(context *fiber.Ctx) error {
 
@@ -119,9 +119,9 @@ func (usuarioController *UsuarioController) Create(context *fiber.Ctx) error {
 //	@Produce		json
 //	@Param			Usuario					body		model.Usuario	true	"Atualizar Usuario"
 //	@Success		200						{object}	model.Usuario
-//	@Failure		400						{object}	config.HTTPError
-//	@Failure		401						{object}	config.HTTPError
-//	@Failure		404						{object}	config.HTTPError
+//	@Failure		400						{object}	config.HTTPError400
+//	@Failure		401						{object}	config.HTTPError401
+//	@Failure		404						{object}	config.HTTPError404
 //	@Router			/usuarios/atualizar 	[put]
 //	@Security		Bearer
 func (usuarioController *UsuarioController) Update(context *fiber.Ctx) error {
@@ -181,10 +181,10 @@ func (usuarioController *UsuarioController) Update(context *fiber.Ctx) error {
 //	@Produce		json
 //	@Param			usuario				body		model.UsuarioLogin	true	"Autenticar Usuario"
 //	@Success		200					{object}	model.UsuarioLogin
-//	@Failure		400					{object}	config.HTTPError
-//	@Failure		401					{object}	config.HTTPError
-//	@Failure		404					{object}	config.HTTPError
-//	@Router			/usuarios/logar 												[post]
+//	@Failure		400					{object}	config.HTTPError400
+//	@Failure		401					{object}	config.HTTPError401
+//	@Failure		404					{object}	config.HTTPError404
+//	@Router			/usuarios/logar 																				[post]
 func (usuarioController *UsuarioController) Autenticar(c *fiber.Ctx) error {
 
 	var usuarioLogin model.UsuarioLogin

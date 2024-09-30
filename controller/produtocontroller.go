@@ -29,7 +29,7 @@ func NewProdutoController(produtoService *service.ProdutoService, categoriaServi
 //	@Accept			json
 //	@Produce		json
 //	@Success		200	{array}		model.Produto
-//	@Failure		401	{object}	config.HTTPError
+//	@Failure		401	{object}	config.HTTPError401
 //	@Router			/produtos [get]
 //	@Security		Bearer
 func (produtoController *ProdutoController) FindAll(context *fiber.Ctx) error {
@@ -47,9 +47,9 @@ func (produtoController *ProdutoController) FindAll(context *fiber.Ctx) error {
 //	@Produce		json
 //	@Param			id	path		string	true	"Id do Produto"
 //	@Success		200	{array}		model.Produto
-//	@Failure		400	{object}	config.HTTPError
-//	@Failure		401	{object}	config.HTTPError
-//	@Failure		404	{object}	config.HTTPError
+//	@Failure		400	{object}	config.HTTPError400
+//	@Failure		401	{object}	config.HTTPError401
+//	@Failure		404	{object}	config.HTTPError404
 //	@Router			/produtos/{id} [get]
 //	@Security		Bearer
 func (produtoController *ProdutoController) FindById(context *fiber.Ctx) error {
@@ -60,7 +60,7 @@ func (produtoController *ProdutoController) FindById(context *fiber.Ctx) error {
 
 	if err != nil {
 		return context.Status(fiber.StatusNotFound).JSON(fiber.Map{
-			"status": "404", 
+			"status":  "404",
 			"message": "Produto não encontrado!",
 		})
 	}
@@ -76,8 +76,8 @@ func (produtoController *ProdutoController) FindById(context *fiber.Ctx) error {
 //	@Produce		json
 //	@Param			nome	path		string	true	"Nome do Produto"
 //	@Success		200		{array}		model.Produto
-//	@Failure		400		{object}	config.HTTPError
-//	@Failure		401		{object}	config.HTTPError
+//	@Failure		400		{object}	config.HTTPError400
+//	@Failure		401		{object}	config.HTTPError401
 //	@Router			/produtos/nome/{nome} [get]
 //	@Security		Bearer
 func (produtoController *ProdutoController) FindByNome(context *fiber.Ctx) error {
@@ -86,9 +86,9 @@ func (produtoController *ProdutoController) FindByNome(context *fiber.Ctx) error
 
 	produtos, err := produtoController.produtoService.FindByNome(nome)
 
-	if err != nil || len(produtos) == 0{
+	if err != nil || len(produtos) == 0 {
 		return context.Status(fiber.StatusNotFound).JSON(fiber.Map{
-			"status": "404", 
+			"status":  "404",
 			"message": "Nenhum Produto foi encontrado!",
 		})
 	}
@@ -104,8 +104,8 @@ func (produtoController *ProdutoController) FindByNome(context *fiber.Ctx) error
 //	@Produce		json
 //	@Param			produto	body		model.Produto	true	"Criar Produto"
 //	@Success		201		{object}	model.Produto
-//	@Failure		400		{object}	config.HTTPError
-//	@Failure		401		{object}	config.HTTPError
+//	@Failure		400		{object}	config.HTTPError400
+//	@Failure		401		{object}	config.HTTPError401
 //	@Router			/produtos [post]
 //	@Security		Bearer
 func (produtoController *ProdutoController) Create(context *fiber.Ctx) error {
@@ -114,14 +114,14 @@ func (produtoController *ProdutoController) Create(context *fiber.Ctx) error {
 
 	if err := context.BodyParser(&produto); err != nil {
 		return context.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"status": "400", 
+			"status":  "400",
 			"message": err.Error(),
 		})
 	}
 
 	if err := validator.ValidateStruct(&produto); err != nil {
 		return context.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"status": "400", 
+			"status":  "400",
 			"message": err,
 		})
 	}
@@ -132,15 +132,14 @@ func (produtoController *ProdutoController) Create(context *fiber.Ctx) error {
 	categoriaExiste, _ := produtoController.categoriaService.ExistsById(categoriaId)
 	if !categoriaExiste {
 		return context.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"status": "400", 
+			"status":  "400",
 			"message": "Categoria não encontrada!",
 		})
 	}
 
-
 	if err := produtoController.produtoService.Create(&produto); err != nil {
 		return context.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"status": "500", 
+			"status":  "500",
 			"message": err.Error(),
 		})
 	}
@@ -156,9 +155,9 @@ func (produtoController *ProdutoController) Create(context *fiber.Ctx) error {
 //	@Produce		json
 //	@Param			Produto	body		model.Produto	true	"Atualizar Produto"
 //	@Success		200		{object}	model.Produto
-//	@Failure		400		{object}	config.HTTPError
-//	@Failure		401		{object}	config.HTTPError
-//	@Failure		404		{object}	config.HTTPError
+//	@Failure		400		{object}	config.HTTPError400
+//	@Failure		401		{object}	config.HTTPError401
+//	@Failure		404		{object}	config.HTTPError404
 //	@Router			/produtos [put]
 //	@Security		Bearer
 func (produtoController *ProdutoController) Update(context *fiber.Ctx) error {
@@ -167,14 +166,14 @@ func (produtoController *ProdutoController) Update(context *fiber.Ctx) error {
 
 	if err := context.BodyParser(&produto); err != nil {
 		return context.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"status": "400", 
+			"status":  "400",
 			"message": err.Error(),
 		})
 	}
 
 	if err := validator.ValidateStruct(&produto); err != nil {
 		return context.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"status": "400", 
+			"status":  "400",
 			"message": err,
 		})
 	}
@@ -184,26 +183,26 @@ func (produtoController *ProdutoController) Update(context *fiber.Ctx) error {
 
 	if !produtoExist {
 		return context.Status(fiber.StatusNotFound).JSON(fiber.Map{
-			"status": "404", 
+			"status":  "404",
 			"message": "Produto não encontrado!",
 		})
 	}
-	
+
 	// Validar se a categoria existe
 	categoriaId := strconv.FormatUint(uint64(produto.CategoriaID), 10)
 
 	categoriaExiste, _ := produtoController.categoriaService.ExistsById(categoriaId)
 	if !categoriaExiste {
 		return context.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"status": "400", 
+			"status":  "400",
 			"message": "Categoria não encontrada!",
 		})
 	}
 
 	if err := produtoController.produtoService.Update(&produto); err != nil {
 		return context.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"status": "500",
-			"message":  err.Error(),
+			"status":  "500",
+			"message": err.Error(),
 		})
 	}
 
@@ -218,9 +217,9 @@ func (produtoController *ProdutoController) Update(context *fiber.Ctx) error {
 //	@Produce		json
 //	@Param			id	path		string	true	"Id do Produto"
 //	@Success		204	{string}	string
-//	@Failure		400	{object}	config.HTTPError
-//	@Failure		401	{object}	config.HTTPError
-//	@Failure		404	{object}	config.HTTPError
+//	@Failure		400	{object}	config.HTTPError400
+//	@Failure		401	{object}	config.HTTPError401
+//	@Failure		404	{object}	config.HTTPError404
 //	@Router			/produtos/{id} [delete]
 //	@Security		Bearer
 func (produtoController *ProdutoController) Delete(context *fiber.Ctx) error {
@@ -230,14 +229,14 @@ func (produtoController *ProdutoController) Delete(context *fiber.Ctx) error {
 
 	if !produtoExist {
 		return context.Status(fiber.StatusNotFound).JSON(fiber.Map{
-			"status": "404", 
+			"status":  "404",
 			"message": "Produto não encontrado!",
 		})
 	}
 
 	if err := produtoController.produtoService.Delete(id); err != nil {
 		return context.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"status": "500", 
+			"status":  "500",
 			"message": err.Error(),
 		})
 	}

@@ -1,6 +1,6 @@
 {
     "schemes": [
-        "http"
+        "https"
     ],
     "swagger": "2.0",
     "info": {
@@ -17,7 +17,7 @@
         },
         "version": "1.0"
     },
-    "host": "localhost:8000",
+    "host": "farmacia-go.onrender.com",
     "basePath": "/",
     "paths": {
         "/categorias": {
@@ -51,7 +51,7 @@
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError401"
                         }
                     }
                 }
@@ -94,19 +94,19 @@
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError400"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError401"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError404"
                         }
                     }
                 }
@@ -149,13 +149,13 @@
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError400"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError401"
                         }
                     }
                 }
@@ -201,13 +201,13 @@
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError400"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError401"
                         }
                     }
                 }
@@ -253,19 +253,19 @@
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError400"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError401"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError404"
                         }
                     }
                 }
@@ -306,19 +306,19 @@
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError400"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError401"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError404"
                         }
                     }
                 }
@@ -355,7 +355,7 @@
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError401"
                         }
                     }
                 }
@@ -398,19 +398,19 @@
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError400"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError401"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError404"
                         }
                     }
                 }
@@ -453,13 +453,13 @@
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError400"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError401"
                         }
                     }
                 }
@@ -505,13 +505,13 @@
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError400"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError401"
                         }
                     }
                 }
@@ -557,19 +557,19 @@
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError400"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError401"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError404"
                         }
                     }
                 }
@@ -610,19 +610,19 @@
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError400"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError401"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError404"
                         }
                     }
                 }
@@ -659,7 +659,7 @@
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError401"
                         }
                     }
                 }
@@ -702,19 +702,19 @@
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError400"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError401"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError404"
                         }
                     }
                 }
@@ -757,13 +757,13 @@
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError400"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError401"
                         }
                     }
                 }
@@ -809,19 +809,19 @@
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError400"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError401"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError404"
                         }
                     }
                 }
@@ -861,13 +861,13 @@
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError400"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError401"
                         }
                     }
                 }
@@ -904,7 +904,7 @@
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError401"
                         }
                     }
                 }
@@ -949,19 +949,19 @@
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError400"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError401"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError404"
                         }
                     }
                 }
@@ -1001,19 +1001,19 @@
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError400"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError401"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError404"
                         }
                     }
                 }
@@ -1059,19 +1059,19 @@
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError400"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError401"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/config.HTTPError"
+                            "$ref": "#/definitions/config.HTTPError404"
                         }
                     }
                 }
@@ -1079,7 +1079,7 @@
         }
     },
     "definitions": {
-        "config.HTTPError": {
+        "config.HTTPError400": {
             "type": "object",
             "properties": {
                 "code": {
@@ -1088,7 +1088,33 @@
                 },
                 "message": {
                     "type": "string",
-                    "example": "status bad request"
+                    "example": "Bad Request"
+                }
+            }
+        },
+        "config.HTTPError401": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 401
+                },
+                "message": {
+                    "type": "string",
+                    "example": "Unauthorized"
+                }
+            }
+        },
+        "config.HTTPError404": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 404
+                },
+                "message": {
+                    "type": "string",
+                    "example": "Not Found"
                 }
             }
         },
@@ -1128,6 +1154,7 @@
                 },
                 "categoria_id": {
                     "type": "integer",
+                    "minimum": 0,
                     "example": 1
                 },
                 "foto": {

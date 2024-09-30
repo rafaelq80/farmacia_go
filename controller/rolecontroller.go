@@ -25,7 +25,7 @@ func NewRoleController(roleService *service.RoleService) *RoleController {
 //	@Accept			json
 //	@Produce		json
 //	@Success		200		{array}		model.Role
-//	@Failure		401		{object}	config.HTTPError
+//	@Failure		401		{object}	config.HTTPError401
 //	@Router			/roles 	[get]
 //	@Security		Bearer
 func (roleController *RoleController) FindAll(c *fiber.Ctx) error {
@@ -43,9 +43,9 @@ func (roleController *RoleController) FindAll(c *fiber.Ctx) error {
 //	@Produce		json
 //	@Param			id				path		string	true	"Id da Role"
 //	@Success		200				{array}		model.Role
-//	@Failure		400				{object}	config.HTTPError
-//	@Failure		401				{object}	config.HTTPError
-//	@Failure		404				{object}	config.HTTPError
+//	@Failure		400				{object}	config.HTTPError400
+//	@Failure		401				{object}	config.HTTPError401
+//	@Failure		404				{object}	config.HTTPError404
 //	@Router			/roles/{id} 	[get]
 //	@Security		Bearer
 func (roleController *RoleController) FindById(context *fiber.Ctx) error {
@@ -56,7 +56,7 @@ func (roleController *RoleController) FindById(context *fiber.Ctx) error {
 
 	if err != nil {
 		return context.Status(fiber.StatusNotFound).JSON(fiber.Map{
-			"status": "404", 
+			"status":  "404",
 			"message": "Role não encontrada!",
 		})
 	}
@@ -71,8 +71,8 @@ func (roleController *RoleController) FindById(context *fiber.Ctx) error {
 //	@Produce		json
 //	@Param			role	body		model.Role	true	"Criar Role"
 //	@Success		201		{object}	model.Role
-//	@Failure		400		{object}	config.HTTPError
-//	@Failure		401		{object}	config.HTTPError
+//	@Failure		400		{object}	config.HTTPError400
+//	@Failure		401		{object}	config.HTTPError401
 //	@Router			/roles [post]
 //	@Security		Bearer
 func (roleController *RoleController) Create(context *fiber.Ctx) error {
@@ -81,14 +81,14 @@ func (roleController *RoleController) Create(context *fiber.Ctx) error {
 
 	if err := context.BodyParser(&role); err != nil {
 		return context.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"status": "400", 
+			"status":  "400",
 			"message": err.Error(),
 		})
 	}
 
 	if err := validator.ValidateStruct(&role); err != nil {
 		return context.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"status": "400", 
+			"status":  "400",
 			"message": err,
 		})
 	}
@@ -103,7 +103,7 @@ func (roleController *RoleController) Create(context *fiber.Ctx) error {
 
 	if err := roleController.roleService.Create(&role); err != nil {
 		return context.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"status": "500", 
+			"status":  "500",
 			"message": err.Error(),
 		})
 	}
@@ -119,9 +119,9 @@ func (roleController *RoleController) Create(context *fiber.Ctx) error {
 //	@Produce		json
 //	@Param			Role	body		model.Role	true	"Atualizar Role"
 //	@Success		200		{object}	model.Role
-//	@Failure		400		{object}	config.HTTPError
-//	@Failure		401		{object}	config.HTTPError
-//	@Failure		404		{object}	config.HTTPError
+//	@Failure		400		{object}	config.HTTPError400
+//	@Failure		401		{object}	config.HTTPError401
+//	@Failure		404		{object}	config.HTTPError404
 //	@Router			/roles [put]
 //	@Security		Bearer
 func (roleController *RoleController) Update(context *fiber.Ctx) error {
@@ -130,14 +130,14 @@ func (roleController *RoleController) Update(context *fiber.Ctx) error {
 
 	if err := context.BodyParser(&role); err != nil {
 		return context.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"status": "400", 
+			"status":  "400",
 			"message": err.Error(),
 		})
 	}
 
 	if err := validator.ValidateStruct(&role); err != nil {
 		return context.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"status": "400", 
+			"status":  "400",
 			"message": err,
 		})
 	}
@@ -146,16 +146,16 @@ func (roleController *RoleController) Update(context *fiber.Ctx) error {
 
 	roleExist, _ := roleController.roleService.ExistsById(id)
 
-	if  !roleExist {
+	if !roleExist {
 		return context.Status(fiber.StatusNotFound).JSON(fiber.Map{
-			"status": "404", 
+			"status":  "404",
 			"message": "Role não encontrada!",
 		})
 	}
 
 	if err := roleController.roleService.Update(&role); err != nil {
 		return context.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"status": "500", 
+			"status":  "500",
 			"message": err.Error(),
 		})
 	}
@@ -163,4 +163,3 @@ func (roleController *RoleController) Update(context *fiber.Ctx) error {
 	return context.Status(fiber.StatusOK).JSON(&role)
 
 }
-
