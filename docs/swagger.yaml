@@ -1,32 +1,5 @@
 basePath: /
 definitions:
-  config.HTTPError400:
-    properties:
-      code:
-        example: 400
-        type: integer
-      message:
-        example: Bad Request
-        type: string
-    type: object
-  config.HTTPError401:
-    properties:
-      code:
-        example: 401
-        type: integer
-      message:
-        example: Unauthorized
-        type: string
-    type: object
-  config.HTTPError404:
-    properties:
-      code:
-        example: 404
-        type: integer
-      message:
-        example: Not Found
-        type: string
-    type: object
   model.Categoria:
     properties:
       grupo:
@@ -128,7 +101,7 @@ definitions:
       usuario:
         type: string
     type: object
-host: farmacia-go.onrender.com
+host: localhost:8000
 info:
   contact:
     email: rafaelproinfo@gmail.com
@@ -155,10 +128,6 @@ paths:
             items:
               $ref: '#/definitions/model.Categoria'
             type: array
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/config.HTTPError401'
       security:
       - Bearer: []
       summary: Listar Categorias
@@ -182,14 +151,6 @@ paths:
           description: Created
           schema:
             $ref: '#/definitions/model.Categoria'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/config.HTTPError400'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/config.HTTPError401'
       security:
       - Bearer: []
       summary: Criar Categoria
@@ -213,18 +174,6 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/model.Categoria'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/config.HTTPError400'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/config.HTTPError401'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/config.HTTPError404'
       security:
       - Bearer: []
       summary: Atualizar Categoria
@@ -248,18 +197,6 @@ paths:
           description: No Content
           schema:
             type: string
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/config.HTTPError400'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/config.HTTPError401'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/config.HTTPError404'
       security:
       - Bearer: []
       summary: Deletar Categoria
@@ -284,18 +221,6 @@ paths:
             items:
               $ref: '#/definitions/model.Categoria'
             type: array
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/config.HTTPError400'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/config.HTTPError401'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/config.HTTPError404'
       security:
       - Bearer: []
       summary: Listar Categoria por id
@@ -321,14 +246,6 @@ paths:
             items:
               $ref: '#/definitions/model.Categoria'
             type: array
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/config.HTTPError400'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/config.HTTPError401'
       security:
       - Bearer: []
       summary: Listar Categorias por grupo
@@ -348,10 +265,6 @@ paths:
             items:
               $ref: '#/definitions/model.Produto'
             type: array
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/config.HTTPError401'
       security:
       - Bearer: []
       summary: Listar Produtos
@@ -375,14 +288,6 @@ paths:
           description: Created
           schema:
             $ref: '#/definitions/model.Produto'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/config.HTTPError400'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/config.HTTPError401'
       security:
       - Bearer: []
       summary: Criar Produto
@@ -406,18 +311,6 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/model.Produto'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/config.HTTPError400'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/config.HTTPError401'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/config.HTTPError404'
       security:
       - Bearer: []
       summary: Atualizar Produto
@@ -441,18 +334,6 @@ paths:
           description: No Content
           schema:
             type: string
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/config.HTTPError400'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/config.HTTPError401'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/config.HTTPError404'
       security:
       - Bearer: []
       summary: Deletar Produto
@@ -477,18 +358,6 @@ paths:
             items:
               $ref: '#/definitions/model.Produto'
             type: array
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/config.HTTPError400'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/config.HTTPError401'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/config.HTTPError404'
       security:
       - Bearer: []
       summary: Listar Produto por id
@@ -514,14 +383,6 @@ paths:
             items:
               $ref: '#/definitions/model.Produto'
             type: array
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/config.HTTPError400'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/config.HTTPError401'
       security:
       - Bearer: []
       summary: Listar Produtos por nome
@@ -541,10 +402,6 @@ paths:
             items:
               $ref: '#/definitions/model.Role'
             type: array
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/config.HTTPError401'
       security:
       - Bearer: []
       summary: Listar Roles
@@ -568,14 +425,6 @@ paths:
           description: Created
           schema:
             $ref: '#/definitions/model.Role'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/config.HTTPError400'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/config.HTTPError401'
       security:
       - Bearer: []
       summary: Criar Role
@@ -599,18 +448,6 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/model.Role'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/config.HTTPError400'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/config.HTTPError401'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/config.HTTPError404'
       security:
       - Bearer: []
       summary: Atualizar Role
@@ -636,18 +473,6 @@ paths:
             items:
               $ref: '#/definitions/model.Role'
             type: array
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/config.HTTPError400'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/config.HTTPError401'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/config.HTTPError404'
       security:
       - Bearer: []
       summary: Listar Role por id
@@ -672,14 +497,6 @@ paths:
           description: Created
           schema:
             $ref: '#/definitions/model.Usuario'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/config.HTTPError400'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/config.HTTPError401'
       summary: Criar Usuario
       tags:
       - usuarios
@@ -703,18 +520,6 @@ paths:
             items:
               $ref: '#/definitions/model.Usuario'
             type: array
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/config.HTTPError400'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/config.HTTPError401'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/config.HTTPError404'
       security:
       - Bearer: []
       summary: Listar Usuario por id
@@ -734,10 +539,6 @@ paths:
             items:
               $ref: '#/definitions/model.Usuario'
             type: array
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/config.HTTPError401'
       security:
       - Bearer: []
       summary: Listar Usuarios
@@ -762,18 +563,6 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/model.Usuario'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/config.HTTPError400'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/config.HTTPError401'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/config.HTTPError404'
       security:
       - Bearer: []
       summary: Atualizar Usuario
@@ -798,23 +587,11 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/model.UsuarioLogin'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/config.HTTPError400'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/config.HTTPError401'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/config.HTTPError404'
       summary: Autenticar Usuario
       tags:
       - usuarios
 schemes:
-- https
+- http
 securityDefinitions:
   Bearer:
     in: header

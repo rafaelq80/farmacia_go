@@ -23,6 +23,9 @@ func SetupServer(profile string, drop bool) *fiber.App {
 	// Inicializa uma nova instância do Fiber
 	app := fiber.New()
 
+	// Inicializa o Swagger e registra as respostas dos erros comuns
+	config.RegisterSwaggerErrors(app)
+
 	// Inicializa o Log
 	app.Use(logger.New())
 

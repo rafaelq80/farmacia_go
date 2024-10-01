@@ -24,8 +24,7 @@ func NewRoleController(roleService *service.RoleService) *RoleController {
 //	@Tags			roles
 //	@Accept			json
 //	@Produce		json
-//	@Success		200		{array}		model.Role
-//	@Failure		401		{object}	config.HTTPError401
+//	@Success		200		{array}	model.Role
 //	@Router			/roles 	[get]
 //	@Security		Bearer
 func (roleController *RoleController) FindAll(c *fiber.Ctx) error {
@@ -41,11 +40,8 @@ func (roleController *RoleController) FindAll(c *fiber.Ctx) error {
 //	@Tags			roles
 //	@Accept			json
 //	@Produce		json
-//	@Param			id				path		string	true	"Id da Role"
-//	@Success		200				{array}		model.Role
-//	@Failure		400				{object}	config.HTTPError400
-//	@Failure		401				{object}	config.HTTPError401
-//	@Failure		404				{object}	config.HTTPError404
+//	@Param			id				path	string	true	"Id da Role"
+//	@Success		200				{array}	model.Role
 //	@Router			/roles/{id} 	[get]
 //	@Security		Bearer
 func (roleController *RoleController) FindById(context *fiber.Ctx) error {
@@ -71,8 +67,6 @@ func (roleController *RoleController) FindById(context *fiber.Ctx) error {
 //	@Produce		json
 //	@Param			role	body		model.Role	true	"Criar Role"
 //	@Success		201		{object}	model.Role
-//	@Failure		400		{object}	config.HTTPError400
-//	@Failure		401		{object}	config.HTTPError401
 //	@Router			/roles [post]
 //	@Security		Bearer
 func (roleController *RoleController) Create(context *fiber.Ctx) error {
@@ -119,9 +113,6 @@ func (roleController *RoleController) Create(context *fiber.Ctx) error {
 //	@Produce		json
 //	@Param			Role	body		model.Role	true	"Atualizar Role"
 //	@Success		200		{object}	model.Role
-//	@Failure		400		{object}	config.HTTPError400
-//	@Failure		401		{object}	config.HTTPError401
-//	@Failure		404		{object}	config.HTTPError404
 //	@Router			/roles [put]
 //	@Security		Bearer
 func (roleController *RoleController) Update(context *fiber.Ctx) error {

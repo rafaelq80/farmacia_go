@@ -51,12 +51,6 @@ const docTemplate = `{
                                 "$ref": "#/definitions/model.Categoria"
                             }
                         }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError401"
-                        }
                     }
                 }
             },
@@ -94,24 +88,6 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/model.Categoria"
                         }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError400"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError401"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError404"
-                        }
                     }
                 }
             },
@@ -148,18 +124,6 @@ const docTemplate = `{
                         "description": "Created",
                         "schema": {
                             "$ref": "#/definitions/model.Categoria"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError400"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError401"
                         }
                     }
                 }
@@ -201,18 +165,6 @@ const docTemplate = `{
                                 "$ref": "#/definitions/model.Categoria"
                             }
                         }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError400"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError401"
-                        }
                     }
                 }
             }
@@ -253,24 +205,6 @@ const docTemplate = `{
                                 "$ref": "#/definitions/model.Categoria"
                             }
                         }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError400"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError401"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError404"
-                        }
                     }
                 }
             },
@@ -306,24 +240,6 @@ const docTemplate = `{
                         "schema": {
                             "type": "string"
                         }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError400"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError401"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError404"
-                        }
                     }
                 }
             }
@@ -354,12 +270,6 @@ const docTemplate = `{
                             "items": {
                                 "$ref": "#/definitions/model.Produto"
                             }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError401"
                         }
                     }
                 }
@@ -398,24 +308,6 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/model.Produto"
                         }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError400"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError401"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError404"
-                        }
                     }
                 }
             },
@@ -452,18 +344,6 @@ const docTemplate = `{
                         "description": "Created",
                         "schema": {
                             "$ref": "#/definitions/model.Produto"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError400"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError401"
                         }
                     }
                 }
@@ -505,18 +385,6 @@ const docTemplate = `{
                                 "$ref": "#/definitions/model.Produto"
                             }
                         }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError400"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError401"
-                        }
                     }
                 }
             }
@@ -557,24 +425,6 @@ const docTemplate = `{
                                 "$ref": "#/definitions/model.Produto"
                             }
                         }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError400"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError401"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError404"
-                        }
                     }
                 }
             },
@@ -610,24 +460,6 @@ const docTemplate = `{
                         "schema": {
                             "type": "string"
                         }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError400"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError401"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError404"
-                        }
                     }
                 }
             }
@@ -658,12 +490,6 @@ const docTemplate = `{
                             "items": {
                                 "$ref": "#/definitions/model.Role"
                             }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError401"
                         }
                     }
                 }
@@ -702,24 +528,6 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/model.Role"
                         }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError400"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError401"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError404"
-                        }
                     }
                 }
             },
@@ -756,18 +564,6 @@ const docTemplate = `{
                         "description": "Created",
                         "schema": {
                             "$ref": "#/definitions/model.Role"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError400"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError401"
                         }
                     }
                 }
@@ -809,24 +605,6 @@ const docTemplate = `{
                                 "$ref": "#/definitions/model.Role"
                             }
                         }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError400"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError401"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError404"
-                        }
                     }
                 }
             }
@@ -861,18 +639,6 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/model.Usuario"
                         }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError400"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError401"
-                        }
                     }
                 }
             }
@@ -903,12 +669,6 @@ const docTemplate = `{
                             "items": {
                                 "$ref": "#/definitions/model.Usuario"
                             }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError401"
                         }
                     }
                 }
@@ -949,24 +709,6 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/model.Usuario"
                         }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError400"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError401"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError404"
-                        }
                     }
                 }
             }
@@ -1000,24 +742,6 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/model.UsuarioLogin"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError400"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError401"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError404"
                         }
                     }
                 }
@@ -1059,69 +783,12 @@ const docTemplate = `{
                                 "$ref": "#/definitions/model.Usuario"
                             }
                         }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError400"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError401"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/config.HTTPError404"
-                        }
                     }
                 }
             }
         }
     },
     "definitions": {
-        "config.HTTPError400": {
-            "type": "object",
-            "properties": {
-                "code": {
-                    "type": "integer",
-                    "example": 400
-                },
-                "message": {
-                    "type": "string",
-                    "example": "Bad Request"
-                }
-            }
-        },
-        "config.HTTPError401": {
-            "type": "object",
-            "properties": {
-                "code": {
-                    "type": "integer",
-                    "example": 401
-                },
-                "message": {
-                    "type": "string",
-                    "example": "Unauthorized"
-                }
-            }
-        },
-        "config.HTTPError404": {
-            "type": "object",
-            "properties": {
-                "code": {
-                    "type": "integer",
-                    "example": 404
-                },
-                "message": {
-                    "type": "string",
-                    "example": "Not Found"
-                }
-            }
-        },
         "model.Categoria": {
             "type": "object",
             "required": [
@@ -1282,9 +949,9 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
-	Host:             "farmacia-go.onrender.com",
+	Host:             "localhost:8000",
 	BasePath:         "/",
-	Schemes:          []string{"https"},
+	Schemes:          []string{"http"},
 	Title:            "E-commerce - Farmácia",
 	Description:      "Projeto E-commerce - Farmácia",
 	InfoInstanceName: "swagger",

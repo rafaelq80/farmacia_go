@@ -2,6 +2,7 @@ package routes
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"github.com/rafaelq80/farmacia_go/config"
 	"github.com/rafaelq80/farmacia_go/controller"
 	"github.com/rafaelq80/farmacia_go/security/middleware"
 	"github.com/rafaelq80/farmacia_go/service"
@@ -13,6 +14,9 @@ const (
 )
 
 func SetRotas(app *fiber.App) {
+
+	// Registra o Middledware do Swagger em todas as rotas
+	app.Use(config.SwaggerMiddleware())
 
 	// Rota de checagem do status do servidor
 	app.Get("/status", func(c *fiber.Ctx) error {
@@ -37,7 +41,7 @@ func SetRotas(app *fiber.App) {
 	roleController := controller.NewRoleController(roleService)
 
 	// Rotas do Recurso Produto
-
+	
 	app.Route("/produtos", func(router fiber.Router) {
 		router.Get("", middleware.AuthMiddleware(RoleAdmin, RoleUser), produtoController.FindAll)
 		router.Post("", middleware.AuthMiddleware(RoleAdmin), produtoController.Create)
