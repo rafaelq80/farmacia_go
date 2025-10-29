@@ -122,7 +122,6 @@ class UsuarioLogin{
   - Token : string
 }
 Categoria --> Produto
-Usuario --> Produto
 Role --> Usuario
 ```
 
